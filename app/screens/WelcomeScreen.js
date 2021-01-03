@@ -13,51 +13,69 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createAnimatableComponent } from "react-native-animatable";
 import * as Animatable from "react-native-animatable";
+
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import cssVariables from "../assets/css/variables.js";
 const { height, width } = Dimensions.get("screen");
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        {/* //START:: LOGO */}
         <Animatable.Text
           animation="bounceIn"
           // source={require("../assets/logo.png")}
-
           style={styles.anther}
         >
           Anther
         </Animatable.Text>
       </View>
+      {/* //END:: LOGO */}
 
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <View style={styles.test}>
-          <Text style={styles.title}>Let's get you sorted!</Text>
-          <Text style={styles.text}>Signin to continue</Text>
+      {/* //START:: FOOTER */}
+      <Animatable.View animation="fadeInUpBig" delay={1000}>
+        <LinearGradient
+          colors={[config.colors.g2, config.colors.g1]}
+          style={styles.footer}
+        >
+          <View>
+            {/* //START:: FOOTER-HEADER */}
+            <Animatable.Text
+              animation="fadeIn"
+              delay={2000}
+              style={styles.title}
+            >
+              Hello there! Let's get you sorted.
+            </Animatable.Text>
+            {/* //END:: FOOTER-HEADER */}
 
-          <View style={styles.button}>
-            <TouchableOpacity onPress={() => console.log(">>>>", width)}>
-              <Animatable.View
-                animation="pulse"
-                easing="ease-out"
-                iterationCount="infinite"
+            {/* //START:: FOOTER-GET STARTED BUTTON */}
+            <View style={styles.button}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SigninScreen")}
               >
-                <LinearGradient
-                  // Background Linear Gradient
-                  colors={[config.colors.secondary, config.colors.secondary]}
-                  style={styles.signIn}
-                >
-                  <Text style={styles.textSign}>Signup</Text>
-                  <MaterialIcons
-                    name="navigate-next"
-                    size={24}
-                    color={config.colors.primary}
-                  />
-                </LinearGradient>
-              </Animatable.View>
-            </TouchableOpacity>
+                <View>
+                  <LinearGradient
+                    // Background Linear Gradient
+                    colors={[config.colors.secondary, config.colors.secondary]}
+                    style={styles.signIn}
+                  >
+                    <Text style={styles.textSign}>Get started</Text>
+                    <MaterialIcons
+                      name="navigate-next"
+                      size={24}
+                      color={config.colors.primary}
+                    />
+                  </LinearGradient>
+                </View>
+              </TouchableOpacity>
+            </View>
+            {/* //END:: FOOTER-GET STARTED BUTTON*/}
           </View>
-        </View>
+        </LinearGradient>
       </Animatable.View>
+      {/* //END:: FOOTER */}
     </View>
   );
 }
@@ -65,24 +83,7 @@ function WelcomeScreen(props) {
 const height_logo = height * 0.28;
 const textSpace = width * 0.07;
 
-const config = {
-  colors: {
-    primary: "#FFC107", //500
-    secondary: "#fff",
-    darkPrimary: "#754C00",
-
-    titleColor: "#fff",
-
-    white: "#fff",
-    black: "#000",
-  },
-  fontSize: {
-    small: width / 51.8,
-    medium: 2 * (width / 51.8),
-    large: 2 * (2 * (width / 51.8)),
-    xLarge: 2 * (2 * (2 * (width / 51.8))),
-  },
-};
+const config = cssVariables();
 
 const styles = StyleSheet.create({
   container: {
@@ -96,15 +97,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     width: "115%",
-    backgroundColor: config.colors.primary,
     borderTopLeftRadius: 260,
-    borderTopRightRadius: 0,
+    borderTopRightRadius: 60,
     paddingVertical: 60,
     right: 10,
     paddingHorizontal: 30,
-  },
-  test: {
-    alignSelf: "flex-end",
   },
   logo: {
     width: height_logo,
@@ -112,21 +109,15 @@ const styles = StyleSheet.create({
   },
   anther: {
     letterSpacing: 10,
-    fontSize: config.fontSize.xLarge,
+    fontSize: RFValue(config.fontSize.heading_one, height),
+    fontFamily: config.fontFamily.openSansRegular,
   },
   title: {
     color: config.colors.titleColor,
-    fontSize: config.fontSize.large,
+    fontSize: RFValue(config.fontSize.heading_three, height),
+    fontFamily: config.fontFamily.openSansRegular,
     marginTop: 50,
-    letterSpacing: 1.8,
-    textAlign: "right",
-    marginRight: 50,
-  },
-  text: {
-    fontSize: config.fontSize.medium,
-    fontWeight: "bold",
-    color: config.colors.darkPrimary,
-    marginTop: 5,
+    letterSpacing: 1.2,
     textAlign: "right",
     marginRight: 50,
   },
@@ -144,10 +135,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textSign: {
-    flex: 0.5,
+    flex: 0.7,
     color: config.colors.primary,
-    fontWeight: "bold",
-    fontSize: config.fontSize.medium,
+    fontFamily: config.fontFamily.openSansRegular,
+    fontSize: RFValue(config.fontSize.text, height),
     textAlign: "right",
   },
 });
