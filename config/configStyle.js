@@ -4,14 +4,16 @@ export default function () {
       g1: "#ffc1f5",
       g2: "#25abf7",
       g3: "#25abf7",
-      primary: "#ff9933", //500
-      secondary: "#fff",
+      primary: "#25ABF7", //500
+      secondary: "#FFC1F5",
       darkPrimary: "#754C00",
 
       titleColor: "#fff",
 
       white: "#fff",
       black: "#000",
+
+      grey: "#707070",
     },
     fontSize: {
       small: 14,
@@ -24,6 +26,7 @@ export default function () {
     fontFamily: {
       openSansLight: "OpenSans_300Light",
       openSansRegular: "OpenSans_400Regular",
+      OpenSansSemiBold: "OpenSans_600SemiBold",
       OpenSansBold: "OpenSans_700Bold",
     },
   };

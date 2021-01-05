@@ -12,6 +12,7 @@ import {
   OpenSans_400Regular,
   OpenSans_400Regular_Italic,
   OpenSans_700Bold,
+  OpenSans_600SemiBold,
   OpenSans_800ExtraBold,
 } from "@expo-google-fonts/open-sans";
 
@@ -23,6 +24,7 @@ export default function App() {
     OpenSans_400Regular_Italic,
     OpenSans_700Bold,
     OpenSans_800ExtraBold,
+    OpenSans_600SemiBold,
   });
   if (!fontsLoaded) {
     return <AppLoading />;

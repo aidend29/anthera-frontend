@@ -1,41 +1,41 @@
 import * as React from "react";
-import Svg, { Path, Defs, RadialGradient, Stop } from "react-native-svg";
+import Svg, { Defs, RadialGradient, Stop, Path, G } from "react-native-svg";
 
-function LogoSvg({ width, height }, props) {
+function SvgComponent({ width = 66.608, height = 67.958 }, props) {
   return (
     <Svg
+      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      viewBox="0 0 182 182"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 66.608 67.958"
       {...props}
     >
-      <Path
-        d="M181 13.652l-20.222 13.673 3.521 9.33-20.412 88.562 9.278 7.476-9.107 47.413-.171.894v-1.332L104.918 80.39 1 89.562l41.753-34.505-23.66-8.05L78.474 8.475l57.801 18.978L150.845 1 181 13.652z"
-        fill="url(#prefix__paint0_radial)"
-      />
-      <Path
-        d="M160.778 27.325l-.19.129L150.845 1m9.933 26.325L181 13.652 150.845 1m9.933 26.325l3.521 9.33m-3.521-9.33L150.845 1m0 0l-14.57 26.454m0 0l28.024 9.201m-28.024-9.201l-57.8-18.978m85.824 28.179l-57.526 45.431-1.855-1.696m59.381-43.735l-20.412 88.562m20.412-88.562l-91.856 3.064m32.475 40.671L60.845 40.105m44.073 40.285L1 89.562l41.753-34.505m62.165 25.333l11.134 24.124M104.918 80.39l38.969 99.278M60.845 40.105L42.753 55.058m18.092-14.953l11.598-.386m-29.69 15.338l-23.66-8.05L78.474 8.475m0 0l-6.03 31.243m71.443 85.498l-27.835-20.703m27.835 20.703l9.278 7.476-9.107 47.413m-28.006-75.592l27.835 49.457v25.697m0 0V181l.171-.894m-.171-.438l.171.438"
-        stroke="#fff"
-        strokeWidth={0.5}
-      />
       <Defs>
         <RadialGradient
-          id="prefix__paint0_radial"
-          cx={0}
-          cy={0}
-          r={1}
-          gradientUnits="userSpaceOnUse"
-          gradientTransform="matrix(48.61312 63.81823 -208.7741 159.0323 123.19 58.273)"
+          id="prefix__a"
+          cx={0.5}
+          cy={0.5}
+          r={0.5}
+          gradientUnits="objectBoundingBox"
         >
-          <Stop stopColor="#FFC1F5" />
-          <Stop offset={1} stopColor="#25ABF7" />
-          <Stop offset={1} stopColor="#2BACF7" />
+          <Stop offset={0} stopColor="#ffc1f5" />
+          <Stop offset={1} stopColor="#25abf7" />
         </RadialGradient>
       </Defs>
+      <Path
+        d="M479.383 313.767l19.783-35.217-28.566-26.667 21.117 3.667-4.217-9.333 26.1 7.55 8.117 19.9 10.9-2.333 3.883 12.116-8.783-2.783-2.117 3.883-30.1 16v4.333z"
+        transform="translate(-470.213 -245.984)"
+        fill="url(#prefix__a)"
+      />
+      <G fill="none" stroke="#fff" strokeWidth={0.4}>
+        <Path d="M62.287 25.291l-10.833 2.442 4 10.333zM55.22 37.616L43.095 7.491l-10.192 6.358zM24.87 54.766l-.633-13.917 4.433-8.117 26.758 5.642z" />
+        <Path d="M24.237 40.733l.767 18.333-15.5 8.392z" />
+        <Path d="M10.062 66.908l14.275-26.175-6.883 20.55zM21.554 9.516l-4.183-9.2 25.167 7.45-9.867 5.85-3.217-3z" />
+        <Path d="M28.787 32.483l.558-21.575L.62 6.066z" />
+        <Path d="M29.287 10.541l26.142 27.833-26.75-5.667zM57.562 34.399l4.725-8.825 4 12.108z" />
+      </G>
     </Svg>
   );
 }
 
-export default LogoSvg;
+export default SvgComponent;

@@ -8,7 +8,7 @@
       "address": "TCP/IP address of process to be debugged",
       "localRoot": "${workspaceFolder}",
       "name": "Attach to Remote",
-      "port": 19001,
+      "port": 19000,
       "remoteRoot": "Absolute path to the remote directory containing the program",
       "request": "attach",
       "skipFiles": ["<node_internals>/**"],
