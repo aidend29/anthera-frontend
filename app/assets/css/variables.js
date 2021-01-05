@@ -1,9 +1,9 @@
 export default function () {
   return {
     colors: {
-      g1: "#ff9933",
-      g2: "#ffa347",
-      g3: "#976be4",
+      g1: "#ffc1f5",
+      g2: "#25abf7",
+      g3: "#25abf7",
       primary: "#ff9933", //500
       secondary: "#fff",
       darkPrimary: "#754C00",

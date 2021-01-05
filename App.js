@@ -2,9 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
+import SplashScreen from "./app/screens/SplashScreen";
 
 //FONTS
-import openSans from "./app/assets/fonts/openSans";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
