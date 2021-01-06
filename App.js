@@ -10,8 +10,8 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SplashScreen from "./app/screens/SplashScreen";
-import SigninScreen from "./app/screens/SigninScreen";
-import SignupScreen from "./app/screens/SignupScreen";
+import SigninScreen from "./app/screens/auth/SigninScreen";
+import SignupScreen from "./app/screens/auth/SignupScreen";
 
 //FONTS
 import AppLoading from "expo-app-loading";
