@@ -1,17 +1,15 @@
 import React from "react";
 import * as Animatable from "react-native-animatable";
 import { Text, StyleSheet, View, Dimensions, SafeAreaView } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 // LOCAL IMPORTS
-import configStyle from "../../config/configStyle.js";
+import config from "../../config/configStyle";
 import BackgroundDec01Svg from "../assets/svg/BackgroundDec01Svg";
 import Logo from "../assets/svg/LogoSvg";
 import AppButton from "../shared/AppButton";
 
-const { height, width } = Dimensions.get("screen");
-const config = configStyle();
-
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* START:: TOP DECORATION */}
@@ -26,7 +24,7 @@ function WelcomeScreen(props) {
 
       {/* START:: LOGO & TITLE */}
       <View style={styles.midWrap}>
-        <Logo width={width / 4.5} height={height / 8} />
+        <Logo width={RFValue(70, config().dimensions.height)} />
       </View>
       <View style={styles.midWrap}>
         <Text style={styles.logoTitle}>Anther</Text>
@@ -37,18 +35,32 @@ function WelcomeScreen(props) {
       <View style={styles.botWrap}>
         <Animatable.View
           animation="fadeInUpBig"
-          duration={2000}
+          duration={1000}
           style={styles.botTextWrap}
         >
-          <Text style={[styles.welcomeText, { color: config.colors.primary }]}>
-            Hello <Text style={{ color: config.colors.grey }}>there!</Text>
+          <Text
+            style={[
+              styles.welcomeText,
+              {
+                color: config().colors.primary,
+              },
+            ]}
+          >
+            Hello{" "}
+            <Text
+              style={{
+                color: config().colors.grey,
+              }}
+            >
+              there!
+            </Text>
           </Text>
           <Text style={styles.welcomeText}>Lets get you sorted.</Text>
           <AppButton
             backgroundCol="secondary"
             text="Get Started"
             onPress={() => {
-              console.log("get started");
+              navigation.navigate("SignupScreen");
             }}
             style={styles.btnGetStarted}
           />
@@ -80,10 +92,10 @@ const styles = StyleSheet.create({
   },
   logoTitle: {
     letterSpacing: 20,
-    fontSize: 40,
-    color: config.colors.grey,
+    fontSize: config().fontSize.logoHeading,
+    color: config().colors.grey,
     bottom: 35,
-    fontFamily: config.fontFamily.openSansRegular,
+    fontFamily: config().fontFamily.openSansRegular,
   },
   botWrap: {
     flex: 1.8,
@@ -97,9 +109,9 @@ const styles = StyleSheet.create({
     marginRight: 50,
   },
   welcomeText: {
-    fontSize: 26,
-    color: config.colors.grey,
-    fontFamily: config.fontFamily.openSansRegular,
+    fontSize: config().fontSize.secondaryHeading,
+    color: config().colors.grey,
+    fontFamily: config().fontFamily.openSansRegular,
   },
   btnGetStarted: {
     marginVertical: 40,

@@ -1,5 +1,14 @@
-export default function () {
+import { RFValue } from "react-native-responsive-fontsize";
+import { Dimensions } from "react-native";
+
+const { height, width } = Dimensions.get("screen");
+
+export default config = () => {
   return {
+    dimensions: {
+      height: height,
+      width: width,
+    },
     colors: {
       g1: "#ffc1f5",
       g2: "#25abf7",
@@ -13,15 +22,21 @@ export default function () {
       white: "#fff",
       black: "#000",
 
-      grey: "#707070",
+      grey: "#a6a6a6",
+      midGrey: "#747474",
+      lightGrey: "#F3F3F3",
+      darkGrey: "#333333",
     },
     fontSize: {
-      small: 14,
-      text: 20,
-      heading_one: 64,
-      heading_two: 42,
-      heading_three: 36,
-      heading_four: 32,
+      logoHeading: RFValue(42, height),
+      secondaryHeading: RFValue(34, height),
+      button: RFValue(18, height),
+      text: RFValue(20, height),
+    },
+    letterSpacing: {
+      x1: 100,
+      x2: 50,
+      x3: 10,
     },
     fontFamily: {
       openSansLight: "OpenSans_300Light",
@@ -30,4 +45,4 @@ export default function () {
       OpenSansBold: "OpenSans_700Bold",
     },
   };
-}
+};

@@ -1,8 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
+import {
+  createStackNavigator,
+  TransitionPresets,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SplashScreen from "./app/screens/SplashScreen";
+import SigninScreen from "./app/screens/SigninScreen";
+import SignupScreen from "./app/screens/SignupScreen";
 
 //FONTS
 import AppLoading from "expo-app-loading";
@@ -30,5 +39,26 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return <WelcomeScreen />;
+  const Stack = createStackNavigator();
+  const StackNavigator = () => (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: "white" },
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    >
+      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="SigninScreen" component={SigninScreen} />
+      <Stack.Screen name="SignupScreen" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }
