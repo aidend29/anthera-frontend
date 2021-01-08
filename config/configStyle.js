@@ -28,10 +28,10 @@ export default config = () => {
       darkGrey: "#333333",
     },
     fontSize: {
-      logoHeading: RFValue(42, height),
-      secondaryHeading: RFValue(34, height),
+      logoHeading: RFValue(46, height),
+      secondaryHeading: RFValue(28, height),
       button: RFValue(18, height),
-      text: RFValue(20, height),
+      text: RFValue(16, height),
     },
     letterSpacing: {
       x1: 100,

@@ -9,8 +9,8 @@ export default StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 22,
   },
-  email: {
-    marginBottom: 18,
+  inputField: {
+    marginBottom: 10,
   },
   signinText: {
     fontFamily: config().fontFamily.OpenSansSemiBold,

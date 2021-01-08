@@ -14,10 +14,14 @@ function SigninScreen({ navigation }) {
     <AppScreen style={styles.container}>
       <Text style={styles.signinText}>Sign in to Anther</Text>
       <AppInputField
-        style={styles.email}
+        style={styles.inputField}
         placeholder="email, i.e janedoe@gmail.com"
       />
-      <AppInputField style={styles.email} icon="lock" placeholder="password" />
+      <AppInputField
+        style={styles.inputField}
+        icon="lock"
+        placeholder="password"
+      />
       <AppCheckBox style={styles.remeberText} text="Remember login" />
       <View style={styles.btnGrp}>
         <AppButton

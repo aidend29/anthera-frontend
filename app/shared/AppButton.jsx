@@ -2,13 +2,13 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
-import cssVariables from "../../config/configStyle.js";
+import config from "../../config/configStyle";
 
 function AppButton({
   text,
   onPress,
-  textCol = config.colors.white,
-  backgroundCol = config.colors.primary,
+  textCol = config().colors.white,
+  backgroundCol = config().colors.primary,
   style = {},
   hasFrontIcon = false,
   frontIconName = "facebook",
@@ -19,7 +19,7 @@ function AppButton({
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: config.colors["secondary"] },
+        { backgroundColor: config().colors["secondary"] },
         style,
       ]}
       onPress={onPress}
@@ -36,12 +36,10 @@ function AppButton({
   );
 }
 
-const config = cssVariables();
-
 const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
-    backgroundColor: config.colors.secondary,
+    backgroundColor: config().colors.secondary,
     borderRadius: 25,
     shadowColor: "#000",
     shadowOffset: {
@@ -56,9 +54,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: config.colors.white,
-    fontSize: 20,
-    fontFamily: config.fontFamily.OpenSansSemiBold,
+    color: config().colors.white,
+    fontSize: config().fontSize.button,
+    fontFamily: config().fontFamily.OpenSansBold,
     paddingVertical: 10,
     paddingHorizontal: 32,
   },

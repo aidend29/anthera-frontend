@@ -3,7 +3,12 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import config from "../../config/configStyle";
 
-function AppCheckBox({ text, style, color = config().colors.primary }) {
+function AppCheckBox({
+  text,
+  style,
+  color = config().colors.primary,
+  isChecked,
+}) {
   const [selected, setSelected] = useState(false);
 
   return (

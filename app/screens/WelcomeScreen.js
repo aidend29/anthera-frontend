@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   logoTitle: {
     letterSpacing: 20,
     fontSize: config().fontSize.logoHeading,
-    color: config().colors.grey,
+    color: config().colors.midGrey,
     bottom: 35,
     fontFamily: config().fontFamily.openSansRegular,
   },
