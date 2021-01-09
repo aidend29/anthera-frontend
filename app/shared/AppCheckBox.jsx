@@ -19,17 +19,17 @@ function AppCheckBox({
       }}
     >
       {!selected && (
-        <MaterialCommunityIcons
-          name="checkbox-blank-circle-outline"
-          size={20}
-          color={config().colors.midGrey}
+        <Ionicons
+          name="checkmark-circle-outline"
+          size={24}
+          color={config().colors.grey}
         />
       )}
       {selected && (
-        <MaterialCommunityIcons
-          name="checkbox-blank-circle"
-          size={20}
-          color={color}
+        <Ionicons
+          name="checkmark-circle"
+          size={24}
+          color={config().colors.primary}
         />
       )}
       <Text style={styles.text}>{text}</Text>

@@ -26,6 +26,8 @@ export default config = () => {
       midGrey: "#747474",
       lightGrey: "#F3F3F3",
       darkGrey: "#333333",
+
+      error: "#ff0000",
     },
     fontSize: {
       logoHeading: RFValue(46, height),

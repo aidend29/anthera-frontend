@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: config().colors.white,
     fontSize: config().fontSize.button,
     fontFamily: config().fontFamily.OpenSansBold,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 32,
   },
 });

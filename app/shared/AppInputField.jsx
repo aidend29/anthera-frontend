@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
@@ -10,43 +10,59 @@ import { Dimensions } from "react-native";
 
 const { height, width } = Dimensions.get("screen");
 
-function AppInputField({ secText, placeholder, style, icon = "email" }) {
+function AppInputField({
+  secText,
+  placeholder,
+  style,
+  icon = "email",
+  onChangeText,
+  errorMsg,
+  touched,
+  onBlur,
+  autoCapitalize,
+}) {
   const [close, setClose] = useState(false);
   const [text, setText] = useState("");
   return (
-    <View style={[styles.container, style]}>
-      <MaterialCommunityIcons
-        style={styles.icon}
-        name={icon}
-        color={config().colors.midGrey}
-        size={25}
-      />
-      <TextInput
-        secureTextEntry={secText}
-        value={text}
-        onChangeText={(text) => {
-          setText(text);
-          text.length > 0 ? setClose(true) : setClose(false);
-        }}
-        placeholder={placeholder}
-        style={styles.textInput}
-      />
+    <>
+      {errorMsg && touched && <Text style={styles.errorMsg}>{errorMsg}</Text>}
+      <View style={[styles.container, style]}>
+        <MaterialCommunityIcons
+          style={styles.icon}
+          name={icon}
+          color={config().colors.midGrey}
+          size={25}
+        />
+        <TextInput
+          autoCapitalize={autoCapitalize}
+          secureTextEntry={secText}
+          value={text}
+          onChangeText={(text) => {
+            setText(text);
+            text.length > 0 ? setClose(true) : setClose(false);
+            onChangeText(text);
+          }}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          style={styles.textInput}
+        />
 
-      {close && (
-        <Animatable.View animation="fadeIn" duration={1000}>
-          <Ionicons
-            onPress={() => {
-              setText("");
-              setClose(false);
-            }}
-            style={styles.icon}
-            name="close-circle-sharp"
-            size={24}
-            color={config().colors.midGrey}
-          />
-        </Animatable.View>
-      )}
-    </View>
+        {close && (
+          <Animatable.View animation="fadeIn" duration={1000}>
+            <Ionicons
+              onPress={() => {
+                setText("");
+                setClose(false);
+              }}
+              style={styles.icon}
+              name="close-circle-sharp"
+              size={24}
+              color={config().colors.midGrey}
+            />
+          </Animatable.View>
+        )}
+      </View>
+    </>
   );
 }
 
@@ -71,6 +87,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingVertical: 12,
+  },
+  errorMsg: {
+    color: "red",
+    fontFamily: config().fontFamily.openSansRegular,
+    fontSize: config().fontSize.text,
   },
 });
 export default AppInputField;
