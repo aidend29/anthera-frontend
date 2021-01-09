@@ -2,18 +2,16 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-import styles from "./css/shared";
-
-import signinApi from "../../api/auth/SigninService";
-
-import AppInputField from "../../shared/AppInputField";
-import AppScreen from "../../shared/AppScreen";
-import AppButton from "../../shared/AppButton";
-import AppCheckBox from "../../shared/AppCheckBox";
 import { useEffect } from "react";
 import { useState } from "react";
 import AppActivityIndicator from "../../shared/AppActivityIndicator";
+
+import styles from "./css/shared";
+import signinApi from "../../api/auth/SigninService";
+import AppScreen from "../../shared/AppScreen";
+import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
+import AppButton from "../../shared/AppButton";
+import AppCheckBox from "../../shared/AppCheckBox";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -40,76 +38,61 @@ function SigninScreen({ navigation }) {
     <AppScreen style={styles.container}>
       {/* <AppActivityIndicator visible={true} /> */}
       <Text style={styles.signinText}>Signin to Anther</Text>
-      <Formik
+      <AppForm
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
           console.log(values);
         }}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
-          <>
-            {/* //START:: EMAIL INPUT FIELD */}
-            <AppInputField
-              style={styles.inputField}
-              autoCapitalize="none"
-              placeholder="email, i.e janedoe@gmail.com"
-              onChangeText={handleChange("email")}
-              errorMsg={errors.email}
-              touched={touched.email}
-              onBlur={() => {
-                setFieldTouched("email");
-              }}
-            />
-            {/* //END:: EMAIL INPUT FIELD */}
+        {/* //START:: EMAIL INPUT FIELD */}
+        <AppFormField
+          style={styles.inputField}
+          autoCapitalize="none"
+          placeholder="email, i.e janedoe@gmail.com"
+          name="email"
+        />
+        {/* //END:: EMAIL INPUT FIELD */}
 
-            {/* //START:: PASSWORD FIELD */}
-            <AppInputField
-              style={styles.inputField}
-              icon="lock"
-              secText={true}
-              autoCapitalize="none"
-              placeholder="password"
-              onChangeText={handleChange("password")}
-              errorMsg={errors.password}
-              touched={touched.password}
-              onBlur={() => {
-                setFieldTouched("password");
-              }}
-            />
-            {/* //END:: PASSWORD FIELD */}
+        {/* //START:: PASSWORD FIELD */}
+        <AppFormField
+          style={styles.inputField}
+          icon="lock"
+          secText={true}
+          autoCapitalize="none"
+          placeholder="password"
+          name="password"
+        />
+        {/* //END:: PASSWORD FIELD */}
 
-            <AppCheckBox style={styles.remeberText} text="Remember login" />
+        <AppCheckBox style={styles.remeberText} text="Remember login" />
 
-            {/* //START:: SIGNIN/UP BUTTON GROUP */}
-            <View style={styles.btnGrp}>
-              <AppButton
-                onPress={() => {
-                  navigation.navigate("SignupScreen");
-                }}
-                text="Signup"
-                style={[styles.btn]}
-              />
-              <AppButton
-                onPress={handleSubmit}
-                text="Signin"
-                style={[styles.btn, styles.btnPrimary]}
-              />
-            </View>
-            {/* //END:: SIGNIN/UP BUTTON GROUP */}
+        {/* //START:: SIGNIN/UP BUTTON GROUP */}
+        <View style={styles.btnGrp}>
+          <AppButton
+            onPress={() => {
+              navigation.navigate("SignupScreen");
+            }}
+            text="Signup"
+            style={[styles.btn]}
+          />
+          <AppFormButton
+            text="Signin"
+            style={[styles.btn, styles.btnPrimary]}
+          />
+        </View>
+        {/* //END:: SIGNIN/UP BUTTON GROUP */}
 
-            {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
-            <AppButton
-              hasFrontIcon={true}
-              frontIconName="facebook"
-              frontIconsize={30}
-              style={styles.btnFacebook}
-              text="Continue with facebook"
-            />
-            {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
-          </>
-        )}
-      </Formik>
+        {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
+        <AppButton
+          hasFrontIcon={true}
+          frontIconName="facebook"
+          frontIconsize={30}
+          style={styles.btnFacebook}
+          text="Continue with facebook"
+        />
+        {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
+      </AppForm>
     </AppScreen>
   );
 }

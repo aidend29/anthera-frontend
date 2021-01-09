@@ -53,6 +53,7 @@ function AppInputField({
               onPress={() => {
                 setText("");
                 setClose(false);
+                onChangeText("");
               }}
               style={styles.icon}
               name="close-circle-sharp"
