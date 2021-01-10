@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import {
   createStackNavigator,
@@ -7,6 +7,9 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+
+import AuthNaviagtor from "./app/Navigation/AuthNaviagtor";
+import AppNaviagtor from "./app/Navigation/AppNavigator";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SplashScreen from "./app/screens/SplashScreen";
@@ -24,8 +27,10 @@ import {
   OpenSans_600SemiBold,
   OpenSans_800ExtraBold,
 } from "@expo-google-fonts/open-sans";
+import AuthContext from "./app/auth/context";
 
 export default function App() {
+  const [user, setUser] = useState();
   // LOADING FONTS
   let [fontsLoaded] = useFonts({
     OpenSans_300Light,
@@ -57,8 +62,10 @@ export default function App() {
   );
 
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer>
+        {user ? <AppNaviagtor /> : <AuthNaviagtor />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }

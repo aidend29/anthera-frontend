@@ -7,6 +7,9 @@ import config from "../../config/configStyle";
 
 import { RFValue } from "react-native-responsive-fontsize";
 import { Dimensions } from "react-native";
+import { useEffect } from "react";
+
+import AppError from "./AppError";
 
 const { height, width } = Dimensions.get("screen");
 
@@ -23,9 +26,19 @@ function AppInputField({
 }) {
   const [close, setClose] = useState(false);
   const [text, setText] = useState("");
+  const [errorDisplay, setErrorDisplay] = useState(false);
+
+  useEffect(() => {
+    if (errorMsg && touched) {
+      setErrorDisplay(errorMsg);
+    } else {
+      setErrorDisplay(false);
+    }
+  });
+
   return (
     <>
-      {errorMsg && touched && <Text style={styles.errorMsg}>{errorMsg}</Text>}
+      <AppError error={errorDisplay} visible={errorDisplay} />
       <View style={[styles.container, style]}>
         <MaterialCommunityIcons
           style={styles.icon}
@@ -34,6 +47,7 @@ function AppInputField({
           size={25}
         />
         <TextInput
+          autoCompleteType="off"
           autoCapitalize={autoCapitalize}
           secureTextEntry={secText}
           value={text}
@@ -54,6 +68,7 @@ function AppInputField({
                 setText("");
                 setClose(false);
                 onChangeText("");
+                touched = false;
               }}
               style={styles.icon}
               name="close-circle-sharp"
@@ -84,14 +99,14 @@ const styles = StyleSheet.create({
     flex: 1,
     color: config().colors.darkGrey,
     fontSize: config().fontSize.text,
-    fontFamily: config().fontFamily.openSansRegular,
+    fontFamily: config().fontFamily.OpenSansSemiBold,
   },
   icon: {
     paddingVertical: 12,
   },
   errorMsg: {
     color: "red",
-    fontFamily: config().fontFamily.openSansRegular,
+    fontFamily: config().fontFamily.OpenSansSemiBold,
     fontSize: config().fontSize.text,
   },
 });

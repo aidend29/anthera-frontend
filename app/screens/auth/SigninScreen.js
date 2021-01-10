@@ -1,47 +1,66 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Formik } from "formik";
+import { Text, View } from "react-native";
 import * as Yup from "yup";
 import { useEffect } from "react";
 import { useState } from "react";
+import jwtDecode from "jwt-decode";
 import AppActivityIndicator from "../../shared/AppActivityIndicator";
 
 import styles from "./css/shared";
-import signinApi from "../../api/auth/SigninService";
+import { signin, ping } from "../../api/auth/appAuthService";
 import AppScreen from "../../shared/AppScreen";
 import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
 import AppButton from "../../shared/AppButton";
 import AppCheckBox from "../../shared/AppCheckBox";
 
+import useApi from "../../../hooks/useApi";
+import AppError from "../../shared/AppError";
+import { useContext } from "react";
+import AuthContext from "../../auth/context";
+
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().min(4).required(),
+  email: Yup.string()
+    .email("Sorry, email is not valid.")
+    .required("Sorry, email cannot be empty."),
+  password: Yup.string()
+    .min(4, "Sorry, password must be 4 or more characters long.")
+    .required("Sorry, password cannot be empty."),
 });
+
 function SigninScreen({ navigation }) {
-  const [error, setError] = useState(false);
+  const authContext = useContext(AuthContext);
+
+  const [signinError, setSigninError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   signin();
-  // }, []);
+  const signinApi = useApi(signin);
+  useEffect(() => {}, []);
 
-  // const signin = async () => {
-  //   setLoading(true);
-  //   const response = await signinApi.signin();
-  //   setLoading(true);
+  const handleSignin = async (signinInfo) => {
+    setLoading(true);
+    const response = await signin(signinInfo);
+    setLoading(false);
+    console.log(response.data);
 
-  //   if (!response.ok) setError(true);
-  //   console.log(response.data);
-  // };
+    if (!response.ok) {
+      setSigninError("Sorry, email or password is incorrect.");
+    } else {
+      const user = jwtDecode(response.data["token"]);
+      authContext.setUser(user);
+    }
+  };
 
   return (
     <AppScreen style={styles.container}>
       {/* <AppActivityIndicator visible={true} /> */}
-      <Text style={styles.signinText}>Signin to Anther</Text>
+      <Text style={styles.titleText}>Signin to Anther</Text>
+
+      <AppError visible={signinError} error={signinError} />
+
       <AppForm
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(signinInfo) => {
+          handleSignin(signinInfo);
         }}
         validationSchema={validationSchema}
       >
@@ -71,13 +90,14 @@ function SigninScreen({ navigation }) {
         <View style={styles.btnGrp}>
           <AppButton
             onPress={() => {
-              navigation.navigate("SignupScreen");
+              navigation.navigate("signup");
             }}
             text="Signup"
             style={[styles.btn]}
           />
           <AppFormButton
             text="Signin"
+            isLoading={loading}
             style={[styles.btn, styles.btnPrimary]}
           />
         </View>

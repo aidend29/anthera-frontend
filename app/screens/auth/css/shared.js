@@ -12,8 +12,8 @@ export default StyleSheet.create({
   inputField: {
     marginBottom: 10,
   },
-  signinText: {
-    fontFamily: config().fontFamily.OpenSansSemiBold,
+  titleText: {
+    fontFamily: config().fontFamily.OpenSansBold,
     fontSize: config().fontSize.secondaryHeading,
     color: config().colors.midGrey,
     marginBottom: 45,
@@ -42,10 +42,10 @@ export default StyleSheet.create({
     marginBottom: 30,
     color: config().colors.darkGrey,
     fontSize: config().fontSize.text,
-    fontFamily: config().fontFamily.openSansRegular,
+    fontFamily: config().fontFamily.OpenSansSemiBold,
   },
   forgotText: {
-    fontFamily: config().fontFamily.openSansRegular,
+    fontFamily: config().fontFamily.OpenSansSemiBold,
     fontSize: config().fontSize.text,
     color: config().colors.darkGrey,
   },

@@ -38,6 +38,7 @@ function WelcomeScreen({ navigation }) {
           duration={1000}
           style={styles.botTextWrap}
         >
+          {/* START:: WELCOME TEXT */}
           <Text
             style={[
               styles.welcomeText,
@@ -56,14 +57,31 @@ function WelcomeScreen({ navigation }) {
             </Text>
           </Text>
           <Text style={styles.welcomeText}>Lets get you sorted.</Text>
-          <AppButton
-            backgroundCol="secondary"
-            text="Get Started"
-            onPress={() => {
-              navigation.navigate("SignupScreen");
-            }}
-            style={styles.btnGetStarted}
-          />
+          {/* END:: WELCOME TEXT */}
+
+          <View style={styles.btnWrap}>
+            {/* START:: GET STARTED BUTTON */}
+            <AppButton
+              backgroundCol="secondary"
+              text="Signin"
+              onPress={() => {
+                navigation.navigate("signin");
+              }}
+              style={styles.btnSignin}
+            />
+            {/* END:: GET STARTED BUTTON */}
+
+            {/* START:: GET STARTED BUTTON */}
+            <AppButton
+              backgroundCol="primary"
+              text="Get Started"
+              onPress={() => {
+                navigation.navigate("signup");
+              }}
+              style={styles.btnGetStarted}
+            />
+            {/* END:: GET STARTED BUTTON */}
+          </View>
         </Animatable.View>
       </View>
       {/* END:: WELCOME TEXT & BUTTON */}
@@ -113,8 +131,14 @@ const styles = StyleSheet.create({
     color: config().colors.grey,
     fontFamily: config().fontFamily.openSansRegular,
   },
-  btnGetStarted: {
-    marginVertical: 40,
+  btnWrap: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginVertical: 20,
   },
+  btnSignin: {
+    marginHorizontal: 10,
+  },
+  btnGetStarted: {},
 });
 export default WelcomeScreen;
