@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import * as Yup from "yup";
-import { useEffect } from "react";
-import { useState } from "react";
 import jwtDecode from "jwt-decode";
-import AppActivityIndicator from "../../shared/AppActivityIndicator";
 
 import styles from "./css/shared";
-import { signin, ping } from "../../api/auth/appAuthService";
 import AppScreen from "../../shared/AppScreen";
 import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
 import AppButton from "../../shared/AppButton";
 import AppCheckBox from "../../shared/AppCheckBox";
 
-import useApi from "../../../hooks/useApi";
+import { signin, ping } from "../../api/auth/appAuthService";
+
 import AppError from "../../shared/AppError";
-import { useContext } from "react";
 import AuthContext from "../../auth/context";
 
 const validationSchema = Yup.object().shape({
@@ -33,7 +29,6 @@ function SigninScreen({ navigation }) {
   const [signinError, setSigninError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const signinApi = useApi(signin);
   useEffect(() => {}, []);
 
   const handleSignin = async (signinInfo) => {

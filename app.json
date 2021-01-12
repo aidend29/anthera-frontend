@@ -23,7 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/misc/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.usurper.anther",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/misc/favicon.png"

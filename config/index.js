@@ -1,18 +1,9 @@
-import { RFValue } from "react-native-responsive-fontsize";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
 
-const { height, width } = Dimensions.get("screen");
-
-export default config = () => {
+const styleVariables = () => {
   return {
-    dimensions: {
-      height: height,
-      width: width,
-    },
     colors: {
-      g1: "#ffc1f5",
-      g2: "#25abf7",
-      g3: "#25abf7",
       primary: "#25ABF7", //500
       secondary: "#FFC1F5",
       darkPrimary: "#754C00",
@@ -30,15 +21,14 @@ export default config = () => {
       error: "#ff0000",
     },
     fontSize: {
-      logoHeading: RFValue(46, height),
-      secondaryHeading: RFValue(28, height),
-      button: RFValue(18, height),
-      text: RFValue(16, height),
+      logoHeading: moderateScale(36),
+      secondaryHeading: moderateScale(24),
+      text: moderateScale(14),
     },
     letterSpacing: {
-      x1: 100,
-      x2: 50,
-      x3: 10,
+      x1: moderateScale(100),
+      x2: moderateScale(50),
+      x3: moderateScale(10),
     },
     fontFamily: {
       openSansLight: "OpenSans_300Light",
@@ -48,3 +38,5 @@ export default config = () => {
     },
   };
 };
+
+export { styleVariables, moderateScale };

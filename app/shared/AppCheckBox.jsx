@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import config from "../../config/configStyle";
+
+import { styleVariables, moderateScale } from "../../config";
 
 function AppCheckBox({
   text,
   style,
-  color = config().colors.primary,
+  color = styleVariables().colors.primary,
   isChecked,
 }) {
   const [selected, setSelected] = useState(false);
@@ -21,15 +22,15 @@ function AppCheckBox({
       {!selected && (
         <Ionicons
           name="checkmark-circle-outline"
-          size={24}
-          color={config().colors.grey}
+          size={moderateScale(24)}
+          color={styleVariables().colors.grey}
         />
       )}
       {selected && (
         <Ionicons
           name="checkmark-circle"
-          size={24}
-          color={config().colors.primary}
+          size={moderateScale(24)}
+          color={styleVariables().colors.primary}
         />
       )}
       <Text style={styles.text}>{text}</Text>
@@ -43,10 +44,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    marginLeft: 10,
-    fontFamily: config().fontFamily.openSansRegular,
-    fontSize: config().fontSize.text,
-    color: config().colors.darkGrey,
+    marginLeft: moderateScale(10),
+    fontFamily: styleVariables().fontFamily.openSansRegular,
+    fontSize: styleVariables().fontSize.text,
+    color: styleVariables().colors.darkGrey,
   },
 });
 export default AppCheckBox;

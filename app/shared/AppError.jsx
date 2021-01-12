@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import config from "../../config/configStyle";
+import { styleVariables, moderateScale } from "../../config";
 
 function AppError({ error, visible, style, ...otherProps }) {
   return (
@@ -16,7 +16,7 @@ function AppError({ error, visible, style, ...otherProps }) {
         >
           <FontAwesome5
             name="exclamation-circle"
-            size={22}
+            size={moderateScale(22)}
             color="#FA4545"
             style={styles.icon}
           />
@@ -32,23 +32,24 @@ function AppError({ error, visible, style, ...otherProps }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    borderRadius: 25,
+    borderRadius: moderateScale(25),
     backgroundColor: "#ffe6e6",
-    marginVertical: 10,
+    marginVertical: moderateScale(10),
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingRight: 30,
-    paddingLeft: 10,
-    paddingVertical: 10,
+    paddingRight: moderateScale(30),
+    paddingLeft: moderateScale(10),
+    paddingVertical: moderateScale(10),
   },
   icon: {
-    paddingRight: 10,
+    paddingRight: moderateScale(10),
   },
   errorMsg: {
     color: "#FA4545",
-    fontFamily: config().fontFamily.OpenSansSemiBold,
-    fontSize: config().fontSize.text,
+    fontFamily: styleVariables().fontFamily.OpenSansSemiBold,
+    fontSize: styleVariables().fontSize.text,
+    paddingRight: moderateScale(8),
   },
 });
 export default AppError;

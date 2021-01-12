@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import config from "../../../../config/configStyle";
+import { StyleSheet, Platform } from "react-native";
+import { styleVariables, moderateScale } from "../../../../config";
 
 export default StyleSheet.create({
   container: {
@@ -13,9 +13,9 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   titleText: {
-    fontFamily: config().fontFamily.OpenSansBold,
-    fontSize: config().fontSize.secondaryHeading,
-    color: config().colors.midGrey,
+    fontFamily: styleVariables().fontFamily.OpenSansBold,
+    fontSize: styleVariables().fontSize.secondaryHeading,
+    color: styleVariables().colors.midGrey,
     marginBottom: 45,
   },
   btnGrp: {
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     flex: 0.48,
   },
   btnPrimary: {
-    backgroundColor: config().colors.primary,
+    backgroundColor: styleVariables().colors.primary,
   },
   btnFacebook: {
     backgroundColor: "#4267B2",
@@ -40,13 +40,13 @@ export default StyleSheet.create({
     alignSelf: "flex-end",
     marginTop: 20,
     marginBottom: 30,
-    color: config().colors.darkGrey,
-    fontSize: config().fontSize.text,
-    fontFamily: config().fontFamily.OpenSansSemiBold,
+    color: styleVariables().colors.darkGrey,
+    fontSize: styleVariables().fontSize.text,
+    fontFamily: styleVariables().fontFamily.OpenSansSemiBold,
   },
   forgotText: {
-    fontFamily: config().fontFamily.OpenSansSemiBold,
-    fontSize: config().fontSize.text,
-    color: config().colors.darkGrey,
+    fontFamily: styleVariables().fontFamily.OpenSansSemiBold,
+    fontSize: styleVariables().fontSize.text,
+    color: styleVariables().colors.darkGrey,
   },
 });

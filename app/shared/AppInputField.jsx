@@ -3,15 +3,11 @@ import { Text, TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import config from "../../config/configStyle";
+import { styleVariables, moderateScale } from "../../config";
 
-import { RFValue } from "react-native-responsive-fontsize";
-import { Dimensions } from "react-native";
 import { useEffect } from "react";
 
 import AppError from "./AppError";
-
-const { height, width } = Dimensions.get("screen");
 
 function AppInputField({
   secText,
@@ -43,7 +39,7 @@ function AppInputField({
         <MaterialCommunityIcons
           style={styles.icon}
           name={icon}
-          color={config().colors.midGrey}
+          color={styleVariables().colors.midGrey}
           size={25}
         />
         <TextInput
@@ -73,7 +69,7 @@ function AppInputField({
               style={styles.icon}
               name="close-circle-sharp"
               size={24}
-              color={config().colors.midGrey}
+              color={styleVariables().colors.midGrey}
             />
           </Animatable.View>
         )}
@@ -87,27 +83,27 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    borderRadius: 30,
-    paddingHorizontal: 18,
-    borderWidth: 1,
-    borderColor: config().colors.lightGrey,
-    backgroundColor: config().colors.lightGrey,
+    borderRadius: moderateScale(30),
+    paddingHorizontal: moderateScale(18),
+    borderWidth: moderateScale(1),
+    borderColor: styleVariables().colors.lightGrey,
+    backgroundColor: styleVariables().colors.lightGrey,
   },
   textInput: {
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: moderateScale(12),
     flex: 1,
-    color: config().colors.darkGrey,
-    fontSize: config().fontSize.text,
-    fontFamily: config().fontFamily.OpenSansSemiBold,
+    color: styleVariables().colors.darkGrey,
+    fontSize: styleVariables().fontSize.text,
+    fontFamily: styleVariables().fontFamily.openSansRegular,
   },
   icon: {
-    paddingVertical: 12,
+    paddingVertical: moderateScale(12),
   },
   errorMsg: {
     color: "red",
-    fontFamily: config().fontFamily.OpenSansSemiBold,
-    fontSize: config().fontSize.text,
+    fontFamily: styleVariables().fontFamily.openSansRegular,
+    fontSize: styleVariables().fontSize.text,
   },
 });
 export default AppInputField;

@@ -1,32 +1,27 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import {
-  MaterialCommunityIcons,
-  EvilIcons,
-  AntDesign,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import config from "../../config/configStyle";
+import { styleVariables, moderateScale } from "../../config";
 
 function AppButton({
   text,
   onPress,
-  textCol = config().colors.white,
+  textCol = styleVariables().colors.white,
   backgroundCol = "secondary",
   style = {},
   hasFrontIcon = false,
   frontIconName = "facebook",
-  frontIconsize = 24,
+  frontIconsize = moderateScale(24),
   frontIconColor = "white",
-  onPressOut,
   isLoading = false,
 }) {
   return (
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: config().colors[backgroundCol] },
+        { backgroundColor: styleVariables().colors[backgroundCol] },
         style,
       ]}
       onPress={onPress}
@@ -45,7 +40,7 @@ function AppButton({
           easing="ease-in-sine"
           iterationCount="infinite"
         >
-          <AntDesign name="loading1" size={22} color="white" />
+          <AntDesign name="loading1" size={moderateScale(18)} color="white" />
         </Animatable.View>
       )}
       {!isLoading && (
@@ -58,12 +53,12 @@ function AppButton({
 const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
-    backgroundColor: config().colors.secondary,
-    borderRadius: 25,
+    backgroundColor: styleVariables().colors.secondary,
+    borderRadius: moderateScale(25),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: moderateScale(1),
     },
     shadowOpacity: 0.1,
     shadowRadius: 3.22,
@@ -73,18 +68,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: config().colors.white,
-    fontSize: config().fontSize.button,
-    fontFamily: config().fontFamily.OpenSansBold,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    color: styleVariables().colors.white,
+    fontSize: styleVariables().fontSize.text,
+    fontFamily: styleVariables().fontFamily.OpenSansBold,
+    paddingVertical: moderateScale(12),
+    paddingHorizontal: moderateScale(32),
   },
   spinner: {
-    color: config().colors.white,
-    fontSize: config().fontSize.button,
-    fontFamily: config().fontFamily.OpenSansBold,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    color: styleVariables().colors.white,
+    fontSize: styleVariables().fontSize.button,
+    fontFamily: styleVariables().fontFamily.OpenSansBold,
+    paddingVertical: moderateScale(12),
+    paddingHorizontal: moderateScale(32),
   },
 });
 export default AppButton;
