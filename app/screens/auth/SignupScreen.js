@@ -15,6 +15,7 @@ import AppButton from "../../shared/AppButton";
 import AppCheckBox from "../../shared/AppCheckBox";
 import AuthContext from "../../auth/context";
 import AppError from "../../shared/AppError";
+import { appStyles } from "../../../config";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -54,82 +55,86 @@ function SignupScreen({ navigation }) {
     }
   };
   return (
-    <AppScreen style={styles.container}>
-      {/* <AppActivityIndicator visible={true} /> */}
-      <Text style={styles.titleText}>Join Anther in one step</Text>
+    <AppScreen>
+      <View style={styles.container}>
+        {/* <AppActivityIndicator visible={true} /> */}
+        <Text style={[appStyles.smHeading, styles.titleText]}>
+          Join Anther in one step
+        </Text>
 
-      <AppError error={signupError} visible={signupError} />
-      <AppForm
-        initialValues={{ email: "", password: "", passwordConfirmation: "" }}
-        onSubmit={(signupInfo) => {
-          console.log(signupInfo);
-          handleSignup(signupInfo);
-        }}
-        validationSchema={validationSchema}
-      >
-        {/* //START:: EMAIL INPUT FIELD */}
-        <AppFormField
-          style={styles.inputField}
-          autoCapitalize="none"
-          placeholder="email, i.e janedoe@gmail.com"
-          name="email"
-        />
-        {/* //END:: EMAIL INPUT FIELD */}
+        <AppError error={signupError} visible={signupError} />
+        <AppForm
+          initialValues={{ email: "", password: "", passwordConfirmation: "" }}
+          onSubmit={(signupInfo) => {
+            console.log(signupInfo);
+            handleSignup(signupInfo);
+          }}
+          validationSchema={validationSchema}
+        >
+          {/* //START:: EMAIL INPUT FIELD */}
+          <AppFormField
+            style={styles.inputField}
+            autoCapitalize="none"
+            placeholder="email, i.e janedoe@gmail.com"
+            name="email"
+          />
+          {/* //END:: EMAIL INPUT FIELD */}
 
-        {/* //START:: PASSWORD FIELD */}
-        <AppFormField
-          style={styles.inputField}
-          icon="lock"
-          secText={true}
-          autoCapitalize="none"
-          placeholder="password"
-          name="password"
-        />
-        {/* //END:: PASSWORD FIELD */}
+          {/* //START:: PASSWORD FIELD */}
+          <AppFormField
+            style={styles.inputField}
+            icon="lock"
+            secText={true}
+            autoCapitalize="none"
+            placeholder="password"
+            name="password"
+          />
+          {/* //END:: PASSWORD FIELD */}
 
-        {/* //START:: CONFIRM PASSWORD FIELD */}
-        <AppFormField
-          style={styles.inputField}
-          icon="lock"
-          secText={true}
-          autoCapitalize="none"
-          placeholder="confirm password"
-          name="passwordConfirmation"
-        />
-        {/* //END:: CONFIRM PASSWORD FIELD */}
+          {/* //START:: CONFIRM PASSWORD FIELD */}
+          <AppFormField
+            style={styles.inputField}
+            icon="lock"
+            secText={true}
+            autoCapitalize="none"
+            placeholder="confirm password"
+            name="passwordConfirmation"
+          />
+          {/* //END:: CONFIRM PASSWORD FIELD */}
 
-        <AppCheckBox
-          style={styles.remeberText}
-          text="Agree to terms and conditions"
-        />
+          <AppCheckBox
+            style={styles.remeberText}
+            text="Agree to terms and conditions"
+          />
 
-        {/* //START:: SIGNIN/UP BUTTON GROUP */}
-        <View style={styles.btnGrp}>
+          {/* //START:: SIGNIN/UP BUTTON GROUP */}
+          <View style={styles.btnGrp}>
+            <AppButton
+              onPress={() => {
+                navigation.navigate("signin");
+              }}
+              text="Signin"
+              style={[styles.btn]}
+            />
+            <AppFormButton
+              text="Signup"
+              isLoading={loading}
+              style={[styles.btn, styles.btnPrimary]}
+            />
+          </View>
+          {/* //END:: SIGNIN/UP BUTTON GROUP */}
+
+          {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
           <AppButton
-            onPress={() => {
-              navigation.navigate("signin");
-            }}
-            text="Signin"
-            style={[styles.btn]}
+            hasFrontIcon={true}
+            frontIconName="facebook"
+            frontIconsize={30}
+            style={styles.btnFacebook}
+            text="Continue with facebook"
           />
-          <AppFormButton
-            text="Signup"
-            isLoading={loading}
-            style={[styles.btn, styles.btnPrimary]}
-          />
-        </View>
-        {/* //END:: SIGNIN/UP BUTTON GROUP */}
-
-        {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
-        <AppButton
-          hasFrontIcon={true}
-          frontIconName="facebook"
-          frontIconsize={30}
-          style={styles.btnFacebook}
-          text="Continue with facebook"
-        />
-        {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
-      </AppForm>
+          {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
+        </AppForm>
+      </View>
     </AppScreen>
   );
 }

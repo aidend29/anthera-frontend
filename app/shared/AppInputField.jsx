@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import { styleVariables, moderateScale } from "../../config";
+import { cssVariables, moderateScale, appStyles } from "../../config";
 
 import { useEffect } from "react";
 
@@ -39,7 +39,7 @@ function AppInputField({
         <MaterialCommunityIcons
           style={styles.icon}
           name={icon}
-          color={styleVariables().colors.midGrey}
+          color={cssVariables.colors.midGrey}
           size={25}
         />
         <TextInput
@@ -54,7 +54,7 @@ function AppInputField({
           }}
           onBlur={onBlur}
           placeholder={placeholder}
-          style={styles.textInput}
+          style={[appStyles.text, styles.textInput]}
         />
 
         {close && (
@@ -69,7 +69,7 @@ function AppInputField({
               style={styles.icon}
               name="close-circle-sharp"
               size={24}
-              color={styleVariables().colors.midGrey}
+              color={cssVariables.colors.midGrey}
             />
           </Animatable.View>
         )}
@@ -86,24 +86,22 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(30),
     paddingHorizontal: moderateScale(18),
     borderWidth: moderateScale(1),
-    borderColor: styleVariables().colors.lightGrey,
-    backgroundColor: styleVariables().colors.lightGrey,
+    borderColor: cssVariables.colors.lightGrey,
+    backgroundColor: cssVariables.colors.lightGrey,
   },
   textInput: {
     paddingHorizontal: moderateScale(10),
     paddingVertical: moderateScale(12),
     flex: 1,
-    color: styleVariables().colors.darkGrey,
-    fontSize: styleVariables().fontSize.text,
-    fontFamily: styleVariables().fontFamily.openSansRegular,
+    fontFamily: cssVariables.fontFamily.medium,
   },
   icon: {
     paddingVertical: moderateScale(12),
   },
   errorMsg: {
     color: "red",
-    fontFamily: styleVariables().fontFamily.openSansRegular,
-    fontSize: styleVariables().fontSize.text,
+    fontFamily: cssVariables.fontFamily.openSansRegular,
+    fontSize: cssVariables.fontSize.text,
   },
 });
 export default AppInputField;

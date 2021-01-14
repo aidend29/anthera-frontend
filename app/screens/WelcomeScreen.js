@@ -4,10 +4,11 @@ import { Text, StyleSheet, View, StatusBar } from "react-native";
 import io from "socket.io-client";
 
 // LOCAL IMPORTS
-import { styleVariables, moderateScale } from "../../config";
+import { cssVariables, appStyles, moderateScale } from "../../config";
 import BackgroundDec01Svg from "../assets/svg/BackgroundDec01Svg";
 import Logo from "../assets/svg/LogoSvg";
 import AppButton from "../shared/AppButton";
+import AppScreen from "../shared/AppScreen";
 
 function WelcomeScreen({ navigation }) {
   useEffect(() => {
@@ -20,7 +21,7 @@ function WelcomeScreen({ navigation }) {
   }, []);
 
   return (
-    <>
+    <AppScreen>
       <View style={styles.container}>
         {/* START:: TOP DECORATION */}
         <Animatable.View
@@ -37,7 +38,7 @@ function WelcomeScreen({ navigation }) {
           <Logo width={moderateScale(70)} />
         </View>
         <View style={styles.midWrap}>
-          <Text style={styles.logoTitle}>Anther</Text>
+          <Text style={[appStyles.lgHeading, styles.logoTitle]}>Anther</Text>
         </View>
         {/* END:: LOGO & TITLE */}
 
@@ -51,22 +52,23 @@ function WelcomeScreen({ navigation }) {
             {/* START:: WELCOME TEXT */}
             <Text
               style={[
-                styles.welcomeText,
+                appStyles.smHeading,
+
                 {
-                  color: styleVariables().colors.primary,
+                  color: cssVariables.colors.primary,
                 },
               ]}
             >
               Hello{" "}
               <Text
                 style={{
-                  color: styleVariables().colors.grey,
+                  color: cssVariables.colors.darkGrey,
                 }}
               >
                 there!
               </Text>
             </Text>
-            <Text style={styles.welcomeText}>Lets get you sorted.</Text>
+            <Text style={appStyles.smHeading}>Lets get you sorted.</Text>
             {/* END:: WELCOME TEXT */}
 
             <View style={styles.btnWrap}>
@@ -96,7 +98,7 @@ function WelcomeScreen({ navigation }) {
         </View>
         {/* END:: WELCOME TEXT & BUTTON */}
       </View>
-    </>
+    </AppScreen>
   );
 }
 
@@ -112,6 +114,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     marginBottom: moderateScale(36),
+    right: moderateScale(230),
+    bottom: moderateScale(80),
   },
   midWrap: {
     flex: moderateScale(0.6),
@@ -121,10 +125,7 @@ const styles = StyleSheet.create({
   },
   logoTitle: {
     letterSpacing: moderateScale(20),
-    fontSize: styleVariables().fontSize.logoHeading,
-    color: styleVariables().colors.midGrey,
-    bottom: moderateScale(35),
-    fontFamily: styleVariables().fontFamily.openSansRegular,
+    bottom: moderateScale(20),
   },
   botWrap: {
     flex: moderateScale(1.8),
@@ -136,11 +137,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginTop: moderateScale(35),
     marginRight: moderateScale(50),
-  },
-  welcomeText: {
-    fontSize: styleVariables().fontSize.secondaryHeading,
-    color: styleVariables().colors.grey,
-    fontFamily: styleVariables().fontFamily.openSansRegular,
   },
   btnWrap: {
     flexDirection: "row",

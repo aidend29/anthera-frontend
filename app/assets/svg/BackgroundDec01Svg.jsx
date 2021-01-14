@@ -1,21 +1,22 @@
 import * as React from "react";
 import Svg, { Defs, LinearGradient, Stop, Path } from "react-native-svg";
 
-function SvgComponent({ width = 262, height = 240.25 }, props) {
+function SvgComponent(props) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
-      height={height}
-      viewBox="0 0 262.936 240.25"
+      width={389.441}
+      height={363.85}
+      viewBox="0 0 389.441 363.85"
       {...props}
     >
       <Defs>
         <LinearGradient
           id="prefix__a"
-          x1={0.5}
-          x2={0.5}
-          y2={1}
+          x1={0.741}
+          y1={0.429}
+          x2={0.458}
+          y2={1.129}
           gradientUnits="objectBoundingBox"
         >
           <Stop offset={0} stopColor="#ffc1f5" />
@@ -23,8 +24,8 @@ function SvgComponent({ width = 262, height = 240.25 }, props) {
         </LinearGradient>
       </Defs>
       <Path
-        d="M0 165.738l63.548 63.548h26.745l-50.317-50.317L63.548 155.4 146 237.845h28.37L39.976 103.451l23.572-23.572L186.665 203h26.9L63.548 52.984l26.745-26.745L196.851 132.8h25.859l-96.45-96.45L146 16.612l86.839 86.839h30.1L157.08-2.4H0z"
-        transform="translate(0 2.405)"
+        d="M470.423-126.711l235 229.017H673.28l-83.528-83.527L476.139-94.835l-17.472 17.472 208.5 208.5H641.43l-193.7-193.7-26.383 26.371 240.118 240.118H633.52L410.192-19.4 386.56 4.231l232.908 232.908h-29.716l-218.36-218.36-21.04 21.04L536.1 225.567h-29.769L315.979 35.215z"
+        transform="translate(-315.979 126.711)"
         fill="url(#prefix__a)"
       />
     </Svg>

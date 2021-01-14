@@ -3,12 +3,12 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import { styleVariables, moderateScale } from "../../config";
+import { appStyles, cssVariables, moderateScale } from "../../config";
 
 function AppButton({
   text,
   onPress,
-  textCol = styleVariables().colors.white,
+  textCol = cssVariables.colors.white,
   backgroundCol = "secondary",
   style = {},
   hasFrontIcon = false,
@@ -21,7 +21,7 @@ function AppButton({
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: styleVariables().colors[backgroundCol] },
+        { backgroundColor: cssVariables.colors[backgroundCol] },
         style,
       ]}
       onPress={onPress}
@@ -44,7 +44,11 @@ function AppButton({
         </Animatable.View>
       )}
       {!isLoading && (
-        <Text style={[styles.buttonText, { color: textCol }]}>{text}</Text>
+        <Text
+          style={[appStyles.btnText, styles.buttonText, { color: textCol }]}
+        >
+          {text}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -53,7 +57,7 @@ function AppButton({
 const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
-    backgroundColor: styleVariables().colors.secondary,
+    backgroundColor: cssVariables.colors.secondary,
     borderRadius: moderateScale(25),
     shadowColor: "#000",
     shadowOffset: {
@@ -68,16 +72,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: styleVariables().colors.white,
-    fontSize: styleVariables().fontSize.text,
-    fontFamily: styleVariables().fontFamily.OpenSansBold,
+    color: cssVariables.colors.white,
     paddingVertical: moderateScale(12),
     paddingHorizontal: moderateScale(32),
   },
   spinner: {
-    color: styleVariables().colors.white,
-    fontSize: styleVariables().fontSize.button,
-    fontFamily: styleVariables().fontFamily.OpenSansBold,
+    color: cssVariables.colors.white,
+    fontSize: cssVariables.fontSize.button,
+    fontFamily: cssVariables.fontFamily.OpenSansBold,
     paddingVertical: moderateScale(12),
     paddingHorizontal: moderateScale(32),
   },

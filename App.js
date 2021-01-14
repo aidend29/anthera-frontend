@@ -10,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AuthNaviagtor from "./app/Navigation/AuthNaviagtor";
 import AppNaviagtor from "./app/Navigation/AppNavigator";
+import DetailsNaviagtor from "./app/Navigation/DetailsNaviagtor";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SplashScreen from "./app/screens/SplashScreen";
@@ -31,41 +32,42 @@ import AuthContext from "./app/auth/context";
 
 export default function App() {
   const [user, setUser] = useState();
+  const [details, setDetails] = useState();
+
   // LOADING FONTS
   let [fontsLoaded] = useFonts({
-    OpenSans_300Light,
-    OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold,
-    OpenSans_800ExtraBold,
-    OpenSans_600SemiBold,
+    "Lato-Light": require("./app/assets/fonts/Lato2OFL/Lato-Light.ttf"),
+    "Lato-Regular": require("./app/assets/fonts/Lato2OFL/Lato-Regular.ttf"),
+    "Lato-Medium": require("./app/assets/fonts/Lato2OFL/Lato-Medium.ttf"),
+    "Lato-Heavy": require("./app/assets/fonts/Lato2OFL/Lato-Heavy.ttf"),
   });
+
   if (!fontsLoaded) {
     return <AppLoading />;
+  } else {
+    return (
+      <AuthContext.Provider value={{ user, setUser }}>
+        <NavigationContainer>
+          {test()}
+          {/* {user ? <AppNaviagtor /> : <AuthNaviagtor />} */}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    );
   }
 
-  const Stack = createStackNavigator();
-  const StackNavigator = () => (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: { backgroundColor: "white" },
-        gestureEnabled: true,
-        gestureDirection: "horizontal",
-        ...TransitionPresets.SlideFromRightIOS,
-      }}
-    >
-      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-      <Stack.Screen name="SigninScreen" component={SigninScreen} />
-      <Stack.Screen name="SignupScreen" component={SignupScreen} />
-    </Stack.Navigator>
-  );
-
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer>
-        {user ? <AppNaviagtor /> : <AuthNaviagtor />}
-      </NavigationContainer>
-    </AuthContext.Provider>
-  );
+  function test() {
+    if (user) {
+      if (details) {
+        //Go to app
+        return <AppNaviagtor />;
+      } else {
+        //Go to details nav
+        return <DetailsNaviagtor />;
+      }
+    } else {
+      //Go to auth nav
+      return <DetailsNaviagtor />;
+      return <AuthNaviagtor />;
+    }
+  }
 }

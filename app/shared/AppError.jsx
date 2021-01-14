@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import { styleVariables, moderateScale } from "../../config";
+import { cssVariables, appStyles, moderateScale } from "../../config";
 
 function AppError({ error, visible, style, ...otherProps }) {
   return (
@@ -20,7 +20,7 @@ function AppError({ error, visible, style, ...otherProps }) {
             color="#FA4545"
             style={styles.icon}
           />
-          <Text a style={[styles.errorMsg, style]}>
+          <Text a style={[appStyles.text, styles.errorMsg, style]}>
             {error}
           </Text>
         </Animatable.View>
@@ -47,8 +47,6 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     color: "#FA4545",
-    fontFamily: styleVariables().fontFamily.OpenSansSemiBold,
-    fontSize: styleVariables().fontSize.text,
     paddingRight: moderateScale(8),
   },
 });

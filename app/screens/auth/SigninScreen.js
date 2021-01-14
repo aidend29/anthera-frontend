@@ -13,6 +13,7 @@ import { signin, ping } from "../../api/auth/appAuthService";
 
 import AppError from "../../shared/AppError";
 import AuthContext from "../../auth/context";
+import { appStyles } from "../../../config";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -46,68 +47,72 @@ function SigninScreen({ navigation }) {
   };
 
   return (
-    <AppScreen style={styles.container}>
-      {/* <AppActivityIndicator visible={true} /> */}
-      <Text style={styles.titleText}>Signin to Anther</Text>
+    <AppScreen>
+      <View style={styles.container}>
+        {/* <AppActivityIndicator visible={true} /> */}
+        <Text style={[appStyles.smHeading, styles.titleText]}>
+          Signin to Anther
+        </Text>
 
-      <AppError visible={signinError} error={signinError} />
+        <AppError visible={signinError} error={signinError} />
 
-      <AppForm
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(signinInfo) => {
-          handleSignin(signinInfo);
-        }}
-        validationSchema={validationSchema}
-      >
-        {/* //START:: EMAIL INPUT FIELD */}
-        <AppFormField
-          style={styles.inputField}
-          autoCapitalize="none"
-          placeholder="email, i.e janedoe@gmail.com"
-          name="email"
-        />
-        {/* //END:: EMAIL INPUT FIELD */}
+        <AppForm
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(signinInfo) => {
+            handleSignin(signinInfo);
+          }}
+          validationSchema={validationSchema}
+        >
+          {/* //START:: EMAIL INPUT FIELD */}
+          <AppFormField
+            style={styles.inputField}
+            autoCapitalize="none"
+            placeholder="email, i.e janedoe@gmail.com"
+            name="email"
+          />
+          {/* //END:: EMAIL INPUT FIELD */}
 
-        {/* //START:: PASSWORD FIELD */}
-        <AppFormField
-          style={styles.inputField}
-          icon="lock"
-          secText={true}
-          autoCapitalize="none"
-          placeholder="password"
-          name="password"
-        />
-        {/* //END:: PASSWORD FIELD */}
+          {/* //START:: PASSWORD FIELD */}
+          <AppFormField
+            style={styles.inputField}
+            icon="lock"
+            secText={true}
+            autoCapitalize="none"
+            placeholder="password"
+            name="password"
+          />
+          {/* //END:: PASSWORD FIELD */}
 
-        <AppCheckBox style={styles.remeberText} text="Remember login" />
+          <AppCheckBox style={styles.remeberText} text="Remember login" />
 
-        {/* //START:: SIGNIN/UP BUTTON GROUP */}
-        <View style={styles.btnGrp}>
+          {/* //START:: SIGNIN/UP BUTTON GROUP */}
+          <View style={styles.btnGrp}>
+            <AppButton
+              onPress={() => {
+                navigation.navigate("signup");
+              }}
+              text="Signup"
+              style={[styles.btn]}
+            />
+            <AppFormButton
+              text="Signin"
+              isLoading={loading}
+              style={[styles.btn, styles.btnPrimary]}
+            />
+          </View>
+          {/* //END:: SIGNIN/UP BUTTON GROUP */}
+
+          {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
           <AppButton
-            onPress={() => {
-              navigation.navigate("signup");
-            }}
-            text="Signup"
-            style={[styles.btn]}
+            hasFrontIcon={true}
+            frontIconName="facebook"
+            frontIconsize={30}
+            style={styles.btnFacebook}
+            text="Continue with facebook"
           />
-          <AppFormButton
-            text="Signin"
-            isLoading={loading}
-            style={[styles.btn, styles.btnPrimary]}
-          />
-        </View>
-        {/* //END:: SIGNIN/UP BUTTON GROUP */}
-
-        {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
-        <AppButton
-          hasFrontIcon={true}
-          frontIconName="facebook"
-          frontIconsize={30}
-          style={styles.btnFacebook}
-          text="Continue with facebook"
-        />
-        {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
-      </AppForm>
+          {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
+        </AppForm>
+      </View>
     </AppScreen>
   );
 }
