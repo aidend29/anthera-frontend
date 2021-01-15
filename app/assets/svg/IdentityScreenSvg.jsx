@@ -1,14 +1,13 @@
 import * as React from "react";
 import Svg, { G, Path, Circle, Ellipse } from "react-native-svg";
 
-function SvgComponent({ width = 262, height = 240.25 }, props) {
+function SvgComponent({ height = 154.804, width = 232.644 }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox="0 0 232.644 154.804"
-      {...props}
     >
       <G>
         <Path
@@ -17,7 +16,7 @@ function SvgComponent({ width = 262, height = 240.25 }, props) {
         />
         <Path
           d="M194.357 148.444a65.97 65.97 0 01-28.35 6.36q-2.115 0-4.2-.131a727.213 727.213 0 00-90.972 0q-2.083.13-4.2.131a65.949 65.949 0 01-32.481-8.5c14.995-6.5 44.282-10.907 77.958-10.907 37.257 0 69.142 5.399 82.245 13.047z"
-          fill="#707070"
+          fill="#f2faff"
         />
         <Path
           d="M148.208 55.45a5.373 5.373 0 00-5.582-.884c-2.777 1.211-3.987 4.614-3.792 7.637s1.454 5.86 2.27 8.778a20.711 20.711 0 01.1 12.028 12.71 12.71 0 01-8.227 8.356c-3.639 1.013-7.5 0-11.137-1.016"

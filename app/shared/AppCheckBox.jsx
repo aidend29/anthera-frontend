@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-
+import { Feather } from "@expo/vector-icons";
 import { cssVariables, appStyles, moderateScale } from "../../config";
 
 function AppCheckBox({
@@ -20,15 +19,15 @@ function AppCheckBox({
       }}
     >
       {!selected && (
-        <Ionicons
-          name="checkmark-circle-outline"
+        <Feather
+          name="circle"
           size={moderateScale(24)}
           color={cssVariables.colors.grey}
         />
       )}
       {selected && (
-        <Ionicons
-          name="checkmark-circle"
+        <Feather
+          name="check-circle"
           size={moderateScale(24)}
           color={cssVariables.colors.primary}
         />

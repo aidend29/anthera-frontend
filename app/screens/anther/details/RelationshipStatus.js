@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -26,26 +26,25 @@ function IdentityScreen({ navigation }) {
       <View style={styles.container}>
         {DetailsProgressbar(detailsContext)}
         <AppTextColorCoded
-          front="I'm"
-          colored=" here"
-          rest="to..."
+          front="My "
+          colored="relationship status"
+          rest="is..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
         <View style={styles.midContainer}>
-          <AppCheckBox text="date" style={styles.checkbox} />
-          <AppCheckBox
-            text="chat and meet new people"
-            style={styles.checkbox}
-          />
-          <AppCheckBox text="see how it goes" style={styles.checkbox} />
+          <AppCheckBox text="single" style={styles.checkbox} />
+          <AppCheckBox text="open" style={styles.checkbox} />
+          <AppCheckBox text="taken" style={styles.checkbox} />
+          <AppCheckBox text="complicated" style={styles.checkbox} />
+          <AppCheckBox text="prefer not to say" style={styles.checkbox} />
         </View>
-        <View style={styles.svgWrap}>
+        {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
             height={verticalScale(200)}
             width={moderateScale(200)}
           />
-        </View>
+        </View> */}
         <View style={styles.navBtnContainer}>
           <AppButtonRound
             icon="leftcircle"
@@ -53,7 +52,7 @@ function IdentityScreen({ navigation }) {
             style={styles.navBtn}
             onPress={() => {
               updateProgress(detailsContext, -1);
-              navigation.navigate("sexualOrientation");
+              navigation.navigate("dob");
             }}
           />
           <AppButtonRound
@@ -61,7 +60,7 @@ function IdentityScreen({ navigation }) {
             style={styles.navBtn}
             onPress={() => {
               updateProgress(detailsContext, 1);
-              navigation.navigate("dob");
+              navigation.navigate("purpose");
             }}
           />
         </View>
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: verticalScale(10),
-    marginBottom: verticalScale(50),
+    marginBottom: verticalScale(10),
+    marginHorizontal: moderateScale(30),
   },
   svgWrap: {
     marginVertical: verticalScale(10),

@@ -13,7 +13,7 @@ import AppScreen from "../../shared/AppScreen";
 import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
 import AppButton from "../../shared/AppButton";
 import AppCheckBox from "../../shared/AppCheckBox";
-import AuthContext from "../../auth/context";
+import { AuthContext } from "../../context";
 import AppError from "../../shared/AppError";
 import { appStyles } from "../../../config";
 
