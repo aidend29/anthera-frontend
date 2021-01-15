@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -14,6 +14,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
+import { DetailsContext } from "../../../context";
+import { DetailsProgressbar, updateProgress } from "./shared";
 
 function IdentityScreen({ navigation }) {
   const [femaleSelected, setFemaleSelected] = useState({
@@ -22,17 +24,23 @@ function IdentityScreen({ navigation }) {
   });
   const [maleSelected, setMaleSelected] = useState({});
 
+  const detailsContext = useContext(DetailsContext);
+
   return (
     <AppScreen>
       <View style={styles.container}>
+        {DetailsProgressbar(detailsContext)}
         <AppTextColorCoded
-          colored="You "
-          rest="are..."
+          colored="I'm"
+          rest="a..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
         <View style={styles.svgWrap}>
-          <IdentityScreenSvg width={moderateScale(300)} />
+          <IdentityScreenSvg
+            height={verticalScale(250)}
+            width={moderateScale(250)}
+          />
         </View>
         <View style={styles.rowContainer}>
           <TouchableOpacity
@@ -71,16 +79,9 @@ function IdentityScreen({ navigation }) {
         <View style={styles.navBtnContainer}>
           <AppButtonRound
             style={styles.navBtn}
-            go="back"
-            visible={false}
             onPress={() => {
-              navigation.navigate("purpose");
-            }}
-          />
-          <AppButtonRound
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("purpose");
+              updateProgress(detailsContext, 1);
+              navigation.navigate("sexualOrientation");
             }}
           />
         </View>
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    marginTop: verticalScale(40),
+    marginTop: verticalScale(10),
     marginBottom: verticalScale(10),
   },
   svgWrap: {
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "flex-end",
-    paddingVertical: verticalScale(50),
+    marginBottom: verticalScale(60),
   },
   navBtn: {
     marginHorizontal: moderateScale(40),

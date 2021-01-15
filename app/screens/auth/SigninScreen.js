@@ -12,7 +12,7 @@ import AppCheckBox from "../../shared/AppCheckBox";
 import { signin, ping } from "../../api/auth/appAuthService";
 
 import AppError from "../../shared/AppError";
-import AuthContext from "../../auth/context";
+import { AuthContext } from "../../context";
 import { appStyles } from "../../../config";
 
 const validationSchema = Yup.object().shape({

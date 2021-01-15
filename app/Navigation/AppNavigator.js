@@ -12,7 +12,6 @@ const Tab = createMaterialTopTabNavigator();
 function AppNaviagtor() {
   return (
     <Tab.Navigator swipeEnabled="true" style={{ paddingTop: 100 }}>
-      <Tab.Screen name="IdentityScreen" component={IdentityScreen} />
       <Tab.Screen name="home" component={HomeScreen} />
       <Tab.Screen name="account" component={AccountScreen} />
       <Tab.Screen name="chat" component={ChatScreen} />

@@ -5,9 +5,12 @@ import {
 } from "@react-navigation/stack";
 
 import IdentityScreen from "../screens/anther/details/IdentityScreen";
+import SexualOrientationScreen from "../screens/anther/details/SexualOrientationScreen";
 import PurposeScreen from "../screens/anther/details/PurposeScreen";
+import DobScreen from "../screens/anther/details/DobScreen";
+import RelationshipStatus from "../screens/anther/details/RelationshipStatus";
 
-function DetailsNaviagtor(props) {
+function DetailsNaviagtor() {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator
@@ -20,7 +23,13 @@ function DetailsNaviagtor(props) {
       }}
     >
       <Stack.Screen name="identity" component={IdentityScreen} />
+      <Stack.Screen
+        name="sexualOrientation"
+        component={SexualOrientationScreen}
+      />
       <Stack.Screen name="purpose" component={PurposeScreen} />
+      <Stack.Screen name="dob" component={DobScreen} />
+      <Stack.Screen name="relationshipStatus" component={RelationshipStatus} />
     </Stack.Navigator>
   );
 }

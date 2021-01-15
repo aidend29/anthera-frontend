@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -9,39 +9,27 @@ import {
   verticalScale,
   scale,
 } from "../../../../config/index";
-import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
+import OccupationScreenSvg from "../../../assets/svg/OccupationScreenSvg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
 import AppCheckBox from "../../../shared/AppCheckBox";
-import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
 
 function IdentityScreen({ navigation }) {
-  const detailsContext = useContext(DetailsContext);
-
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
         <AppTextColorCoded
-          front="I'm"
-          colored=" here"
-          rest="to..."
+          front="I "
+          colored="work"
+          rest="at..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
-        <View style={styles.midContainer}>
-          <AppCheckBox text="date" style={styles.checkbox} />
-          <AppCheckBox
-            text="chat and meet new people"
-            style={styles.checkbox}
-          />
-          <AppCheckBox text="see how it goes" style={styles.checkbox} />
-        </View>
+        <View style={styles.midContainer}></View>
         <View style={styles.svgWrap}>
-          <PurposeScreenSvg
+          <OccupationScreenSvg
             height={verticalScale(200)}
             width={moderateScale(200)}
           />
@@ -52,16 +40,14 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, -1);
-              navigation.navigate("sexualOrientation");
+              navigation.navigate("dob");
             }}
           />
           <AppButtonRound
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
-              navigation.navigate("dob");
+              navigation.navigate("purpose");
             }}
           />
         </View>
@@ -78,8 +64,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    marginTop: verticalScale(10),
-    marginBottom: verticalScale(50),
+    marginTop: verticalScale(40),
+    marginBottom: verticalScale(10),
+    marginHorizontal: moderateScale(30),
   },
   svgWrap: {
     marginVertical: verticalScale(10),

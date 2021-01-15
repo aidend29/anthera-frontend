@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -9,42 +9,36 @@ import {
   verticalScale,
   scale,
 } from "../../../../config/index";
-import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
+import DobScreenSvg from "../../../assets/svg/DobScreenSvg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import AppDatetimePicker from "../../../shared/AppDatetimePicker";
 import { DetailsContext } from "../../../context";
 import { DetailsProgressbar, updateProgress } from "./shared";
 
 function IdentityScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
-
   return (
     <AppScreen>
       <View style={styles.container}>
         {DetailsProgressbar(detailsContext)}
         <AppTextColorCoded
-          front="I'm"
-          colored=" here"
-          rest="to..."
+          front="I was "
+          colored="born"
+          rest="on..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
-        <View style={styles.midContainer}>
-          <AppCheckBox text="date" style={styles.checkbox} />
-          <AppCheckBox
-            text="chat and meet new people"
-            style={styles.checkbox}
-          />
-          <AppCheckBox text="see how it goes" style={styles.checkbox} />
-        </View>
         <View style={styles.svgWrap}>
-          <PurposeScreenSvg
+          <DobScreenSvg
             height={verticalScale(200)}
             width={moderateScale(200)}
           />
+        </View>
+        <View style={styles.midContainer}>
+          <AppDatetimePicker _mode="date" />
         </View>
         <View style={styles.navBtnContainer}>
           <AppButtonRound
@@ -53,7 +47,7 @@ function IdentityScreen({ navigation }) {
             style={styles.navBtn}
             onPress={() => {
               updateProgress(detailsContext, -1);
-              navigation.navigate("sexualOrientation");
+              navigation.navigate("purpose");
             }}
           />
           <AppButtonRound
@@ -61,7 +55,7 @@ function IdentityScreen({ navigation }) {
             style={styles.navBtn}
             onPress={() => {
               updateProgress(detailsContext, 1);
-              navigation.navigate("dob");
+              navigation.navigate("relationshipStatus");
             }}
           />
         </View>
@@ -79,17 +73,17 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: verticalScale(10),
-    marginBottom: verticalScale(50),
+    marginBottom: verticalScale(10),
+    marginHorizontal: moderateScale(30),
   },
   svgWrap: {
-    marginVertical: verticalScale(10),
+    marginTop: verticalScale(10),
   },
   midContainer: {
-    marginVertical: verticalScale(10),
+    marginBottom: verticalScale(10),
     alignItems: "flex-start",
     justifyContent: "space-between",
   },
-  checkbox: { marginVertical: verticalScale(10) },
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
