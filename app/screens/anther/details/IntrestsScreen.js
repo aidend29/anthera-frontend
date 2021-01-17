@@ -8,12 +8,14 @@ import {
   appStyles,
   verticalScale,
   scale,
+  googleMatCols,
 } from "../../../../config/index";
 import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
 import AppInputField from "../../../shared/AppInputField";
+import AppTag from "../../../shared/AppTag";
 import { DetailsContext } from "../../../context";
 import { updateProgress, ProgressDots } from "./shared";
 
@@ -23,45 +25,25 @@ import { ScrollView } from "react-native-gesture-handler";
 function IntrestsScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
-  const [interests, setInterests] = useState(null);
-  const [selectedInterests, setSelectedInterests] = useState(
-    <ScrollView
-      horizontal={true}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-    >
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>test</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>beery</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>gasdasdy</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
-      >
-        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  );
+  const [interests, setInterests] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState([]);
+
+  const removeItemFromSeachList = ({ id, interest }) => {
+    const filteredData = interests.filter((item) => {
+      return item.id !== id;
+    });
+    setInterests(filteredData);
+    selectedInterests.push(interest);
+  };
+
+  let colo = 0;
+
+  function test() {
+    const idx = colo % googleMatCols.length;
+    const tmp = googleMatCols[idx];
+    colo++;
+    return tmp;
+  }
 
   return (
     <AppScreen>
@@ -85,7 +67,30 @@ function IntrestsScreen({ navigation }) {
               alignItems: "center",
             }}
           >
-            {selectedInterests}
+            <ScrollView
+              horizontal={true}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            >
+              {selectedInterests.map((item, idx) => {
+                return (
+                  <AppTag
+                    name={item}
+                    key={idx}
+                    closeIcon={true}
+                    style={{ marginRight: moderateScale(10) }}
+                    onPress={() => {
+                      const filtered = selectedInterests.filter(
+                        (item, index) => {
+                          return index !== idx;
+                        }
+                      );
+                      setSelectedInterests(filtered);
+                    }}
+                  ></AppTag>
+                );
+              })}
+            </ScrollView>
           </View>
           <AppInputField
             placeholder="i.e. hiking"
@@ -111,22 +116,17 @@ function IntrestsScreen({ navigation }) {
               data={interests}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity style={styles.listItem}>
-                  <View
-                    style={[
-                      styles.tagWrap,
-                      {
-                        borderColor:
-                          "#" +
-                          Math.floor(Math.random() * 16777215).toString(16),
-                      },
-                    ]}
-                  >
-                    <Text style={[appStyles.text, styles.tagText]}>
-                      # {item.interest}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                <View style={styles.listItem}>
+                  <AppTag
+                    style={{
+                      backgroundColor: test(),
+                    }}
+                    name={item.interest}
+                    onPress={() => {
+                      removeItemFromSeachList(item);
+                    }}
+                  />
+                </View>
               )}
             />
           </View>

@@ -36,7 +36,7 @@ function AppInputField({
         apiCallOnTextChange(text);
         console.log("CALLED API");
       }
-    }, 1000);
+    }, 400);
 
     return () => clearTimeout(delayDebounceFn);
   }, [text]);

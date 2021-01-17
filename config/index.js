@@ -1,6 +1,7 @@
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
 
+import googleMatCols from "./googleMatCols";
 const cssVariables = {
   colors: {
     primary: "#25ABF7", //500
@@ -77,4 +78,11 @@ const appStyles = {
   },
 };
 
-export { cssVariables, appStyles, moderateScale, scale, verticalScale };
+export {
+  cssVariables,
+  appStyles,
+  moderateScale,
+  scale,
+  verticalScale,
+  googleMatCols,
+};
