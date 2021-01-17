@@ -35,7 +35,8 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-web": "~0.13.12",
     "socket.io-client": "^2.1.1",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "expo-blur": "~8.2.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

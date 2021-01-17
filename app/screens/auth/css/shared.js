@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
-import { cssVariables, moderateScale } from "../../../../config";
+import { cssVariables, moderateScale, verticalScale } from "../../../../config";
 
 export default StyleSheet.create({
   container: {
@@ -7,13 +7,13 @@ export default StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 22,
+    marginHorizontal: moderateScale(22),
   },
   inputField: {
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
   },
   titleText: {
-    marginBottom: 45,
+    marginBottom: verticalScale(30),
   },
   btnGrp: {
     width: "100%",

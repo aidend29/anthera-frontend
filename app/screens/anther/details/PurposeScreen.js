@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -14,17 +14,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function PurposeScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
+        <ProgressDots num={3} />
         <AppTextColorCoded
           front="I'm"
           colored=" here"
@@ -33,12 +33,15 @@ function IdentityScreen({ navigation }) {
           animation="fadeInUp"
         />
         <View style={styles.midContainer}>
-          <AppCheckBox text="date" style={styles.checkbox} />
-          <AppCheckBox
-            text="chat and meet new people"
-            style={styles.checkbox}
-          />
-          <AppCheckBox text="see how it goes" style={styles.checkbox} />
+          <AppCheckboxGroup
+            onChange={(idx) => {
+              console.log(idx);
+            }}
+          >
+            <Text>date</Text>
+            <Text>chat and meet new people</Text>
+            <Text>see how it goes</Text>
+          </AppCheckboxGroup>
         </View>
         <View style={styles.svgWrap}>
           <PurposeScreenSvg
@@ -52,7 +55,6 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, -1);
               navigation.navigate("sexualOrientation");
             }}
           />
@@ -60,7 +62,6 @@ function IdentityScreen({ navigation }) {
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
               navigation.navigate("dob");
             }}
           />
@@ -101,4 +102,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default PurposeScreen;

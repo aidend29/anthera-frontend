@@ -53,7 +53,7 @@ function WelcomeScreen({ navigation }) {
             <Text
               style={[
                 appStyles.smHeading,
-
+                { fontFamily: cssVariables.fontFamily.light },
                 {
                   color: cssVariables.colors.primary,
                 },
@@ -68,7 +68,14 @@ function WelcomeScreen({ navigation }) {
                 there!
               </Text>
             </Text>
-            <Text style={appStyles.smHeading}>Lets get you sorted.</Text>
+            <Text
+              style={[
+                appStyles.smHeading,
+                { fontFamily: cssVariables.fontFamily.light },
+              ]}
+            >
+              Lets get you sorted.
+            </Text>
             {/* END:: WELCOME TEXT */}
 
             <View style={styles.btnWrap}>

@@ -9,6 +9,11 @@ import SexualOrientationScreen from "../screens/anther/details/SexualOrientation
 import PurposeScreen from "../screens/anther/details/PurposeScreen";
 import DobScreen from "../screens/anther/details/DobScreen";
 import RelationshipStatus from "../screens/anther/details/RelationshipStatus";
+import IntrestsScreen from "../screens/anther/details/IntrestsScreen";
+import SchoolScreen from "../screens/anther/details/SchoolScreen";
+import OccupationScreen from "../screens/anther/details/OccupationScreen";
+import AlcoholScreen from "../screens/anther/details/AlcoholScreen";
+import SmokeScreen from "../screens/anther/details/SmokeScreen";
 
 function DetailsNaviagtor() {
   const Stack = createStackNavigator();
@@ -30,6 +35,11 @@ function DetailsNaviagtor() {
       <Stack.Screen name="purpose" component={PurposeScreen} />
       <Stack.Screen name="dob" component={DobScreen} />
       <Stack.Screen name="relationshipStatus" component={RelationshipStatus} />
+      <Stack.Screen name="intrests" component={IntrestsScreen} />
+      <Stack.Screen name="school" component={SchoolScreen} />
+      <Stack.Screen name="occupation" component={OccupationScreen} />
+      <Stack.Screen name="alcohol" component={AlcoholScreen} />
+      <Stack.Screen name="smoke" component={SmokeScreen} />
     </Stack.Navigator>
   );
 }

@@ -15,7 +15,7 @@ import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
 import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
+import { updateProgress, ProgressDots } from "./shared";
 
 function IdentityScreen({ navigation }) {
   const [femaleSelected, setFemaleSelected] = useState({
@@ -29,7 +29,7 @@ function IdentityScreen({ navigation }) {
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
+        <ProgressDots num={1} />
         <AppTextColorCoded
           colored="I'm"
           rest="a..."
@@ -80,7 +80,6 @@ function IdentityScreen({ navigation }) {
           <AppButtonRound
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
               navigation.navigate("sexualOrientation");
             }}
           />

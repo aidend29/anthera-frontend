@@ -44,16 +44,15 @@ export default function App() {
         return <AppNaviagtor />;
       } else {
         //Go to details nav
-        return <DetailsNaviagtor />;
+        return (
+          <DetailsContext.Provider value={{ details, setDetails }}>
+            <DetailsNaviagtor />
+          </DetailsContext.Provider>
+        );
       }
     } else {
       //Go to auth nav
-      return (
-        <DetailsContext.Provider value={{ details, setDetails }}>
-          <DetailsNaviagtor />
-        </DetailsContext.Provider>
-      );
-      return <AppNaviagtor />;
+      return <AuthNaviagtor />;
     }
   }
 }

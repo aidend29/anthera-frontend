@@ -1,41 +1,55 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { cssVariables, appStyles, moderateScale } from "../../config";
 
-function AppCheckBox({
-  text,
-  style,
-  color = cssVariables.colors.primary,
-  isChecked,
-}) {
-  const [selected, setSelected] = useState(false);
+const AppCheckBox = forwardRef(
+  ({ style, onChange, text, initializeWith = false }, ref) => {
+    const [_selected, set_Selected] = useState(initializeWith);
 
-  return (
-    <TouchableOpacity
-      style={[styles.container, style]}
-      onPress={() => {
-        setSelected(!selected);
-      }}
-    >
-      {!selected && (
-        <Feather
-          name="circle"
-          size={moderateScale(24)}
-          color={cssVariables.colors.grey}
-        />
-      )}
-      {selected && (
-        <Feather
-          name="check-circle"
-          size={moderateScale(24)}
-          color={cssVariables.colors.primary}
-        />
-      )}
-      <Text style={[appStyles.text, styles.text]}>{text}</Text>
-    </TouchableOpacity>
-  );
-}
+    const setSlected = (value) => {
+      set_Selected(value);
+    };
+
+    useImperativeHandle(ref, () => {
+      return {
+        setSlected: setSlected,
+      };
+    });
+
+    return (
+      <TouchableOpacity
+        style={[styles.container, style]}
+        onPress={() => {
+          set_Selected(!_selected);
+          onChange(!_selected);
+        }}
+      >
+        {!_selected && (
+          <Feather
+            name="circle"
+            size={moderateScale(24)}
+            color={cssVariables.colors.grey}
+          />
+        )}
+        {_selected && (
+          <Feather
+            name="check-circle"
+            size={moderateScale(24)}
+            color={cssVariables.colors.primary}
+          />
+        )}
+        <Text style={[appStyles.text, styles.text]}>{text}</Text>
+      </TouchableOpacity>
+    );
+  }
+);
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

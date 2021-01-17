@@ -15,15 +15,16 @@ import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
 import AppCheckBox from "../../../shared/AppCheckBox";
 import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
+import { DetailsProgressbar, updateProgress, ProgressDots } from "./shared";
+import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 
-function IdentityScreen({ navigation }) {
+function SexualOrientation({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
+        <ProgressDots num={2} />
         <AppTextColorCoded
           front="I would describe "
           colored="my sexual orientation "
@@ -33,14 +34,20 @@ function IdentityScreen({ navigation }) {
         />
         <Text>{detailsContext.detailsProg}</Text>
         <View style={styles.midContainer}>
-          <AppCheckBox text="straight" style={styles.checkbox} />
-          <AppCheckBox text="gay or lesbian" style={styles.checkbox} />
-          <AppCheckBox text="bisexual" style={styles.checkbox} />
-          <AppCheckBox text="asexual" style={styles.checkbox} />
-          <AppCheckBox text="pansexual" style={styles.checkbox} />
-          <AppCheckBox text="questioning" style={styles.checkbox} />
-          <AppCheckBox text="other" style={styles.checkbox} />
-          <AppCheckBox text="prefer not to say" style={styles.checkbox} />
+          <AppCheckboxGroup
+            onChange={(idx) => {
+              console.log(idx);
+            }}
+          >
+            <Text>straight</Text>
+            <Text>gay or lesbian</Text>
+            <Text>bisexual</Text>
+            <Text>asexual</Text>
+            <Text>pansexual</Text>
+            <Text>questioning</Text>
+            <Text>other</Text>
+            <Text>prefer not to say</Text>
+          </AppCheckboxGroup>
         </View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
@@ -54,7 +61,6 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, -1);
               navigation.navigate("identity");
             }}
           />
@@ -62,7 +68,6 @@ function IdentityScreen({ navigation }) {
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
               navigation.navigate("purpose");
             }}
           />
@@ -92,7 +97,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
   },
-  checkbox: { marginVertical: verticalScale(10) },
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
@@ -104,4 +108,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default SexualOrientation;

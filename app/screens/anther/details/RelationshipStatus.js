@@ -14,17 +14,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function RelationshipScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
+        <ProgressDots num={5} />
         <AppTextColorCoded
           front="My "
           colored="relationship status"
@@ -33,11 +33,17 @@ function IdentityScreen({ navigation }) {
           animation="fadeInUp"
         />
         <View style={styles.midContainer}>
-          <AppCheckBox text="single" style={styles.checkbox} />
-          <AppCheckBox text="open" style={styles.checkbox} />
-          <AppCheckBox text="taken" style={styles.checkbox} />
-          <AppCheckBox text="complicated" style={styles.checkbox} />
-          <AppCheckBox text="prefer not to say" style={styles.checkbox} />
+          <AppCheckboxGroup
+            onChange={(idx) => {
+              console.log(idx);
+            }}
+          >
+            <Text>single</Text>
+            <Text>open</Text>
+            <Text>taken</Text>
+            <Text>complicated</Text>
+            <Text>prefer not to say</Text>
+          </AppCheckboxGroup>
         </View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
@@ -51,7 +57,6 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, -1);
               navigation.navigate("dob");
             }}
           />
@@ -59,8 +64,7 @@ function IdentityScreen({ navigation }) {
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
-              navigation.navigate("purpose");
+              navigation.navigate("intrests");
             }}
           />
         </View>
@@ -101,4 +105,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default RelationshipScreen;

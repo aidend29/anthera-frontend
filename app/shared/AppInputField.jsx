@@ -3,7 +3,12 @@ import { Text, TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import { cssVariables, moderateScale, appStyles } from "../../config";
+import {
+  cssVariables,
+  moderateScale,
+  appStyles,
+  verticalScale,
+} from "../../config";
 
 import { useEffect } from "react";
 
@@ -43,6 +48,7 @@ function AppInputField({
           size={25}
         />
         <TextInput
+          placeholderTextColor={cssVariables.colors.semiGrey}
           autoCompleteType="off"
           autoCapitalize={autoCapitalize}
           secureTextEntry={secText}
@@ -83,20 +89,20 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    borderRadius: moderateScale(30),
-    paddingHorizontal: moderateScale(18),
-    borderWidth: moderateScale(1),
+    borderRadius: verticalScale(30),
+    paddingHorizontal: verticalScale(14),
+    borderWidth: verticalScale(1),
     borderColor: cssVariables.colors.lightGrey,
     backgroundColor: cssVariables.colors.lightGrey,
   },
   textInput: {
-    paddingHorizontal: moderateScale(10),
-    paddingVertical: moderateScale(12),
+    paddingHorizontal: verticalScale(10),
+    paddingVertical: verticalScale(8),
     flex: 1,
     fontFamily: cssVariables.fontFamily.medium,
   },
   icon: {
-    paddingVertical: moderateScale(12),
+    paddingVertical: verticalScale(10),
   },
   errorMsg: {
     color: "red",

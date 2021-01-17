@@ -3,7 +3,12 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-import { appStyles, cssVariables, moderateScale } from "../../config";
+import {
+  appStyles,
+  cssVariables,
+  moderateScale,
+  verticalScale,
+} from "../../config";
 
 function AppButton({
   text,
@@ -58,11 +63,11 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     backgroundColor: cssVariables.colors.secondary,
-    borderRadius: moderateScale(25),
+    borderRadius: verticalScale(25),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: moderateScale(1),
+      height: verticalScale(1),
     },
     shadowOpacity: 0.1,
     shadowRadius: 3.22,
@@ -73,15 +78,15 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: cssVariables.colors.white,
-    paddingVertical: moderateScale(12),
-    paddingHorizontal: moderateScale(32),
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: verticalScale(32),
   },
   spinner: {
     color: cssVariables.colors.white,
     fontSize: cssVariables.fontSize.button,
     fontFamily: cssVariables.fontFamily.OpenSansBold,
-    paddingVertical: moderateScale(12),
-    paddingHorizontal: moderateScale(32),
+    paddingVertical: verticalScale(12),
+    paddingHorizontal: verticalScale(32),
   },
 });
 export default AppButton;

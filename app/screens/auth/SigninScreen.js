@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import * as Yup from "yup";
 import jwtDecode from "jwt-decode";
 
@@ -9,7 +9,7 @@ import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
 import AppButton from "../../shared/AppButton";
 import AppCheckBox from "../../shared/AppCheckBox";
 
-import { signin, ping } from "../../api/auth/appAuthService";
+import { handleSignin } from "../../api/auth/appAuthService";
 
 import AppError from "../../shared/AppError";
 import { AuthContext } from "../../context";
@@ -17,11 +17,11 @@ import { appStyles } from "../../../config";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Sorry, email is not valid.")
-    .required("Sorry, email cannot be empty."),
+    .email("sorry, email is not valid.")
+    .required("sorry, email cannot be empty."),
   password: Yup.string()
-    .min(4, "Sorry, password must be 4 or more characters long.")
-    .required("Sorry, password cannot be empty."),
+    .min(4, "sorry, password must be 4 or more characters long.")
+    .required("sorry, password cannot be empty."),
 });
 
 function SigninScreen({ navigation }) {
@@ -31,20 +31,6 @@ function SigninScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {}, []);
-
-  const handleSignin = async (signinInfo) => {
-    setLoading(true);
-    const response = await signin(signinInfo);
-    setLoading(false);
-    console.log(response.data);
-
-    if (!response.ok) {
-      setSigninError("Sorry, email or password is incorrect.");
-    } else {
-      const user = jwtDecode(response.data["token"]);
-      authContext.setUser(user);
-    }
-  };
 
   return (
     <AppScreen>
@@ -59,7 +45,7 @@ function SigninScreen({ navigation }) {
         <AppForm
           initialValues={{ email: "", password: "" }}
           onSubmit={(signinInfo) => {
-            handleSignin(signinInfo);
+            handleSignin(signinInfo, authContext, setLoading, setSigninError);
           }}
           validationSchema={validationSchema}
         >
@@ -83,7 +69,13 @@ function SigninScreen({ navigation }) {
           />
           {/* //END:: PASSWORD FIELD */}
 
-          <AppCheckBox style={styles.remeberText} text="Remember login" />
+          <AppCheckBox
+            style={styles.remeberText}
+            text="Remember login"
+            onChange={(value) => {
+              console.log(value);
+            }}
+          />
 
           {/* //START:: SIGNIN/UP BUTTON GROUP */}
           <View style={styles.btnGrp}>

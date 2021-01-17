@@ -16,14 +16,14 @@ import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
 import AppDatetimePicker from "../../../shared/AppDatetimePicker";
 import { DetailsContext } from "../../../context";
-import { DetailsProgressbar, updateProgress } from "./shared";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function DobScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
   return (
     <AppScreen>
       <View style={styles.container}>
-        {DetailsProgressbar(detailsContext)}
+        <ProgressDots num={4} />
         <AppTextColorCoded
           front="I was "
           colored="born"
@@ -46,7 +46,6 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, -1);
               navigation.navigate("purpose");
             }}
           />
@@ -54,7 +53,6 @@ function IdentityScreen({ navigation }) {
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              updateProgress(detailsContext, 1);
               navigation.navigate("relationshipStatus");
             }}
           />
@@ -95,4 +93,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default DobScreen;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -14,12 +14,16 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import { DetailsContext } from "../../../context";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function OccupationScreen({ navigation }) {
+  const detailsContext = useContext(DetailsContext);
+
   return (
     <AppScreen>
       <View style={styles.container}>
+        <ProgressDots num={8} />
         <AppTextColorCoded
           front="I "
           colored="work"
@@ -40,14 +44,14 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("dob");
+              navigation.navigate("school");
             }}
           />
           <AppButtonRound
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("purpose");
+              navigation.navigate("alcohol");
             }}
           />
         </View>
@@ -88,4 +92,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default OccupationScreen;

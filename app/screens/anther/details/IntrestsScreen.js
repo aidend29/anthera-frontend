@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -14,26 +14,24 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import { DetailsContext } from "../../../context";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function IntrestsScreen({ navigation }) {
+  const detailsContext = useContext(DetailsContext);
+
   return (
     <AppScreen>
       <View style={styles.container}>
+        <ProgressDots num={6} />
         <AppTextColorCoded
-          front="Things I"
-          colored="like doing"
-          rest="are..."
+          front="Things "
+          colored="I like"
+          rest="doing are..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
-        <View style={styles.midContainer}>
-          <AppCheckBox text="single" style={styles.checkbox} />
-          <AppCheckBox text="open" style={styles.checkbox} />
-          <AppCheckBox text="taken" style={styles.checkbox} />
-          <AppCheckBox text="complicated" style={styles.checkbox} />
-          <AppCheckBox text="prefer not to say" style={styles.checkbox} />
-        </View>
+        <View style={styles.midContainer}></View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
             height={verticalScale(200)}
@@ -46,14 +44,14 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("dob");
+              navigation.navigate("relationshipStatus");
             }}
           />
           <AppButtonRound
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("purpose");
+              navigation.navigate("school");
             }}
           />
         </View>
@@ -94,4 +92,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default IntrestsScreen;

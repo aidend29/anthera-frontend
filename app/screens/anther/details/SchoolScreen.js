@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -14,12 +14,18 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
+import AppInputField from "../../../shared/AppInputField";
+import { DetailsContext } from "../../../context";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function SchoolScreen({ navigation }) {
+  const detailsContext = useContext(DetailsContext);
+
   return (
     <AppScreen>
       <View style={styles.container}>
+        <ProgressDots num={7} />
         <AppTextColorCoded
           front="My "
           colored="school"
@@ -28,8 +34,18 @@ function IdentityScreen({ navigation }) {
           animation="fadeInUp"
         />
         <View style={styles.midContainer}>
-          <AppCheckBox text="graduated" style={styles.checkbox} />
-          <AppCheckBox text="still a student" style={styles.checkbox} />
+          {/* <AppInputField
+            placeholder="school or university"
+            style={{ width: moderateScale(200) }}
+          /> */}
+          <AppCheckboxGroup
+            onChange={(idx) => {
+              console.log(idx);
+            }}
+          >
+            <Text>graduated</Text>
+            <Text>still a student</Text>
+          </AppCheckboxGroup>
         </View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
@@ -43,14 +59,14 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("dob");
+              navigation.navigate("intrests");
             }}
           />
           <AppButtonRound
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("purpose");
+              navigation.navigate("occupation");
             }}
           />
         </View>
@@ -91,4 +107,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default SchoolScreen;

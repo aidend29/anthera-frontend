@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -14,23 +14,34 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
-import AppCheckBox from "../../../shared/AppCheckBox";
+import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
+import { DetailsContext } from "../../../context";
+import { updateProgress, ProgressDots } from "./shared";
 
-function IdentityScreen({ navigation }) {
+function SmokeScreen({ navigation }) {
+  const detailsContext = useContext(DetailsContext);
+
   return (
     <AppScreen>
       <View style={styles.container}>
+        <ProgressDots num={10} />
         <AppTextColorCoded
-          front="My relationship with "
-          colored="smoking "
-          rest="is..."
+          front="I "
+          colored="am"
+          rest="..."
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
         <View style={styles.midContainer}>
-          <AppCheckBox text="I smoke" style={styles.checkbox} />
-          <AppCheckBox text="I don't smoke" style={styles.checkbox} />
-          <AppCheckBox text="prefer not to say" style={styles.checkbox} />
+          <AppCheckboxGroup
+            onChange={(idx) => {
+              console.log(idx);
+            }}
+          >
+            <Text>a smoker</Text>
+            <Text>not a smoker</Text>
+            <Text>prefer not to say</Text>
+          </AppCheckboxGroup>
         </View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
@@ -44,14 +55,14 @@ function IdentityScreen({ navigation }) {
             go="back"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("dob");
+              navigation.navigate("alcohol");
             }}
           />
           <AppButtonRound
             icon="leftcircle"
             style={styles.navBtn}
             onPress={() => {
-              navigation.navigate("purpose");
+              navigation.navigate("smoke");
             }}
           />
         </View>
@@ -92,4 +103,4 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(40),
   },
 });
-export default IdentityScreen;
+export default SmokeScreen;

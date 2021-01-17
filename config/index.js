@@ -4,7 +4,7 @@ import { Dimensions } from "react-native";
 const cssVariables = {
   colors: {
     primary: "#25ABF7", //500
-    secondary: "#FFC1F5",
+    secondary: "#fcb6f6",
 
     darkPrimary: "#754C00",
 
@@ -16,7 +16,10 @@ const cssVariables = {
     grey: "#a6a6a6",
     midGrey: "#747474",
     lightGrey: "#F3F3F3",
+    lightGrey: "#F3F3F3",
     darkGrey: "#333333",
+
+    semiGrey: "#cccccc",
 
     error: "#ff0000",
   },
