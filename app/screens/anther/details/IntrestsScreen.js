@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { useContext, useState } from "react";
+import { Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -10,15 +10,58 @@ import {
   scale,
 } from "../../../../config/index";
 import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
+import AppInputField from "../../../shared/AppInputField";
 import { DetailsContext } from "../../../context";
 import { updateProgress, ProgressDots } from "./shared";
 
+import { getInterests } from "../../../api/details";
+import { ScrollView } from "react-native-gesture-handler";
+
 function IntrestsScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+
+  const [interests, setInterests] = useState(null);
+  const [selectedInterests, setSelectedInterests] = useState(
+    <ScrollView
+      horizontal={true}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    >
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>test</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>beery</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>gasdasdy</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tagWrap, { marginRight: moderateScale(10) }]}
+      >
+        <Text style={[appStyles.text, styles.tagText]}>gasdasdytest</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
 
   return (
     <AppScreen>
@@ -31,7 +74,63 @@ function IntrestsScreen({ navigation }) {
           styles={[appStyles.smHeading, styles.title]}
           animation="fadeInUp"
         />
-        <View style={styles.midContainer}></View>
+        <View style={styles.midContainer}>
+          <View
+            style={{
+              width: moderateScale(300),
+              height: verticalScale(100),
+              marginBottom: verticalScale(10),
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {selectedInterests}
+          </View>
+          <AppInputField
+            placeholder="i.e. hiking"
+            icon="magnify"
+            onChangeText={() => {}}
+            apiCallOnTextChange={(text) => {
+              getInterests(text, (data) => {
+                // console.log(data.data);
+                setInterests(data.data);
+              });
+            }}
+          />
+          <View
+            style={{
+              width: moderateScale(300),
+              height: verticalScale(200),
+              marginTop: verticalScale(10),
+            }}
+          >
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={interests}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.listItem}>
+                  <View
+                    style={[
+                      styles.tagWrap,
+                      {
+                        borderColor:
+                          "#" +
+                          Math.floor(Math.random() * 16777215).toString(16),
+                      },
+                    ]}
+                  >
+                    <Text style={[appStyles.text, styles.tagText]}>
+                      # {item.interest}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </View>
         {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
             height={verticalScale(200)}
@@ -76,9 +175,11 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(10),
   },
   midContainer: {
+    marginHorizontal: moderateScale(20),
     marginVertical: verticalScale(10),
     alignItems: "flex-start",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   checkbox: { marginVertical: verticalScale(10) },
   navBtnContainer: {
@@ -90,6 +191,18 @@ const styles = StyleSheet.create({
   },
   navBtn: {
     marginHorizontal: moderateScale(40),
+  },
+  tagText: {
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: verticalScale(8),
+  },
+  tagWrap: {
+    borderWidth: 1.5,
+    borderRadius: 30,
+  },
+  listItem: {
+    flexDirection: "row",
+    marginBottom: verticalScale(10),
   },
 });
 export default IntrestsScreen;

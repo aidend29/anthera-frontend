@@ -24,10 +24,22 @@ function AppInputField({
   touched,
   onBlur,
   autoCapitalize,
+  apiCallOnTextChange = null,
 }) {
   const [close, setClose] = useState(false);
   const [text, setText] = useState("");
   const [errorDisplay, setErrorDisplay] = useState(false);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (text) {
+        apiCallOnTextChange(text);
+        console.log("CALLED API");
+      }
+    }, 1000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [text]);
 
   useEffect(() => {
     if (errorMsg && touched) {
@@ -57,6 +69,11 @@ function AppInputField({
             setText(text);
             text.length > 0 ? setClose(true) : setClose(false);
             onChangeText(text);
+
+            // clearTimeout(timeout);
+            // const timeout = setTimeout(() => {
+            //   console.log("time finished");
+            // }, 5000);
           }}
           onBlur={onBlur}
           placeholder={placeholder}
@@ -97,12 +114,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     paddingHorizontal: verticalScale(10),
-    paddingVertical: verticalScale(8),
+    paddingVertical: verticalScale(12),
     flex: 1,
     fontFamily: cssVariables.fontFamily.medium,
   },
   icon: {
-    paddingVertical: verticalScale(10),
+    paddingTop: verticalScale(12),
   },
   errorMsg: {
     color: "red",

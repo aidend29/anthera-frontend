@@ -45,7 +45,7 @@ function AppButton({
           easing="ease-in-sine"
           iterationCount="infinite"
         >
-          <AntDesign name="loading1" size={moderateScale(18)} color="white" />
+          <AntDesign name="loading1" size={moderateScale(13)} color="white" />
         </Animatable.View>
       )}
       {!isLoading && (
