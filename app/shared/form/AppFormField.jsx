@@ -10,6 +10,7 @@ function AppFormField({ name, ...otherProps }) {
       onChangeText={handleChange(name)}
       errorMsg={errors[name]}
       touched={touched[name]}
+      lineMode={false}
       onBlur={() => {
         setFieldTouched(name);
       }}

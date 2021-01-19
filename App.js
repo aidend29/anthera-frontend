@@ -51,7 +51,7 @@ export default function App() {
         );
       }
     } else {
-      //Go to auth nav
+      // Go to auth nav
       return (
         <DetailsContext.Provider value={{ details, setDetails }}>
           <DetailsNaviagtor />

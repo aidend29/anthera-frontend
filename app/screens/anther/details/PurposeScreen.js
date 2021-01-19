@@ -23,49 +23,47 @@ function PurposeScreen({ navigation }) {
 
   return (
     <AppScreen>
-      <View style={styles.container}>
-        <ProgressDots num={3} />
-        <AppTextColorCoded
-          front="I'm"
-          colored=" here"
-          rest="to..."
-          styles={[appStyles.smHeading, styles.title]}
-          animation="fadeInUp"
+      <ProgressDots num={3} />
+      <AppTextColorCoded
+        front="I'm"
+        colored=" here"
+        rest="to..."
+        styles={[appStyles.smHeading, styles.title]}
+        animation="fadeInUp"
+      />
+      <View style={styles.midContainer}>
+        <AppCheckboxGroup
+          onChange={(idx) => {
+            console.log(idx);
+          }}
+        >
+          <Text>date</Text>
+          <Text>chat and meet new people</Text>
+          <Text>see how it goes</Text>
+        </AppCheckboxGroup>
+      </View>
+      <View style={styles.svgWrap}>
+        <PurposeScreenSvg
+          height={verticalScale(200)}
+          width={moderateScale(200)}
         />
-        <View style={styles.midContainer}>
-          <AppCheckboxGroup
-            onChange={(idx) => {
-              console.log(idx);
-            }}
-          >
-            <Text>date</Text>
-            <Text>chat and meet new people</Text>
-            <Text>see how it goes</Text>
-          </AppCheckboxGroup>
-        </View>
-        <View style={styles.svgWrap}>
-          <PurposeScreenSvg
-            height={verticalScale(200)}
-            width={moderateScale(200)}
-          />
-        </View>
-        <View style={styles.navBtnContainer}>
-          <AppButtonRound
-            icon="leftcircle"
-            go="back"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("sexualOrientation");
-            }}
-          />
-          <AppButtonRound
-            icon="leftcircle"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("dob");
-            }}
-          />
-        </View>
+      </View>
+      <View style={styles.navBtnContainer}>
+        <AppButtonRound
+          icon="leftcircle"
+          go="back"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("sexualOrientation");
+          }}
+        />
+        <AppButtonRound
+          icon="leftcircle"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("dob");
+          }}
+        />
       </View>
     </AppScreen>
   );
@@ -94,12 +92,12 @@ const styles = StyleSheet.create({
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },
   navBtn: {
-    marginHorizontal: moderateScale(40),
+    marginHorizontal: moderateScale(140),
   },
 });
 export default PurposeScreen;

@@ -22,41 +22,36 @@ function DobScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
   return (
     <AppScreen>
-      <View style={styles.container}>
-        <ProgressDots num={4} />
-        <AppTextColorCoded
-          front="I was "
-          colored="born"
-          rest="on..."
-          styles={[appStyles.smHeading, styles.title]}
-          animation="fadeInUp"
+      <ProgressDots num={4} />
+      <AppTextColorCoded
+        front="I was "
+        colored="born"
+        rest="on..."
+        styles={[appStyles.smHeading, styles.title]}
+        animation="fadeInUp"
+      />
+      <View style={styles.svgWrap}>
+        <DobScreenSvg height={verticalScale(200)} width={moderateScale(200)} />
+      </View>
+      <View style={styles.midContainer}>
+        <AppDatetimePicker _mode="date" />
+      </View>
+      <View style={styles.navBtnContainer}>
+        <AppButtonRound
+          icon="leftcircle"
+          go="back"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("purpose");
+          }}
         />
-        <View style={styles.svgWrap}>
-          <DobScreenSvg
-            height={verticalScale(200)}
-            width={moderateScale(200)}
-          />
-        </View>
-        <View style={styles.midContainer}>
-          <AppDatetimePicker _mode="date" />
-        </View>
-        <View style={styles.navBtnContainer}>
-          <AppButtonRound
-            icon="leftcircle"
-            go="back"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("purpose");
-            }}
-          />
-          <AppButtonRound
-            icon="leftcircle"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("relationshipStatus");
-            }}
-          />
-        </View>
+        <AppButtonRound
+          icon="leftcircle"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("relationshipStatus");
+          }}
+        />
       </View>
     </AppScreen>
   );
@@ -85,12 +80,12 @@ const styles = StyleSheet.create({
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },
   navBtn: {
-    marginHorizontal: moderateScale(40),
+    marginHorizontal: moderateScale(140),
   },
 });
 export default DobScreen;

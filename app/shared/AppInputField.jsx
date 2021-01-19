@@ -25,16 +25,27 @@ function AppInputField({
   onBlur,
   autoCapitalize,
   apiCallOnTextChange = null,
+  lineMode = true,
 }) {
   const [close, setClose] = useState(false);
   const [text, setText] = useState("");
   const [errorDisplay, setErrorDisplay] = useState(false);
 
+  if (lineMode) {
+    lineMode = {
+      container: styles._container,
+      text: styles._textInput,
+      icon: styles._icon,
+    };
+  }
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (text) {
-        apiCallOnTextChange(text);
-        console.log("CALLED API");
+        if (apiCallOnTextChange) {
+          apiCallOnTextChange(text);
+        }
+        // console.log("CALLED API");
       }
     }, 400);
 
@@ -52,13 +63,15 @@ function AppInputField({
   return (
     <>
       <AppError error={errorDisplay} visible={errorDisplay} />
-      <View style={[styles.container, style]}>
-        <MaterialCommunityIcons
-          style={styles.icon}
-          name={icon}
-          color={cssVariables.colors.midGrey}
-          size={25}
-        />
+      <View style={[styles.container, lineMode.container, style]}>
+        {icon != null && (
+          <MaterialCommunityIcons
+            style={[styles.icon, lineMode.icon]}
+            name={icon}
+            color={cssVariables.colors.midGrey}
+            size={25}
+          />
+        )}
         <TextInput
           placeholderTextColor={cssVariables.colors.semiGrey}
           autoCompleteType="off"
@@ -77,7 +90,7 @@ function AppInputField({
           }}
           onBlur={onBlur}
           placeholder={placeholder}
-          style={[appStyles.text, styles.textInput]}
+          style={[appStyles.text, styles.textInput, lineMode.text]}
         />
 
         {close && (
@@ -89,7 +102,7 @@ function AppInputField({
                 onChangeText("");
                 touched = false;
               }}
-              style={styles.icon}
+              style={[styles.icon, lineMode.icon]}
               name="close-circle-sharp"
               size={24}
               color={cssVariables.colors.midGrey}
@@ -112,14 +125,33 @@ const styles = StyleSheet.create({
     borderColor: cssVariables.colors.lightGrey,
     backgroundColor: cssVariables.colors.lightGrey,
   },
+
   textInput: {
     paddingHorizontal: verticalScale(10),
-    paddingVertical: verticalScale(12),
+    paddingVertical: verticalScale(10),
     flex: 1,
     fontFamily: cssVariables.fontFamily.medium,
   },
   icon: {
-    paddingTop: verticalScale(12),
+    paddingTop: verticalScale(10),
+  },
+  _container: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingHorizontal: verticalScale(14),
+    borderBottomWidth: verticalScale(2),
+    backgroundColor: cssVariables.colors.white,
+    borderWidth: 0,
+    borderBottomWidth: verticalScale(1),
+    borderBottomColor: cssVariables.colors.grey,
+    borderRadius: 0,
+  },
+  _textInput: {
+    paddingVertical: verticalScale(5),
+  },
+  _icon: {
+    paddingTop: verticalScale(5),
   },
   errorMsg: {
     color: "red",

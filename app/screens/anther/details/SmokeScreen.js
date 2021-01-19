@@ -23,49 +23,47 @@ function SmokeScreen({ navigation }) {
 
   return (
     <AppScreen>
-      <View style={styles.container}>
-        <ProgressDots num={10} />
-        <AppTextColorCoded
-          front="I "
-          colored="am"
-          rest="..."
-          styles={[appStyles.smHeading, styles.title]}
-          animation="fadeInUp"
-        />
-        <View style={styles.midContainer}>
-          <AppCheckboxGroup
-            onChange={(idx) => {
-              console.log(idx);
-            }}
-          >
-            <Text>a smoker</Text>
-            <Text>not a smoker</Text>
-            <Text>prefer not to say</Text>
-          </AppCheckboxGroup>
-        </View>
-        {/* <View style={styles.svgWrap}>
+      <ProgressDots num={10} />
+      <AppTextColorCoded
+        front="I "
+        colored="am"
+        rest="..."
+        styles={[appStyles.smHeading, styles.title]}
+        animation="fadeInUp"
+      />
+      <View style={styles.midContainer}>
+        <AppCheckboxGroup
+          onChange={(idx) => {
+            console.log(idx);
+          }}
+        >
+          <Text>a smoker</Text>
+          <Text>not a smoker</Text>
+          <Text>prefer not to say</Text>
+        </AppCheckboxGroup>
+      </View>
+      {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
             height={verticalScale(200)}
             width={moderateScale(200)}
           />
         </View> */}
-        <View style={styles.navBtnContainer}>
-          <AppButtonRound
-            icon="leftcircle"
-            go="back"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("alcohol");
-            }}
-          />
-          <AppButtonRound
-            icon="leftcircle"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("smoke");
-            }}
-          />
-        </View>
+      <View style={styles.navBtnContainer}>
+        <AppButtonRound
+          icon="leftcircle"
+          go="back"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("alcohol");
+          }}
+        />
+        <AppButtonRound
+          icon="leftcircle"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("smoke");
+          }}
+        />
       </View>
     </AppScreen>
   );
@@ -95,12 +93,12 @@ const styles = StyleSheet.create({
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },
   navBtn: {
-    marginHorizontal: moderateScale(40),
+    marginHorizontal: moderateScale(140),
   },
 });
 export default SmokeScreen;

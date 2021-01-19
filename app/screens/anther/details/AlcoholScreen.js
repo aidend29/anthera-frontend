@@ -23,50 +23,48 @@ function AlcoholScreen({ navigation }) {
 
   return (
     <AppScreen>
-      <View style={styles.container}>
-        <ProgressDots num={9} />
-        <AppTextColorCoded
-          front="I "
-          colored="am"
-          rest="..."
-          styles={[appStyles.smHeading, styles.title]}
-          animation="fadeInUp"
-        />
-        <View style={styles.midContainer}>
-          <AppCheckboxGroup
-            onChange={(idx) => {
-              console.log(idx);
-            }}
-          >
-            <Text>a drinker</Text>
-            <Text>not a drinker</Text>
-            <Text>a occasional drinker</Text>
-            <Text>prefer not to say</Text>
-          </AppCheckboxGroup>
-        </View>
-        {/* <View style={styles.svgWrap}>
+      <ProgressDots num={9} />
+      <AppTextColorCoded
+        front="I "
+        colored="am"
+        rest="..."
+        styles={[appStyles.smHeading, styles.title]}
+        animation="fadeInUp"
+      />
+      <View style={styles.midContainer}>
+        <AppCheckboxGroup
+          onChange={(idx) => {
+            console.log(idx);
+          }}
+        >
+          <Text>a drinker</Text>
+          <Text>not a drinker</Text>
+          <Text>a occasional drinker</Text>
+          <Text>prefer not to say</Text>
+        </AppCheckboxGroup>
+      </View>
+      {/* <View style={styles.svgWrap}>
           <PurposeScreenSvg
             height={verticalScale(200)}
             width={moderateScale(200)}
           />
         </View> */}
-        <View style={styles.navBtnContainer}>
-          <AppButtonRound
-            icon="leftcircle"
-            go="back"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("occupation");
-            }}
-          />
-          <AppButtonRound
-            icon="leftcircle"
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("smoke");
-            }}
-          />
-        </View>
+      <View style={styles.navBtnContainer}>
+        <AppButtonRound
+          icon="leftcircle"
+          go="back"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("occupation");
+          }}
+        />
+        <AppButtonRound
+          icon="leftcircle"
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("smoke");
+          }}
+        />
       </View>
     </AppScreen>
   );
@@ -96,12 +94,12 @@ const styles = StyleSheet.create({
   navBtnContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },
   navBtn: {
-    marginHorizontal: moderateScale(40),
+    marginHorizontal: moderateScale(140),
   },
 });
 export default AlcoholScreen;

@@ -10,28 +10,30 @@ import {
   cssVariables,
   googleMatCols,
 } from "../../config";
-function AppTag({ name, style, closeIcon = null, onPress }) {
+function AppTag({
+  name,
+  style,
+  closeIcon = null,
+  onPress,
+  foregroundColor = "red",
+}) {
   return (
     <TouchableOpacity
       onPress={(evt) => {
         onPress(evt);
       }}
-      style={[
-        styles.tagWrap,
-        {
-          backgroundColor:
-            googleMatCols[Math.floor(Math.random() * googleMatCols.length)],
-        },
-        ,
-        style,
-      ]}
+      style={[styles.tagWrap, style]}
     >
-      <Text style={[appStyles.text, styles.tagText]}>#{name}</Text>
+      <Text
+        style={[appStyles.text, styles.tagText, { color: foregroundColor }]}
+      >
+        {name}
+      </Text>
       {closeIcon && (
         <Ionicons
           name="md-close-circle"
           size={24}
-          color={cssVariables.colors.lightGrey}
+          color={foregroundColor}
           style={{ marginRight: moderateScale(8) }}
         />
       )}
@@ -41,10 +43,10 @@ function AppTag({ name, style, closeIcon = null, onPress }) {
 
 const styles = StyleSheet.create({
   tagText: {
-    paddingLeft: moderateScale(10),
+    color: cssVariables.colors.darkGrey,
+    paddingLeft: moderateScale(12),
     paddingRight: moderateScale(10),
     paddingVertical: verticalScale(8),
-    color: "white",
   },
   tagWrap: {
     flexDirection: "row",

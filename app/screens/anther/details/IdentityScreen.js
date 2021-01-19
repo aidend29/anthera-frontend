@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, StatusBar } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
 import {
@@ -14,6 +14,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-animatable";
 import AppTextColorCoded from "../../../shared/AppTextColorCoded";
 import AppButtonRound from "../../../shared/AppButtonRound";
+import AppInputField from "../../../shared/AppInputField";
 import { DetailsContext } from "../../../context";
 import { updateProgress, ProgressDots } from "./shared";
 
@@ -28,62 +29,62 @@ function IdentityScreen({ navigation }) {
 
   return (
     <AppScreen>
-      <View style={styles.container}>
-        <ProgressDots num={1} />
-        <AppTextColorCoded
-          colored="I'm"
-          rest="a..."
-          styles={[appStyles.smHeading, styles.title]}
-          animation="fadeInUp"
+      <Text style={{ alignSelf: "center" }}>FUCKER</Text>
+      <ProgressDots num={1} />
+      <AppTextColorCoded
+        colored="I'm"
+        rest="a..."
+        styles={[appStyles.smHeading, styles.title]}
+        animation="fadeInUp"
+      />
+      <View style={styles.svgWrap}>
+        <IdentityScreenSvg
+          height={verticalScale(250)}
+          width={moderateScale(250)}
         />
-        <View style={styles.svgWrap}>
-          <IdentityScreenSvg
-            height={verticalScale(250)}
-            width={moderateScale(250)}
-          />
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity
-            style={[styles.btnLeft, femaleSelected.btnSelected]}
-            onPress={() => {
-              setMaleSelected({});
-              setFemaleSelected({
-                btnSelected: styles.btnSelected,
-                textSelected: styles.textSelected,
-              });
-            }}
+      </View>
+
+      <View style={styles.rowContainer}>
+        <TouchableOpacity
+          style={[styles.btnLeft, femaleSelected.btnSelected]}
+          onPress={() => {
+            setMaleSelected({});
+            setFemaleSelected({
+              btnSelected: styles.btnSelected,
+              textSelected: styles.textSelected,
+            });
+          }}
+        >
+          <Text
+            style={[appStyles.text, styles.text, femaleSelected.textSelected]}
           >
-            <Text
-              style={[appStyles.text, styles.text, femaleSelected.textSelected]}
-            >
-              Female
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.btnRight, maleSelected.btnSelected]}
-            onPress={() => {
-              setFemaleSelected({});
-              setMaleSelected({
-                btnSelected: styles.btnSelected,
-                textSelected: styles.textSelected,
-              });
-            }}
+            Female
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.btnRight, maleSelected.btnSelected]}
+          onPress={() => {
+            setFemaleSelected({});
+            setMaleSelected({
+              btnSelected: styles.btnSelected,
+              textSelected: styles.textSelected,
+            });
+          }}
+        >
+          <Text
+            style={[appStyles.text, styles.text, maleSelected.textSelected]}
           >
-            <Text
-              style={[appStyles.text, styles.text, maleSelected.textSelected]}
-            >
-              Male
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.navBtnContainer}>
-          <AppButtonRound
-            style={styles.navBtn}
-            onPress={() => {
-              navigation.navigate("sexualOrientation");
-            }}
-          />
-        </View>
+            Male
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.navBtnContainer}>
+        <AppButtonRound
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.navigate("sexualOrientation");
+          }}
+        />
       </View>
     </AppScreen>
   );
@@ -92,9 +93,9 @@ function IdentityScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
+    backgroundColor: "red",
   },
   title: {
     marginTop: verticalScale(10),
@@ -143,9 +144,10 @@ const styles = StyleSheet.create({
     fontFamily: cssVariables.fontFamily.heavy,
   },
   navBtnContainer: {
+    backgroundColor: "red",
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },

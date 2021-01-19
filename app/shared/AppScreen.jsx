@@ -4,18 +4,22 @@ import {
   StatusBar,
   SafeAreaView,
   View,
+  ScrollView,
+  KeyboardAvoidingView,
   StyleSheet,
 } from "react-native";
-import config from "../../config";
+
+import config, { moderateScale, verticalScale } from "../../config";
 import { cssVariables } from "../../config";
 
 function AppScreen({ children, style }) {
   if (Platform.OS === "ios") {
     return (
-      <>
-        <SafeAreaView></SafeAreaView>
-        {children}
-      </>
+      <SafeAreaView style={styles.safeArea}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          {children}
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     );
   } else {
     return (
@@ -25,18 +29,29 @@ function AppScreen({ children, style }) {
           barStyle="dark-content"
           translucent={true}
         />
-        {children}
+        <View style={[styles.safeArea, styles.android]}>
+          <KeyboardAvoidingView style={styles.container} behavior="padding">
+            {children}
+          </KeyboardAvoidingView>
+        </View>
       </>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    paddingTop: StatusBar.currentHeight,
+  safeArea: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
-  screenAndroid: {
-    top: StatusBar.currentHeight - StatusBar.currentHeight / 6,
+  android: {
+    paddingTop: StatusBar.currentHeight + verticalScale(10),
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 
