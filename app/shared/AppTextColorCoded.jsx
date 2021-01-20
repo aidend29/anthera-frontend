@@ -10,7 +10,7 @@ function AppTextColorCoded(
 ) {
   return (
     <Animatable.Text {...animationProp} style={[appStyles.text, styles]}>
-      {front}
+      {front}{" "}
       <Text
         {...props}
         style={[

@@ -1,22 +1,16 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, StatusBar } from "react-native";
-import AppScreen from "../../../shared/AppScreen";
+import { Text, StyleSheet, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import {
   cssVariables,
   moderateScale,
   appStyles,
   verticalScale,
-  scale,
-} from "../../../../config/index";
+} from "../../../../config";
 import IdentityScreenSvg from "../../../assets/svg/IdentityScreenSvg";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { View } from "react-native-animatable";
-import AppTextColorCoded from "../../../shared/AppTextColorCoded";
-import AppButtonRound from "../../../shared/AppButtonRound";
-import AppInputField from "../../../shared/AppInputField";
 import { DetailsContext } from "../../../context";
-import { updateProgress, ProgressDots } from "./shared";
+import AppDetail from "../../../shared/AppDetail";
 
 function IdentityScreen({ navigation }) {
   const [femaleSelected, setFemaleSelected] = useState({
@@ -28,22 +22,26 @@ function IdentityScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
   return (
-    <AppScreen>
-      <Text style={{ alignSelf: "center" }}>FUCKER</Text>
-      <ProgressDots num={1} />
-      <AppTextColorCoded
-        colored="I'm"
-        rest="a..."
-        styles={[appStyles.smHeading, styles.title]}
-        animation="fadeInUp"
-      />
-      <View style={styles.svgWrap}>
-        <IdentityScreenSvg
-          height={verticalScale(250)}
-          width={moderateScale(250)}
-        />
-      </View>
-
+    <AppDetail
+      //Header
+      headerTextColored="I'm"
+      headerTextRest="a..."
+      //Svg
+      Svgname={IdentityScreenSvg}
+      svgWidth={200}
+      svgHeight={200}
+      //Navigation
+      botNavIsPrevious={false}
+      botNavOnPressRight={() => {
+        //setContext
+        console.log(
+          Boolean(maleSelected.btnSelected)
+            ? "Male selected"
+            : "Female selected"
+        );
+        navigation.navigate("sexualOrientation");
+      }}
+    >
       <View style={styles.rowContainer}>
         <TouchableOpacity
           style={[styles.btnLeft, femaleSelected.btnSelected]}
@@ -78,32 +76,11 @@ function IdentityScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.navBtnContainer}>
-        <AppButtonRound
-          style={styles.navBtn}
-          onPress={() => {
-            navigation.navigate("sexualOrientation");
-          }}
-        />
-      </View>
-    </AppScreen>
+    </AppDetail>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "red",
-  },
-  title: {
-    marginTop: verticalScale(10),
-    marginBottom: verticalScale(10),
-  },
-  svgWrap: {
-    marginVertical: verticalScale(10),
-  },
   rowContainer: {
     flexDirection: "row",
     marginVertical: verticalScale(10),
@@ -112,23 +89,41 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: moderateScale(5),
     borderBottomLeftRadius: moderateScale(5),
     borderColor: cssVariables.colors.secondary,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
+    borderTopWidth: moderateScale(0.7),
+    borderBottomWidth: moderateScale(0.7),
+    borderLeftWidth: moderateScale(0.7),
 
     width: moderateScale(120),
     alignItems: "center",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(1),
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.22,
+    elevation: 1,
   },
   btnRight: {
     borderTopRightRadius: moderateScale(5),
     borderBottomRightRadius: moderateScale(5),
     borderColor: cssVariables.colors.secondary,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
+    borderTopWidth: moderateScale(0.7),
+    borderBottomWidth: moderateScale(0.7),
+    borderRightWidth: moderateScale(0.7),
 
     width: moderateScale(120),
     alignItems: "center",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(1),
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.22,
+    elevation: 1,
   },
   text: {
     paddingVertical: verticalScale(10),
@@ -142,17 +137,6 @@ const styles = StyleSheet.create({
   textSelected: {
     color: cssVariables.colors.white,
     fontFamily: cssVariables.fontFamily.heavy,
-  },
-  navBtnContainer: {
-    backgroundColor: "red",
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "flex-end",
-    marginBottom: verticalScale(60),
-  },
-  navBtn: {
-    marginHorizontal: moderateScale(40),
   },
 });
 export default IdentityScreen;

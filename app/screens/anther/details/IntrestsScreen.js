@@ -22,6 +22,8 @@ import { getInterests } from "../../../api/details";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 
+import AppDetail from "../../../shared/AppDetail";
+
 function IntrestsScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
@@ -48,19 +50,26 @@ function IntrestsScreen({ navigation }) {
     handleInput("photo");
   }, []);
   return (
-    <AppScreen>
-      <ProgressDots num={6} />
-      <AppTextColorCoded
-        front="Things "
-        colored="I like"
-        rest="doing are..."
-        styles={[appStyles.smHeading, styles.title]}
-        animation="fadeInUp"
-      />
-      <View style={styles.midContainer}>
+    <AppDetail
+      progressNum={6}
+      //Header
+      headerTextFront="Things"
+      headerTextColored="I like"
+      headerTextRest="doing are..."
+      //Svg
+      //Navigation
+      botNavOnPressLeft={() => {
+        navigation.navigate("relationshipStatus");
+      }}
+      botNavOnPressRight={() => {
+        //setContext
+        console.log("Dob selected", true);
+        navigation.navigate("school");
+      }}
+    >
+      <View style={{ marginHorizontal: moderateScale(50) }}>
         <View
           style={{
-            width: moderateScale(300),
             height: verticalScale(100),
             marginBottom: verticalScale(10),
             flexDirection: "row",
@@ -105,7 +114,6 @@ function IntrestsScreen({ navigation }) {
         />
         <View
           style={{
-            width: moderateScale(300),
             height: verticalScale(200),
             marginTop: verticalScale(10),
           }}
@@ -139,67 +147,12 @@ function IntrestsScreen({ navigation }) {
             }}
           />
         </View>
-        {/* <View style={styles.svgWrap}>
-          <PurposeScreenSvg
-            height={verticalScale(200)}
-            width={moderateScale(200)}
-          />
-        </View> */}
       </View>
-      <View style={styles.navBtnContainer}>
-        <AppButtonRound
-          icon="leftcircle"
-          go="back"
-          style={styles.navBtn}
-          onPress={() => {
-            navigation.navigate("relationshipStatus");
-          }}
-        />
-        <AppButtonRound
-          icon="leftcircle"
-          style={styles.navBtn}
-          onPress={() => {
-            navigation.navigate("school");
-          }}
-        />
-      </View>
-    </AppScreen>
+    </AppDetail>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  title: {
-    marginTop: verticalScale(40),
-    marginBottom: verticalScale(10),
-    marginHorizontal: moderateScale(30),
-  },
-  svgWrap: {
-    marginVertical: verticalScale(10),
-  },
-  midContainer: {
-    marginHorizontal: moderateScale(40),
-    marginVertical: verticalScale(10),
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  checkbox: { marginVertical: verticalScale(10) },
-  navBtnContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "flex-end",
-    marginBottom: verticalScale(60),
-  },
-  navBtn: {
-    marginHorizontal: moderateScale(140),
-  },
   tagText: {
     paddingHorizontal: moderateScale(10),
     paddingVertical: verticalScale(8),

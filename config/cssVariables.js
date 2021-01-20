@@ -5,8 +5,8 @@ const windowHeight = Dimensions.get("window").height;
 
 const cssVariables = {
   colors: {
-    primary: "#25ABF7", //500
-    secondary: "#fcb6f6",
+    primary: "#2170FC", //500
+    secondary: "#CFDFF7",
 
     darkPrimary: "#754C00",
 
@@ -44,8 +44,8 @@ const cssVariables = {
   },
 
   fontSize: {
-    text: moderateScale(16),
-    smHeading: moderateScale(24),
+    text: moderateScale(15),
+    smHeading: moderateScale(20),
     heading: moderateScale(32),
     lgHeading: moderateScale(42),
   },

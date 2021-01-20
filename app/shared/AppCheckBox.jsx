@@ -5,8 +5,11 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import { cssVariables, appStyles, moderateScale } from "../../config";
+import Checkbox from "../assets/svg/CheckboxChecked";
+import CheckboxChecked from "../assets/svg/Checkbox";
+import * as Animatable from "react-native-animatable";
 
 const AppCheckBox = forwardRef(
   ({ style, onChange, text, initializeWith = false }, ref) => {
@@ -31,18 +34,13 @@ const AppCheckBox = forwardRef(
         }}
       >
         {!_selected && (
-          <Feather
-            name="circle"
-            size={moderateScale(24)}
-            color={cssVariables.colors.grey}
+          <CheckboxChecked
+            width={moderateScale(22)}
+            height={moderateScale(22)}
           />
         )}
         {_selected && (
-          <Feather
-            name="check-circle"
-            size={moderateScale(24)}
-            color={cssVariables.colors.primary}
-          />
+          <Checkbox width={moderateScale(22)} height={moderateScale(22)} />
         )}
         <Text style={[appStyles.text, styles.text]}>{text}</Text>
       </TouchableOpacity>

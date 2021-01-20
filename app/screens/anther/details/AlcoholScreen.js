@@ -1,72 +1,43 @@
 import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
-import AppScreen from "../../../shared/AppScreen";
 
-import {
-  cssVariables,
-  moderateScale,
-  appStyles,
-  verticalScale,
-  scale,
-} from "../../../../config/index";
-import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { View } from "react-native-animatable";
-import AppTextColorCoded from "../../../shared/AppTextColorCoded";
-import AppButtonRound from "../../../shared/AppButtonRound";
+import AppDetail from "../../../shared/AppDetail";
+import { moderateScale, verticalScale } from "../../../../config/index";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
-import { updateProgress, ProgressDots } from "./shared";
 
 function AlcoholScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
   return (
-    <AppScreen>
-      <ProgressDots num={9} />
-      <AppTextColorCoded
-        front="I "
-        colored="am"
-        rest="..."
-        styles={[appStyles.smHeading, styles.title]}
-        animation="fadeInUp"
-      />
-      <View style={styles.midContainer}>
-        <AppCheckboxGroup
-          onChange={(idx) => {
-            console.log(idx);
-          }}
-        >
-          <Text>a drinker</Text>
-          <Text>not a drinker</Text>
-          <Text>a occasional drinker</Text>
-          <Text>prefer not to say</Text>
-        </AppCheckboxGroup>
-      </View>
-      {/* <View style={styles.svgWrap}>
-          <PurposeScreenSvg
-            height={verticalScale(200)}
-            width={moderateScale(200)}
-          />
-        </View> */}
-      <View style={styles.navBtnContainer}>
-        <AppButtonRound
-          icon="leftcircle"
-          go="back"
-          style={styles.navBtn}
-          onPress={() => {
-            navigation.navigate("occupation");
-          }}
-        />
-        <AppButtonRound
-          icon="leftcircle"
-          style={styles.navBtn}
-          onPress={() => {
-            navigation.navigate("smoke");
-          }}
-        />
-      </View>
-    </AppScreen>
+    <AppDetail
+      progressNum={9}
+      //Header
+      headerTextFront="I"
+      headerTextColored="am"
+      headerTextRest="..."
+      //Svg
+      //Navigation
+      botNavOnPressLeft={() => {
+        navigation.navigate("occupation");
+      }}
+      botNavOnPressRight={() => {
+        //setContext
+        console.log("Dob selected", true);
+        navigation.navigate("smoke");
+      }}
+    >
+      <AppCheckboxGroup
+        onChange={(idx) => {
+          console.log(idx);
+        }}
+      >
+        <Text>a drinker</Text>
+        <Text>not a drinker</Text>
+        <Text>a occasional drinker</Text>
+        <Text>prefer not to say</Text>
+      </AppCheckboxGroup>
+    </AppDetail>
   );
 }
 

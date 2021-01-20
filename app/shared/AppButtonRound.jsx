@@ -28,7 +28,7 @@ function AppButtonRound({
           <Feather
             name="chevron-right"
             color={cssVariables.colors.primary}
-            size={moderateScale(65)}
+            size={moderateScale(55)}
           />
         </View>
       </TouchableOpacity>
@@ -40,7 +40,7 @@ function AppButtonRound({
           <Feather
             name="chevron-left"
             color={cssVariables.colors.secondary}
-            size={moderateScale(55)}
+            size={moderateScale(45)}
           />
         </View>
       </TouchableOpacity>
@@ -56,12 +56,11 @@ const styles = StyleSheet.create({
       width: 0,
       height: moderateScale(1),
     },
-    borderRadius: 40,
+    borderRadius: moderateScale(40),
     shadowOpacity: 0.2,
     shadowRadius: 3.22,
     elevation: 1,
     margin: moderateScale(10),
   },
-  btn: {},
 });
 export default AppButtonRound;
