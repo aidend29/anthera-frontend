@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import AppScreen from "../../../shared/AppScreen";
+import React, { useContext, useState, useEffect } from "react";
+import { Text, StyleSheet, FlatList, ScrollView } from "react-native";
 
 import {
   cssVariables,
@@ -9,24 +8,18 @@ import {
   verticalScale,
   getContrast,
 } from "../../../../config/index";
-import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
 import { View } from "react-native-animatable";
-import AppTextColorCoded from "../../../shared/AppTextColorCoded";
-import AppButtonRound from "../../../shared/AppButtonRound";
-import AppInputField from "../../../shared/AppInputField";
+import AppSearchbox from "../../../shared/AppSearchbox";
 import AppTag from "../../../shared/AppTag";
 import { DetailsContext } from "../../../context";
-import { updateProgress, ProgressDots } from "./shared";
-
 import { getInterests } from "../../../api/details";
-import { ScrollView } from "react-native-gesture-handler";
-import { useEffect } from "react";
 
 import AppDetail from "../../../shared/AppDetail";
 
 function IntrestsScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
 
+  const [currentSearchTerm, setCurrentSearchTerm] = useState(null);
   const [interests, setInterests] = useState([]);
   const [selectedInterests, setSelectedInterests] = useState([]);
 
@@ -54,8 +47,8 @@ function IntrestsScreen({ navigation }) {
       progressNum={6}
       //Header
       headerTextFront="Things"
-      headerTextColored="I like"
-      headerTextRest="doing are..."
+      headerTextColored="you like"
+      headerTextRest="doing are"
       //Svg
       //Navigation
       botNavOnPressLeft={() => {
@@ -67,7 +60,7 @@ function IntrestsScreen({ navigation }) {
         navigation.navigate("school");
       }}
     >
-      <View style={{ marginHorizontal: moderateScale(50) }}>
+      <View style={{ marginHorizontal: moderateScale(40) }}>
         <View
           style={{
             height: verticalScale(100),
@@ -98,17 +91,27 @@ function IntrestsScreen({ navigation }) {
                       return index !== idx;
                     });
                     setSelectedInterests(filtered);
+                    handleInput(currentSearchTerm);
                   }}
                 ></AppTag>
               );
             })}
           </ScrollView>
         </View>
-        <AppInputField
+        {/* <AppInputField
           placeholder="i.e. hiking"
           icon="magnify"
+          style={{ marginVertical: verticalScale(10) }}
           onChangeText={() => {}}
           apiCallOnTextChange={(text) => {
+            setCurrentSearchTerm(text);
+            handleInput(text);
+          }}
+        /> */}
+        <AppSearchbox
+          placeholder="i.e. hiking"
+          onSearchTextChange={(text) => {
+            setCurrentSearchTerm(text);
             handleInput(text);
           }}
         />
@@ -134,7 +137,6 @@ function IntrestsScreen({ navigation }) {
                   <AppTag
                     style={{
                       backgroundColor: item.color,
-                      opacity: 0.6,
                     }}
                     foregroundColor={getContrast(item.color)}
                     name={item.interest}

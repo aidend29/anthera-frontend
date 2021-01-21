@@ -13,9 +13,9 @@ function SexualOrientation({ navigation }) {
     <AppDetail
       progressNum={2}
       //Header
-      headerTextFront="I would describe"
-      headerTextColored="my sexual orientation"
-      headerTextRest="as..."
+      headerTextFront="You would describe your"
+      headerTextColored="sexual orientation"
+      headerTextRest="as"
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("identity");

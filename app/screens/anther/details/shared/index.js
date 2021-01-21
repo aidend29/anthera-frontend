@@ -30,7 +30,7 @@ function DetailsProgressbar(detailsContext) {
   );
 }
 
-function ProgressDots({ num, max = 10 }) {
+function ProgressDots({ num, max = 13 }) {
   const elems = [];
   for (let i = 0; i < max; i++) {
     const Component = i === num - 1 ? Animatable.View : View;

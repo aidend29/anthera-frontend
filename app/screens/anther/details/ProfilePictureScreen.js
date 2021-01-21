@@ -11,31 +11,23 @@ function SmokeScreen({ navigation }) {
 
   return (
     <AppDetail
-      progressNum={10}
+      progressNum={13}
       //Header
-      headerTextFront="You"
-      headerTextColored="are"
+      headerTextFront="My"
+      headerTextColored="profile picture"
+      headerTextRest="..."
       //Svg
       //Navigation
       botNavOnPressLeft={() => {
-        navigation.navigate("alcohol");
+        navigation.navigate("aboutYou");
       }}
+      displayButtonDone={true}
       botNavOnPressRight={() => {
         //setContext
         console.log("Dob selected", true);
-        navigation.navigate("height");
+        navigation.navigate("profilePicture");
       }}
-    >
-      <AppCheckboxGroup
-        onChange={(idx) => {
-          console.log(idx);
-        }}
-      >
-        <Text>a smoker</Text>
-        <Text>not a smoker</Text>
-        <Text>prefer not to say</Text>
-      </AppCheckboxGroup>
-    </AppDetail>
+    ></AppDetail>
   );
 }
 

@@ -14,6 +14,9 @@ import SchoolScreen from "../screens/anther/details/SchoolScreen";
 import OccupationScreen from "../screens/anther/details/OccupationScreen";
 import AlcoholScreen from "../screens/anther/details/AlcoholScreen";
 import SmokeScreen from "../screens/anther/details/SmokeScreen";
+import HeightScreen from "../screens/anther/details/HeightScreen";
+import AboutYouScreenScreen from "../screens/anther/details/AboutYouScreen";
+import ProfilePictureScreen from "../screens/anther/details/ProfilePictureScreen";
 
 function DetailsNaviagtor() {
   const Stack = createStackNavigator();
@@ -40,6 +43,9 @@ function DetailsNaviagtor() {
       <Stack.Screen name="occupation" component={OccupationScreen} />
       <Stack.Screen name="alcohol" component={AlcoholScreen} />
       <Stack.Screen name="smoke" component={SmokeScreen} />
+      <Stack.Screen name="height" component={HeightScreen} />
+      <Stack.Screen name="aboutYou" component={AboutYouScreenScreen} />
+      <Stack.Screen name="profilePicture" component={ProfilePictureScreen} />
     </Stack.Navigator>
   );
 }

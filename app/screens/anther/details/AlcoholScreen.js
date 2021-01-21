@@ -13,9 +13,8 @@ function AlcoholScreen({ navigation }) {
     <AppDetail
       progressNum={9}
       //Header
-      headerTextFront="I"
-      headerTextColored="am"
-      headerTextRest="..."
+      headerTextFront="You"
+      headerTextColored="are"
       //Svg
       //Navigation
       botNavOnPressLeft={() => {

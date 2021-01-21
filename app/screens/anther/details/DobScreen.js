@@ -12,9 +12,9 @@ function DobScreen({ navigation }) {
     <AppDetail
       progressNum={4}
       //Header
-      headerTextFront="I was"
+      headerTextFront="You were"
       headerTextColored="born"
-      headerTextRest="on..."
+      headerTextRest="on"
       //Svg
       Svgname={DobScreenSvg}
       svgWidth={200}

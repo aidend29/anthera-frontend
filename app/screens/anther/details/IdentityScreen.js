@@ -24,8 +24,8 @@ function IdentityScreen({ navigation }) {
   return (
     <AppDetail
       //Header
-      headerTextColored="I'm"
-      headerTextRest="a..."
+      headerTextColored="You"
+      headerTextRest="are a"
       //Svg
       Svgname={IdentityScreenSvg}
       svgWidth={200}
@@ -56,7 +56,7 @@ function IdentityScreen({ navigation }) {
           <Text
             style={[appStyles.text, styles.text, femaleSelected.textSelected]}
           >
-            Female
+            Woman
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -72,7 +72,7 @@ function IdentityScreen({ navigation }) {
           <Text
             style={[appStyles.text, styles.text, maleSelected.textSelected]}
           >
-            Male
+            Man
           </Text>
         </TouchableOpacity>
       </View>

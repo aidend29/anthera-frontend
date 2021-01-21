@@ -14,9 +14,9 @@ function PurposeScreen({ navigation }) {
     <AppDetail
       progressNum={3}
       //Header
-      headerTextFront="I'm"
+      headerTextFront="You are"
       headerTextColored="here"
-      headerTextRest="to..."
+      headerTextRest="to"
       //Bottom Svg
       BottomSvgname={PurposeScreenSvg}
       svgWidth={200}

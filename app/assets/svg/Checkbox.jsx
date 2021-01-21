@@ -10,7 +10,7 @@ function SvgComponent({ width = 27, height = 27, props }) {
       viewBox="0 0 27 27"
       {...props}
     >
-      <G fill="none" stroke="#cfdff7">
+      <G fill="none" stroke="#CFDFF7">
         <Circle cx={13.5} cy={13.5} r={13.5} stroke="none" />
         <Circle cx={13.5} cy={13.5} r={13} />
       </G>

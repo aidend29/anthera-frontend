@@ -21,6 +21,7 @@ function AppDetail({
   botNavIsNext = true,
   botNavOnPressLeft,
   botNavOnPressRight,
+  displayButtonDone = false,
 }) {
   return (
     <AppScreen>
@@ -55,6 +56,7 @@ function AppDetail({
         isNext={botNavIsNext}
         onPressLeft={botNavOnPressLeft}
         onPressRight={botNavOnPressRight}
+        displayButtonDone={displayButtonDone}
       />
     </AppScreen>
   );

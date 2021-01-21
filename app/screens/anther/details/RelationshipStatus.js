@@ -13,9 +13,9 @@ function RelationshipScreen({ navigation }) {
     <AppDetail
       progressNum={5}
       //Header
-      headerTextFront="My"
+      headerTextFront="Your"
       headerTextColored="relationship status"
-      headerTextRest="is..."
+      headerTextRest="is"
       //Svg
       //Navigation
       botNavOnPressLeft={() => {

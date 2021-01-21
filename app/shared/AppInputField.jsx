@@ -18,6 +18,7 @@ function AppInputField({
   secText,
   placeholder,
   style,
+  textStyle,
   icon = "email",
   onChangeText,
   errorMsg,
@@ -25,19 +26,12 @@ function AppInputField({
   onBlur,
   autoCapitalize,
   apiCallOnTextChange = null,
-  lineMode = true,
+  keyboardType = "default",
+  maxLength = 255,
 }) {
   const [close, setClose] = useState(false);
   const [text, setText] = useState("");
   const [errorDisplay, setErrorDisplay] = useState(false);
-
-  if (lineMode) {
-    lineMode = {
-      container: styles._container,
-      text: styles._textInput,
-      icon: styles._icon,
-    };
-  }
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -63,16 +57,18 @@ function AppInputField({
   return (
     <>
       <AppError error={errorDisplay} visible={errorDisplay} />
-      <View style={[styles.container, lineMode.container, style]}>
+      <View style={[styles.container, style]}>
         {icon != null && (
           <MaterialCommunityIcons
-            style={[styles.icon, lineMode.icon]}
+            style={[styles.icon]}
             name={icon}
             color={cssVariables.colors.midGrey}
             size={25}
           />
         )}
         <TextInput
+          maxLength={maxLength}
+          keyboardType={keyboardType}
           placeholderTextColor={cssVariables.colors.semiGrey}
           autoCompleteType="off"
           autoCapitalize={autoCapitalize}
@@ -90,7 +86,7 @@ function AppInputField({
           }}
           onBlur={onBlur}
           placeholder={placeholder}
-          style={[appStyles.text, styles.textInput, lineMode.text]}
+          style={[appStyles.text, styles.textInput, textStyle]}
         />
 
         {close && (
@@ -102,7 +98,7 @@ function AppInputField({
                 onChangeText("");
                 touched = false;
               }}
-              style={[styles.icon, lineMode.icon]}
+              style={[styles.icon, textStyle]}
               name="close-circle-sharp"
               size={24}
               color={cssVariables.colors.midGrey}
@@ -120,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     borderRadius: verticalScale(30),
-    paddingHorizontal: verticalScale(14),
+    paddingHorizontal: moderateScale(14),
     borderWidth: verticalScale(1),
     borderColor: cssVariables.colors.lightGrey,
     backgroundColor: cssVariables.colors.lightGrey,
@@ -133,25 +129,7 @@ const styles = StyleSheet.create({
     fontFamily: cssVariables.fontFamily.medium,
   },
   icon: {
-    paddingTop: verticalScale(10),
-  },
-  _container: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingHorizontal: verticalScale(14),
-    borderBottomWidth: verticalScale(2),
-    backgroundColor: cssVariables.colors.white,
-    borderWidth: 0,
-    borderBottomWidth: verticalScale(1),
-    borderBottomColor: cssVariables.colors.grey,
-    borderRadius: 0,
-  },
-  _textInput: {
-    paddingVertical: verticalScale(5),
-  },
-  _icon: {
-    paddingTop: verticalScale(5),
+    paddingTop: moderateScale(10),
   },
   errorMsg: {
     color: "red",

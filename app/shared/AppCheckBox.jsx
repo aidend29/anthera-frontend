@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: moderateScale(10),
-    fontFamily: cssVariables.fontFamily.light,
   },
 });
 export default AppCheckBox;

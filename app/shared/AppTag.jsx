@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 30,
+    opacity: 0.6,
   },
 });
 

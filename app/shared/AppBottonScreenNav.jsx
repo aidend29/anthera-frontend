@@ -9,6 +9,7 @@ function AppBottonScreenNav({
   onPressRight,
   isNext = true,
   isPrevious = true,
+  displayButtonDone = false,
 }) {
   return (
     <View style={styles.navBtnContainer}>
@@ -25,6 +26,7 @@ function AppBottonScreenNav({
       {isNext && (
         <AppButtonRound
           icon="leftcircle"
+          displayButtonDone={displayButtonDone}
           style={styles.navBtn}
           onPress={() => {
             onPressRight();

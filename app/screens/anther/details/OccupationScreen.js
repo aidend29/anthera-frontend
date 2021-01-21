@@ -4,7 +4,7 @@ import { moderateScale, verticalScale } from "../../../../config";
 import AppDetail from "../../../shared/AppDetail";
 import OccupationScreenSvg from "../../../assets/svg/OccupationScreenSvg";
 import { View } from "react-native-animatable";
-import AppInputField from "../../../shared/AppInputField";
+import AppInputLine from "../../../shared/AppInputLine";
 import { DetailsContext } from "../../../context";
 
 function OccupationScreen({ navigation }) {
@@ -14,11 +14,10 @@ function OccupationScreen({ navigation }) {
     <AppDetail
       progressNum={8}
       //Header
-      headerTextFront="I"
+      headerTextFront="Where you"
       headerTextColored="work"
-      headerTextRest="at..."
       //Bottom Svg
-      Svgname={OccupationScreenSvg}
+      BottomSvgname={OccupationScreenSvg}
       svgWidth={170}
       svgHeight={170}
       //Navigation
@@ -35,22 +34,11 @@ function OccupationScreen({ navigation }) {
           marginHorizontal: moderateScale(50),
         }}
       >
-        <AppInputField
-          placeholder="abc.inc"
-          icon={null}
+        <AppInputLine
+          placeholder="Name of where you work"
           onChangeText={(text) => {}}
-          apiCallOnTextChange={() => {}}
-          style={{
-            marginVertical: verticalScale(10),
-          }}
         />
-        <AppInputField
-          placeholder="software engineer"
-          icon={null}
-          onChangeText={(text) => {}}
-          apiCallOnTextChange={() => {}}
-          style={{ marginVertical: verticalScale(10) }}
-        />
+        <AppInputLine placeholder="Role" onChangeText={(text) => {}} />
       </View>
     </AppDetail>
   );

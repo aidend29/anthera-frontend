@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Text, View } from "react-native";
 
+import SchoolScreenSvg from "../../../assets/svg/SchoolScreenSvg";
 import { moderateScale, verticalScale } from "../../../../config";
 import AppDetail from "../../../shared/AppDetail";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
-import AppInputField from "../../../shared/AppInputField";
+import AppInputLine from "../../../shared/AppInputLine";
 import { DetailsContext } from "../../../context";
 
 function SchoolScreen({ navigation }) {
@@ -17,9 +18,12 @@ function SchoolScreen({ navigation }) {
     <AppDetail
       progressNum={7}
       //Header
-      headerTextFront="My"
+      headerTextFront="Your"
       headerTextColored="school"
       //Bottom Svg
+      BottomSvgname={SchoolScreenSvg}
+      svgWidth={100}
+      svgHeight={100}
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("intrests");
@@ -35,16 +39,10 @@ function SchoolScreen({ navigation }) {
       }}
     >
       <View style={{ marginHorizontal: moderateScale(50) }}>
-        <AppInputField
-          placeholder=""
-          icon={null}
+        <AppInputLine
+          placeholder="Name of your school"
           onChangeText={(text) => {
             schoolName = text;
-          }}
-          apiCallOnTextChange={() => {}}
-          style={{
-            marginVertical: verticalScale(20),
-            marginTop: verticalScale(-20),
           }}
         />
         <AppCheckboxGroup
