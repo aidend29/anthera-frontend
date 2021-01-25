@@ -7,6 +7,8 @@ const cssVariables = {
   colors: {
     primary: "#2170FC", //500
     secondary: "#CFDFF7",
+    secondaryLight: "#E8F1FF",
+    secondaryLightest: "#F7FAFE",
 
     darkPrimary: "#754C00",
 
@@ -25,6 +27,7 @@ const cssVariables = {
 
     error: "#ff0000",
   },
+  screenMaxWidth: moderateScale(350),
   fontSize: {
     logoHeading: moderateScale(36),
     secondaryHeading: moderateScale(24),
@@ -44,6 +47,7 @@ const cssVariables = {
   },
 
   fontSize: {
+    sm: moderateScale(13),
     text: moderateScale(15),
     smHeading: moderateScale(20),
     heading: moderateScale(32),

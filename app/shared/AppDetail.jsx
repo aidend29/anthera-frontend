@@ -1,7 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import { appStyles, verticalScale, moderateScale } from "../../config";
+import {
+  appStyles,
+  verticalScale,
+  moderateScale,
+  cssVariables,
+} from "../../config";
 import AppScreen from "../shared/AppScreen";
 import { ProgressDots } from "../screens/anther/details/shared";
 import AppTextColorCoded from "../shared/AppTextColorCoded";
@@ -25,7 +30,7 @@ function AppDetail({
 }) {
   return (
     <AppScreen>
-      <ProgressDots num={progressNum} />
+      <ProgressDots num={progressNum} style={styles.dots} />
       <AppTextColorCoded
         front={headerTextFront}
         colored={headerTextColored}
@@ -42,7 +47,9 @@ function AppDetail({
           />
         </View>
       )}
-      <View style={styles.contentContainer}>{children}</View>
+      <View style={styles.contentContainer}>
+        <View style={styles.contentCenter}>{children}</View>
+      </View>
       {BottomSvgname && (
         <View style={styles.svgWrap}>
           <BottomSvgname
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
     marginHorizontal: moderateScale(13.1),
   },
+  dots: {},
   svgWrap: {
     marginVertical: verticalScale(10),
   },

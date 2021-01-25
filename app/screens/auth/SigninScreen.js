@@ -1,112 +1,105 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, View, ScrollView } from "react-native";
-import * as Yup from "yup";
-import jwtDecode from "jwt-decode";
+import React, { useState, useContext, useRef } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import {
+  moderateScale,
+  cssVariables,
+  appStyles,
+  verticalScale,
+} from "../../../config";
 
-import styles from "./css/shared";
 import AppScreen from "../../shared/AppScreen";
-import { AppForm, AppFormField, AppFormButton } from "../../shared/form";
+import AppInputField from "../../shared/AppInputField";
 import AppButton from "../../shared/AppButton";
+import AppFacebookButton from "../../shared/AppFacebookButton";
 import AppCheckBox from "../../shared/AppCheckBox";
+import AppError from "../../shared/AppError";
 
+import { AuthContext } from "../../context";
 import { handleSignin } from "../../api/auth/appAuthService";
 
-import AppError from "../../shared/AppError";
-import { AuthContext } from "../../context";
-import { appStyles } from "../../../config";
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("sorry, email is not valid.")
-    .required("sorry, email cannot be empty."),
-  password: Yup.string()
-    .min(4, "sorry, password must be 4 or more characters long.")
-    .required("sorry, password cannot be empty."),
-});
-
 function SigninScreen({ navigation }) {
-  const authContext = useContext(AuthContext);
-
-  const [signinError, setSigninError] = useState(false);
+  const [signinError, setSigninError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const form = useRef({ email: "", password: "" });
 
-  useEffect(() => {}, []);
+  const authContext = useContext(AuthContext);
 
   return (
     <AppScreen>
       <View style={styles.container}>
-        {/* <AppActivityIndicator visible={true} /> */}
-        <Text style={[appStyles.smHeading, styles.titleText]}>
-          Signin to Anther
+        <Text style={[appStyles.smHeading, styles.headingText]}>
+          Sign into Anther
         </Text>
-
-        <AppError visible={signinError} error={signinError} />
-
-        <AppForm
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(signinInfo) => {
-            handleSignin(signinInfo, authContext, setLoading, setSigninError);
+        {!loading && (
+          <AppError
+            msg={signinError}
+            style={{ marginVertical: verticalScale(10) }}
+          />
+        )}
+        <AppInputField
+          icon="email"
+          keyboardType="email-address"
+          value="elise@gmail.com"
+          placeholder="email"
+          onChangeText={(text) => {
+            form.current.email = text;
+            // console.log(form.current.email);
           }}
-          validationSchema={validationSchema}
-        >
-          {/* //START:: EMAIL INPUT FIELD */}
-          <AppFormField
-            style={styles.inputField}
-            autoCapitalize="none"
-            placeholder="email, i.e janedoe@gmail.com"
-            name="email"
-          />
-          {/* //END:: EMAIL INPUT FIELD */}
-
-          {/* //START:: PASSWORD FIELD */}
-          <AppFormField
-            style={styles.inputField}
-            icon="lock"
-            secText={true}
-            autoCapitalize="none"
-            placeholder="password"
-            name="password"
-          />
-          {/* //END:: PASSWORD FIELD */}
-
-          <AppCheckBox
-            style={styles.remeberText}
-            text="Remember login"
-            onChange={(value) => {
-              console.log(value);
+        />
+        <AppInputField
+          icon="lock"
+          value="elise123"
+          secureTextEntry={true}
+          placeholder="password"
+          onChangeText={(text) => {
+            form.current.password = text;
+            // console.log(form.current.password);
+          }}
+        />
+        <AppCheckBox
+          text="Remember login"
+          style={{ marginVertical: verticalScale(10), alignSelf: "flex-end" }}
+          onChange={(val) => {
+            console.log(val);
+          }}
+        />
+        <View style={styles.btnRow}>
+          <AppButton
+            title="Signup"
+            onPress={() => {
+              navigation.navigate("signup");
             }}
           />
-
-          {/* //START:: SIGNIN/UP BUTTON GROUP */}
-          <View style={styles.btnGrp}>
-            <AppButton
-              onPress={() => {
-                navigation.navigate("signup");
-              }}
-              text="Signup"
-              style={[styles.btn]}
-            />
-            <AppFormButton
-              text="Signin"
-              isLoading={loading}
-              style={[styles.btn, styles.btnPrimary]}
-            />
-          </View>
-          {/* //END:: SIGNIN/UP BUTTON GROUP */}
-
-          {/* //START:: EXTERNAL SIGNIN BUTTON GROUP */}
           <AppButton
-            hasFrontIcon={true}
-            frontIconName="facebook"
-            frontIconsize={30}
-            style={styles.btnFacebook}
-            text="Continue with facebook"
+            title="Signin"
+            displayLoading={loading}
+            stylePrimary={true}
+            onPress={() => {
+              // console.log(form);
+              handleSignin(form, authContext, setLoading, setSigninError);
+            }}
           />
-          {/* //END:: EXTERNAL SIGNIN BUTTON GROUP */}
-        </AppForm>
+        </View>
+        <AppFacebookButton />
       </View>
     </AppScreen>
   );
 }
-
+const styles = StyleSheet.create({
+  container: {
+    width: cssVariables.screenMaxWidth,
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  headingText: {
+    marginVertical: verticalScale(10),
+  },
+  btnRow: {
+    marginVertical: verticalScale(10),
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+  },
+});
 export default SigninScreen;

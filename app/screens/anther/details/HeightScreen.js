@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import {
@@ -18,8 +18,10 @@ function HeightScreen({ navigation }) {
     color: cssVariables.colors.primary,
   });
   const [selectedUnitFt, setSelectedUnitFt] = useState({});
-  const [placeholder, setPlaceholder] = useState("183");
+  const [placeholder, setPlaceholder] = useState("164");
+  const [currentText, setcurrentText] = useState("164");
   const detailsContext = useContext(DetailsContext);
+  const height = useRef(164);
 
   return (
     <AppDetail
@@ -30,15 +32,23 @@ function HeightScreen({ navigation }) {
       headerTextRest="is"
       //Svg
       BottomSvgname={HeightScreenSvg}
-      svgWidth={200}
-      svgHeight={200}
+      svgWidth={150}
+      svgHeight={150}
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("smoke");
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Dob selected", true);
+        let details = detailsContext.details;
+        let form = {
+          height: height.current,
+          unit: selectedUnitCM ? "cm" : "ft",
+        };
+        details.content["height"] = form;
+        detailsContext.setDetails(details);
+
+        console.log("height: ", detailsContext.details.content.height);
         navigation.navigate("aboutYou");
       }}
     >
@@ -46,9 +56,17 @@ function HeightScreen({ navigation }) {
         <AppInputLine
           maxLength={3}
           placeholder={placeholder}
-          onChangeText={() => {}}
+          onChangeText={(text) => {
+            height.current = text;
+          }}
           keyboardType="numeric"
+          isClearBtn={false}
+          showLetterCounter={false}
           style={styles.container}
+          styleText={{
+            paddingVertical: moderateScale(2),
+            width: "auto",
+          }}
         />
         <View style={styles.btns}>
           <TouchableOpacity
@@ -56,7 +74,7 @@ function HeightScreen({ navigation }) {
             onPress={() => {
               setSelectedUnitCM({ color: cssVariables.colors.primary });
               setSelectedUnitFt({});
-              setPlaceholder("183");
+              setPlaceholder("164");
             }}
           >
             <Text style={[appStyles.text, styles.text, selectedUnitCM]}>
@@ -65,10 +83,11 @@ function HeightScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btn}
+            maxLength={false}
             onPress={() => {
               setSelectedUnitCM();
               setSelectedUnitFt({ color: cssVariables.colors.primary });
-              setPlaceholder("6.0");
+              setPlaceholder("5.38");
             }}
           >
             <Text style={[appStyles.text, styles.text, selectedUnitFt]}>
@@ -82,8 +101,9 @@ function HeightScreen({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    width: moderateScale(80),
+    width: moderateScale(100),
     flexDirection: "row",
+    justifyContent: "center",
   },
   btns: {
     flexDirection: "row",
@@ -92,7 +112,7 @@ const styles = StyleSheet.create({
     color: cssVariables.colors.secondary,
   },
   btn: {
-    marginTop: moderateScale(20),
+    marginTop: moderateScale(16),
     marginHorizontal: moderateScale(2),
     paddingHorizontal: moderateScale(5),
   },

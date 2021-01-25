@@ -1,18 +1,34 @@
-import React, { useContext, useState } from "react";
-import { Text, View } from "react-native";
+import React, { useContext, useState, useRef } from "react";
+import { Text, View, StyleSheet } from "react-native";
 
 import SchoolScreenSvg from "../../../assets/svg/SchoolScreenSvg";
-import { moderateScale, verticalScale } from "../../../../config";
+import { moderateScale, verticalScale, cssVariables } from "../../../../config";
 import AppDetail from "../../../shared/AppDetail";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import AppInputLine from "../../../shared/AppInputLine";
+import AppInputField from "../../../shared/AppInputField";
 import { DetailsContext } from "../../../context";
 
 function SchoolScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+  const [schoolName, setSchoolName] = useState("");
+  const [majorName, setMajorName] = useState("");
+  const graduated = useRef(false);
 
-  let schoolName = null;
-  let graduated = false;
+  const handleDisplayingCheckboxGrp = () => {
+    if (schoolName.length > 0 || majorName.length > 0)
+      return (
+        <AppCheckboxGroup
+          style={styles.checkboxGrp}
+          onChange={(idx) => {
+            graduated.current = idx === 0 ? false : true;
+          }}
+        >
+          <Text>still a student</Text>
+          <Text>graduated</Text>
+        </AppCheckboxGroup>
+      );
+  };
 
   return (
     <AppDetail
@@ -30,32 +46,55 @@ function SchoolScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        const school = {
-          name: schoolName,
-          graduated: graduated,
+
+        let details = detailsContext.details;
+        let form = {
+          schoolName: schoolName,
+          majorName: majorName,
+          graduated: graduated.current,
         };
-        console.log(school);
+        details.content["school"] = form;
+        detailsContext.setDetails(details);
+
+        console.log("school: ", detailsContext.details.content.school);
         navigation.navigate("occupation");
       }}
     >
-      <View style={{ marginHorizontal: moderateScale(50) }}>
+      <View style={styles.container}>
         <AppInputLine
-          placeholder="Name of your school"
+          autoCapitalize="words"
+          placeholder="name of your school (optional)"
           onChangeText={(text) => {
-            schoolName = text;
+            setSchoolName(text);
+          }}
+          onClear={() => {
+            setSchoolName("");
           }}
         />
-        <AppCheckboxGroup
-          onChange={(idx) => {
-            graduated = idx === 0 ? false : true;
+        <AppInputLine
+          placeholder="major (optional)"
+          autoCapitalize="words"
+          onChangeText={(text) => {
+            setMajorName(text);
           }}
-        >
-          <Text>still a student</Text>
-          <Text>graduated</Text>
-        </AppCheckboxGroup>
+          onClear={() => {
+            setMajorName("");
+          }}
+        />
+        {handleDisplayingCheckboxGrp()}
       </View>
     </AppDetail>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    width: cssVariables.screenMaxWidth - moderateScale(100),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkboxGrp: {
+    marginTop: verticalScale(20),
+  },
+});
 
 export default SchoolScreen;

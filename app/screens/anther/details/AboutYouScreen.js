@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
+import AboutYouScreenSvg from "../../../assets/svg/AboutYouScreenSvg";
 import AppDetail from "../../../shared/AppDetail";
 import { DetailsContext } from "../../../context";
 import AppInputLine from "../../../shared/AppInputLine";
 import { appStyles, cssVariables, moderateScale } from "../../../../config";
-import { useState } from "react/cjs/react.development";
 
 function AboutYouScreen({ navigation }) {
-  const [currentTextLength, setCurrentTextLength] = useState("0");
   const detailsContext = useContext(DetailsContext);
+  const aboutYouText = useRef("");
 
   return (
     <AppDetail
@@ -19,13 +19,20 @@ function AboutYouScreen({ navigation }) {
       headerTextFront="A bit about"
       headerTextColored="you"
       //Svg
+      Svgname={AboutYouScreenSvg}
+      svgWidth={180}
+      svgHeight={180}
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("height");
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Dob selected", true);
+        let details = detailsContext.details;
+        details.content["aboutYou"] = aboutYouText.current;
+        detailsContext.setDetails(details);
+
+        console.log("aboutYou: ", detailsContext.details.content.aboutYou);
         navigation.navigate("profilePicture");
       }}
     >
@@ -33,14 +40,11 @@ function AboutYouScreen({ navigation }) {
         style={{ width: moderateScale(290) }}
         maxLength={255}
         placeholder="Write what you want others to know..."
+        maxLength={255}
         onChangeText={(text) => {
-          setCurrentTextLength(text.length);
+          aboutYouText.current = text;
         }}
       />
-      <Text style={(appStyles.text, { color: cssVariables.colors.secondary })}>
-        {currentTextLength}
-        <Text>/204</Text>
-      </Text>
     </AppDetail>
   );
 }

@@ -11,24 +11,23 @@ const handleSignin = async (
   setLoading,
   setSigninError
 ) => {
-  const { email, password } = signinInfo;
+  // console.log("Entered data:", signinInfo);
+  const { email, password } = signinInfo.current;
   setLoading(true);
   const response = await client.post("/auth/signin", {
     email: email,
     password: password,
   });
   setLoading(false);
-  console.log(response.data);
+  // console.log("Response:", response.data);
 
   if (!response.ok) {
-    switch (response.status) {
-      case 404: {
-        setSigninError("Sorry, email or password is incorrect.");
-        break;
-      }
-      default: {
-        setSigninError("Sorry, something went wrong.");
-      }
+    if (response.status == null) {
+      setSigninError(
+        "Sorry, something went wrong, make sure you're connected to the internet."
+      );
+    } else {
+      setSigninError(response.data.error);
     }
   } else {
     const user = jwtDecode(response.data["token"]);
@@ -42,12 +41,18 @@ const handleSignup = async (
   setLoading,
   setSignupError
 ) => {
-  const { email, password } = signupInfo;
+  console.log("Entered data:", signupInfo);
+  const { email, password, terms } = signupInfo.current;
 
   setLoading(true);
+  if (!terms) {
+    await setSignupError("Sorry, terms and conditions are not agreed.");
+    setLoading(false);
+    return;
+  }
+
   const signupResponse = await client.post("/auth/signup", {
     email: email,
-    name: "Test name",
     password: password,
   });
   // console.log(signupResponse);
@@ -68,11 +73,11 @@ const handleSignup = async (
     if (!signinResponse.ok) {
       switch (response.status) {
         case 400: {
-          setSigninError(signupResponse.data["error"]);
+          setSignupError(signupResponse.data["error"]);
           break;
         }
         default: {
-          setSigninError("Sorry, something went wrong.");
+          setSignupError("Sorry, something went wrong.");
         }
       }
     } else {

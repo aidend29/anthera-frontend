@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 import AppDetail from "../../../shared/AppDetail";
 import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
+import { verticalScale } from "../../../../config";
 
 function PurposeScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -27,21 +28,39 @@ function PurposeScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Sexual purpose", selectedPurpose);
+        let details = detailsContext.details;
+
+        switch (selectedPurpose) {
+          case 0:
+            details.content["purpose"] = "Date";
+            break;
+          case 1:
+            details.content["purpose"] = "Chat and meet new people";
+            break;
+          case 2:
+            details.content["purpose"] = "See how it goes";
+            break;
+        }
+        detailsContext.setDetails(details);
+
+        console.log("purpose: ", detailsContext.details.content.purpose);
         navigation.navigate("dob");
       }}
     >
       <AppCheckboxGroup
+        style={styles.chkboxGrp}
         onChange={(idx) => {
           selectedPurpose = idx;
         }}
       >
-        <Text>date</Text>
-        <Text>chat and meet new people</Text>
-        <Text>see how it goes</Text>
+        <Text>Date</Text>
+        <Text>Chat and meet new people</Text>
+        <Text>See how it goes</Text>
       </AppCheckboxGroup>
     </AppDetail>
   );
 }
-
+const styles = StyleSheet.create({
+  chkboxGrp: {},
+});
 export default PurposeScreen;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Text, StyleSheet } from "react-native";
 import AppScreen from "../../../shared/AppScreen";
 
@@ -8,13 +8,14 @@ import { DetailsContext } from "../../../context";
 
 function SmokeScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+  const smokeOption = useRef(0);
 
   return (
     <AppDetail
       progressNum={10}
       //Header
-      headerTextFront="You"
-      headerTextColored="are"
+      headerTextColored="Smoking"
+      headerTextRest="habbits"
       //Svg
       //Navigation
       botNavOnPressLeft={() => {
@@ -22,13 +23,17 @@ function SmokeScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Dob selected", true);
+        let details = detailsContext.details;
+        details.content["smoke"] = smokeOption.current;
+        detailsContext.setDetails(details);
+
+        console.log("smoke: ", detailsContext.details.content.smoke);
         navigation.navigate("height");
       }}
     >
       <AppCheckboxGroup
         onChange={(idx) => {
-          console.log(idx);
+          smokeOption.current = idx;
         }}
       >
         <Text>a smoker</Text>

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Text, StyleSheet, FlatList, ScrollView } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 import {
   cssVariables,
@@ -56,71 +57,60 @@ function IntrestsScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Dob selected", true);
+        let details = detailsContext.details;
+        details.content["interests"] = [];
+        selectedInterests.map((item) => {
+          details.content["interests"].push(item.interest);
+        });
+        detailsContext.setDetails(details);
+
+        console.log("interests: ", detailsContext.details.content.interests);
         navigation.navigate("school");
       }}
     >
-      <View style={{ marginHorizontal: moderateScale(40) }}>
-        <View
-          style={{
-            height: verticalScale(100),
-            marginBottom: verticalScale(10),
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+      <View style={styles.constainer}>
+        <ScrollView
+          horizontal={true}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
-          <ScrollView
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-          >
-            {selectedInterests.reverse().map((item, idx) => {
-              return (
-                <AppTag
-                  name={item.interest}
-                  key={idx}
-                  closeIcon={true}
-                  style={{
-                    backgroundColor: item.color,
-                    marginRight: moderateScale(10),
-                  }}
-                  foregroundColor={getContrast(item.color)}
-                  onPress={() => {
-                    const filtered = selectedInterests.filter((item, index) => {
-                      return index !== idx;
-                    });
-                    setSelectedInterests(filtered);
-                    handleInput(currentSearchTerm);
-                  }}
-                ></AppTag>
-              );
-            })}
-          </ScrollView>
-        </View>
-        {/* <AppInputField
-          placeholder="i.e. hiking"
-          icon="magnify"
-          style={{ marginVertical: verticalScale(10) }}
-          onChangeText={() => {}}
-          apiCallOnTextChange={(text) => {
-            setCurrentSearchTerm(text);
-            handleInput(text);
-          }}
-        /> */}
-        <AppSearchbox
-          placeholder="i.e. hiking"
-          onSearchTextChange={(text) => {
-            setCurrentSearchTerm(text);
-            handleInput(text);
-          }}
-        />
-        <View
-          style={{
-            height: verticalScale(200),
-            marginTop: verticalScale(10),
-          }}
-        >
+          {selectedInterests.reverse().map((item, idx) => {
+            return (
+              <AppTag
+                name={item.interest}
+                key={idx}
+                closeIcon={true}
+                style={{
+                  backgroundColor: item.color,
+                  marginRight: moderateScale(10),
+                }}
+                foregroundColor={getContrast(item.color)}
+                onPress={() => {
+                  const filtered = selectedInterests.filter((item, index) => {
+                    return index !== idx;
+                  });
+                  setSelectedInterests(filtered);
+                  handleInput(currentSearchTerm);
+                }}
+              ></AppTag>
+            );
+          })}
+        </ScrollView>
+      </View>
+      <AppSearchbox
+        placeholder="i.e. hiking"
+        apiCallOnTextChange={(text) => {
+          setCurrentSearchTerm(text);
+          handleInput(text);
+        }}
+      />
+      <View
+        style={{
+          height: verticalScale(200),
+          marginTop: verticalScale(10),
+        }}
+      >
+        <Animatable.View duration={1000} animation="fadeIn">
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
@@ -148,13 +138,21 @@ function IntrestsScreen({ navigation }) {
               );
             }}
           />
-        </View>
+        </Animatable.View>
       </View>
     </AppDetail>
   );
 }
 
 const styles = StyleSheet.create({
+  constainer: {
+    height: verticalScale(100),
+    marginBottom: verticalScale(10),
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: cssVariables.screenMaxWidth - moderateScale(50),
+  },
   tagText: {
     paddingHorizontal: moderateScale(10),
     paddingVertical: verticalScale(8),

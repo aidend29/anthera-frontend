@@ -56,7 +56,7 @@ function ProgressDots({ num, max = 13 }) {
     <View
       style={{
         flexDirection: "row",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         marginTop: verticalScale(30),
         alignSelf: "flex-start",
         marginHorizontal: moderateScale(100),

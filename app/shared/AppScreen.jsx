@@ -30,9 +30,7 @@ function AppScreen({ children, style }) {
           translucent={true}
         />
         <View style={[styles.safeArea, styles.android]}>
-          <KeyboardAvoidingView style={styles.container} behavior="padding">
-            {children}
-          </KeyboardAvoidingView>
+          <View style={styles.container}>{children}</View>
         </View>
       </>
     );
@@ -52,6 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
+    width: cssVariables.screenMaxWidth,
   },
 });
 

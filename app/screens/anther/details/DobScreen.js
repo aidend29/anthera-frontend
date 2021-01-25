@@ -5,9 +5,24 @@ import AppDetail from "../../../shared/AppDetail";
 import DobScreenSvg from "../../../assets/svg/DobScreenSvg";
 import AppDatetimePicker from "../../../shared/AppDatetimePicker";
 import { DetailsContext } from "../../../context";
+import { verticalScale } from "../../../../config";
 
 function DobScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+
+  const getMaxDate = () => {
+    const d = new Date();
+    return new Date(d.setDate(d.getDate() - 5844)); // - number of days
+  };
+
+  const formatDate = (date) => {
+    date = new Date(date);
+    return (
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    );
+  };
+
+  let dob = formatDate(getMaxDate());
   return (
     <AppDetail
       progressNum={4}
@@ -25,13 +40,28 @@ function DobScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Dob selected", true);
+        let details = detailsContext.details;
+        details.content["dob"] = dob;
+        detailsContext.setDetails(details);
+
+        console.log("dob: ", detailsContext.details.content.dob);
         navigation.navigate("relationshipStatus");
       }}
     >
-      <AppDatetimePicker _mode="date" />
+      <AppDatetimePicker
+        style={styles.date}
+        _mode="date"
+        maxdate={getMaxDate}
+        getSelectedDate={(date) => {
+          dob = formatDate(date);
+        }}
+      />
     </AppDetail>
   );
 }
+
+const styles = StyleSheet.create({
+  date: {},
+});
 
 export default DobScreen;

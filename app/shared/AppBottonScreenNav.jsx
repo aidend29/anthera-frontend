@@ -10,9 +10,10 @@ function AppBottonScreenNav({
   isNext = true,
   isPrevious = true,
   displayButtonDone = false,
+  style,
 }) {
   return (
-    <View style={styles.navBtnContainer}>
+    <View style={[styles.navBtnContainer, style]}>
       {isPrevious && (
         <AppButtonRound
           icon="leftcircle"

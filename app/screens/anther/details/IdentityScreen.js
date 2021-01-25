@@ -33,12 +33,14 @@ function IdentityScreen({ navigation }) {
       //Navigation
       botNavIsPrevious={false}
       botNavOnPressRight={() => {
-        //setContext
-        console.log(
-          Boolean(maleSelected.btnSelected)
-            ? "Male selected"
-            : "Female selected"
-        );
+        let details = detailsContext.details;
+
+        maleSelected.btnSelected
+          ? (details.content["identiity"] = "Male")
+          : (details.content["identiity"] = "Female");
+        detailsContext.setDetails(details);
+
+        console.log("identiity: ", detailsContext.details.content.identiity);
         navigation.navigate("sexualOrientation");
       }}
     >
@@ -56,7 +58,7 @@ function IdentityScreen({ navigation }) {
           <Text
             style={[appStyles.text, styles.text, femaleSelected.textSelected]}
           >
-            Woman
+            Female
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -72,7 +74,7 @@ function IdentityScreen({ navigation }) {
           <Text
             style={[appStyles.text, styles.text, maleSelected.textSelected]}
           >
-            Man
+            Male
           </Text>
         </TouchableOpacity>
       </View>
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 3.22,
-    elevation: 1,
   },
   text: {
     paddingVertical: verticalScale(10),

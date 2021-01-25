@@ -1,15 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from "react";
+import { StyleSheet, Text } from "react-native";
 
-import { moderateScale, verticalScale } from "../../../../config";
+import { moderateScale, verticalScale, cssVariables } from "../../../../config";
 import AppDetail from "../../../shared/AppDetail";
 import OccupationScreenSvg from "../../../assets/svg/OccupationScreenSvg";
 import { View } from "react-native-animatable";
 import AppInputLine from "../../../shared/AppInputLine";
+import AppCheckBox from "../../../shared/AppCheckBox";
 import { DetailsContext } from "../../../context";
 
 function OccupationScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+  const [occupationName, setOccupationName] = useState("");
+  const roleName = useRef("");
 
+  const handleDisplayingRoleInput = () => {
+    if (occupationName.length > 0) {
+      return (
+        <AppInputLine
+          autoCapitalize="words"
+          placeholder="position/role (optional)"
+          onChangeText={(text) => {
+            roleName.current = text;
+          }}
+        />
+      );
+    }
+  };
   return (
     <AppDetail
       progressNum={8}
@@ -18,30 +35,48 @@ function OccupationScreen({ navigation }) {
       headerTextColored="work"
       //Bottom Svg
       BottomSvgname={OccupationScreenSvg}
-      svgWidth={170}
-      svgHeight={170}
+      svgWidth={190}
+      svgHeight={190}
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("school");
       }}
       botNavOnPressRight={() => {
+        let details = detailsContext.details;
+        let form = {
+          occupationName: occupationName,
+          roleName: roleName.current,
+        };
+        details.content["occupation"] = form;
+        detailsContext.setDetails(details);
+
+        console.log("occupation: ", detailsContext.details.content.occupation);
         //setContext
         navigation.navigate("alcohol");
       }}
     >
-      <View
-        style={{
-          marginHorizontal: moderateScale(50),
-        }}
-      >
+      <View style={styles.container}>
         <AppInputLine
-          placeholder="Name of where you work"
-          onChangeText={(text) => {}}
+          autoCapitalize="words"
+          placeholder="name of place you work (optional)"
+          onChangeText={(text) => {
+            setOccupationName(text);
+          }}
+          onClear={() => {
+            setOccupationName("");
+          }}
         />
-        <AppInputLine placeholder="Role" onChangeText={(text) => {}} />
+        {handleDisplayingRoleInput()}
       </View>
     </AppDetail>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    width: cssVariables.screenMaxWidth - moderateScale(100),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export default OccupationScreen;

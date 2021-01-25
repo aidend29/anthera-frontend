@@ -1,4 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
+import { moderateVerticalScale } from "react-native-size-matters";
 import { cssVariables, moderateScale, verticalScale } from "../../../../config";
 
 export default StyleSheet.create({
@@ -16,12 +17,12 @@ export default StyleSheet.create({
     marginBottom: verticalScale(30),
   },
   btnGrp: {
-    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   btn: {
     flex: 0.48,
+    marginHorizontal: moderateScale(6),
   },
   btnPrimary: {
     backgroundColor: cssVariables.colors.primary,
@@ -30,13 +31,15 @@ export default StyleSheet.create({
     backgroundColor: "#4267B2",
     borderRadius: 8,
     padding: 6,
-    width: "100%",
     marginVertical: 25,
+    width: moderateVerticalScale(320),
   },
   remeberText: {
     alignSelf: "flex-end",
     marginTop: 20,
     marginBottom: 30,
+    marginHorizontal: moderateScale(20),
+
     color: cssVariables.colors.darkGrey,
     fontSize: cssVariables.fontSize.text,
     fontFamily: cssVariables.fontFamily.OpenSansSemiBold,

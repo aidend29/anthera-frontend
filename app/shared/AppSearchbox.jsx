@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 
 import AppInputField from "./AppInputField";
 import { cssVariables, verticalScale, moderateScale } from "../../config";
 function AppSearchbox({
   onSearchTextChange,
-  onSearchImmediateTextChange,
+  apiCallOnTextChange,
   ...otherProps
 }) {
-  onSearchImmediateTextChange = () => {};
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (text) {
+        if (apiCallOnTextChange) {
+          apiCallOnTextChange(text);
+        }
+        console.log("CALLED API");
+      }
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [text]);
+
   return (
     <AppInputField
       {...otherProps}
-      style={styles.container}
+      onClear={() => {
+        otherProps["onClear"];
+      }}
       icon="magnify"
       onChangeText={(text) => {
-        onSearchImmediateTextChange(text);
+        setText(text);
       }}
       apiCallOnTextChange={(text) => {
         onSearchTextChange(text);

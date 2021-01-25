@@ -1,31 +1,17 @@
 import * as React from "react";
-import Svg, { Defs, RadialGradient, Stop, Path, G } from "react-native-svg";
+import Svg, { Path, G } from "react-native-svg";
 
-function SvgComponent({ width = 66.608, height = 67.958 }, props) {
+function SvgComponent({ width = 66.608, height = 67.958 }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox="0 0 66.608 67.958"
-      {...props}
     >
-      <Defs>
-        <RadialGradient
-          id="prefix__a"
-          cx={0.5}
-          cy={0.5}
-          r={0.5}
-          gradientUnits="objectBoundingBox"
-        >
-          <Stop offset={0} stopColor="#ffc1f5" />
-          <Stop offset={1} stopColor="#25abf7" />
-        </RadialGradient>
-      </Defs>
       <Path
-        d="M479.383 313.767l19.783-35.217-28.566-26.667 21.117 3.667-4.217-9.333 26.1 7.55 8.117 19.9 10.9-2.333 3.883 12.116-8.783-2.783-2.117 3.883-30.1 16v4.333z"
-        transform="translate(-470.213 -245.984)"
-        fill="url(#prefix__a)"
+        d="M9.17 67.783l19.783-35.217L.387 5.899l21.117 3.667L17.287.233l26.1 7.55 8.117 19.9 10.9-2.333 3.883 12.116-8.783-2.783-2.117 3.883-30.1 16v4.333z"
+        fill="#2170fc"
       />
       <G fill="none" stroke="#fff" strokeWidth={0.4}>
         <Path d="M62.287 25.291l-10.833 2.442 4 10.333zM55.22 37.616L43.095 7.491l-10.192 6.358zM24.87 54.766l-.633-13.917 4.433-8.117 26.758 5.642z" />

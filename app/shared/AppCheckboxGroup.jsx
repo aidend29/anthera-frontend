@@ -4,11 +4,11 @@ import { View, StyleSheet } from "react-native";
 import AppCheckBox from "./AppCheckBox";
 import { verticalScale } from "../../config";
 
-function AppCheckboxGroup({ children, onChange }) {
+function AppCheckboxGroup({ children, onChange, style }) {
   const [current, setCurrent] = useState(0);
   const refsArr = [];
   return (
-    <View onChange={onChange(current)} style={styles.container}>
+    <View onChange={onChange(current)} style={[styles.container, style]}>
       {children.map((value, index) => {
         const ref = useRef(null);
         refsArr.push(ref);

@@ -26,24 +26,26 @@ const AppCheckBox = forwardRef(
     });
 
     return (
-      <TouchableOpacity
-        style={[styles.container, style]}
-        onPress={() => {
-          set_Selected(!_selected);
-          onChange(!_selected);
-        }}
-      >
-        {!_selected && (
-          <CheckboxChecked
-            width={moderateScale(22)}
-            height={moderateScale(22)}
-          />
-        )}
-        {_selected && (
-          <Checkbox width={moderateScale(22)} height={moderateScale(22)} />
-        )}
-        <Text style={[appStyles.text, styles.text]}>{text}</Text>
-      </TouchableOpacity>
+      <Animatable.View animation="fadeIn" duration={1200}>
+        <TouchableOpacity
+          style={[styles.container, style]}
+          onPress={() => {
+            set_Selected(!_selected);
+            onChange(!_selected);
+          }}
+        >
+          {!_selected && (
+            <CheckboxChecked
+              width={moderateScale(22)}
+              height={moderateScale(22)}
+            />
+          )}
+          {_selected && (
+            <Checkbox width={moderateScale(22)} height={moderateScale(22)} />
+          )}
+          <Text style={[appStyles.text, styles.text]}>{text}</Text>
+        </TouchableOpacity>
+      </Animatable.View>
     );
   }
 );

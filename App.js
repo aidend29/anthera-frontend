@@ -9,11 +9,12 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/open-sans";
 import { AuthContext, DetailsContext } from "./app/context";
 
+//MODAL
 export default function App() {
   const [user, setUser] = useState();
   const [details, setDetails] = useState({
     status: null,
-    progress: { current: 1, max: 10 },
+    content: {},
   });
 
   // LOADING FONTS

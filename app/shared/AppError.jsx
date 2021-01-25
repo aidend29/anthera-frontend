@@ -1,28 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import { cssVariables, appStyles, moderateScale } from "../../config";
+import { useEffect } from "react/cjs/react.development";
 
-function AppError({ error, visible, style, ...otherProps }) {
+function AppError({ msg, style, ...otherProps }) {
   return (
     <>
-      {visible && (
+      {msg && (
         <Animatable.View
-          nimation="shake"
+          animation="shake"
           duration={1000}
           style={styles.container}
         >
           <FontAwesome5
             name="exclamation-circle"
-            size={moderateScale(22)}
+            size={moderateScale(14)}
             color="#FA4545"
             style={styles.icon}
           />
-          <Text a style={[appStyles.text, styles.errorMsg, style]}>
-            {error}
-          </Text>
+          <View style={styles.errorWrapper}>
+            <Text style={[appStyles.text, styles.errorText]}>{msg}</Text>
+          </View>
         </Animatable.View>
       )}
     </>
@@ -31,23 +32,28 @@ function AppError({ error, visible, style, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    borderRadius: moderateScale(25),
     backgroundColor: "#ffe6e6",
-    marginVertical: moderateScale(10),
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingRight: moderateScale(30),
-    paddingLeft: moderateScale(10),
-    paddingVertical: moderateScale(10),
+    marginHorizontal: moderateScale(12),
+    borderRadius: moderateScale(5),
   },
   icon: {
-    paddingRight: moderateScale(10),
+    paddingHorizontal: moderateScale(5),
+    paddingLeft: moderateScale(10),
   },
-  errorMsg: {
+  errorWrapper: {
+    backgroundColor: "red",
+    flexDirection: "row",
+    borderRadius: moderateScale(30),
+    backgroundColor: "#ffe6f0",
+  },
+  errorText: {
     color: "#FA4545",
-    paddingRight: moderateScale(8),
+    flex: 1,
+    marginHorizontal: moderateScale(5),
+    marginVertical: moderateScale(6),
   },
 });
 export default AppError;

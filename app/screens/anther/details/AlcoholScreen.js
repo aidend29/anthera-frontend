@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Text, StyleSheet } from "react-native";
 
 import AppDetail from "../../../shared/AppDetail";
@@ -8,27 +8,32 @@ import { DetailsContext } from "../../../context";
 
 function AlcoholScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
+  const alcoholOption = useRef(0);
 
   return (
     <AppDetail
       progressNum={9}
       //Header
-      headerTextFront="You"
-      headerTextColored="are"
+      headerTextColored="Drinking"
+      headerTextRest="habbits"
       //Svg
       //Navigation
       botNavOnPressLeft={() => {
         navigation.navigate("occupation");
       }}
       botNavOnPressRight={() => {
+        let details = detailsContext.details;
+        details.content["alcohol"] = alcoholOption.current;
+        detailsContext.setDetails(details);
+
+        console.log("alcohol: ", detailsContext.details.content.alcohol);
         //setContext
-        console.log("Dob selected", true);
         navigation.navigate("smoke");
       }}
     >
       <AppCheckboxGroup
         onChange={(idx) => {
-          console.log(idx);
+          alcoholOption.current = idx;
         }}
       >
         <Text>a drinker</Text>

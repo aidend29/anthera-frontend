@@ -9,53 +9,92 @@ import {
   moderateScale,
   verticalScale,
 } from "../../config";
+import { color } from "react-native-reanimated";
 
 function AppButton({
-  text,
-  onPress,
-  textCol = cssVariables.colors.white,
-  backgroundCol = "secondary",
-  style = {},
-  hasFrontIcon = false,
-  frontIconName = "facebook",
-  frontIconsize = moderateScale(24),
-  frontIconColor = "white",
-  isLoading = false,
+  title,
+  styleBackground,
+  styleForeground,
+  stylePrimary,
+  displayLoading = false,
+  ...otherProps
 }) {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.button,
-        { backgroundColor: cssVariables.colors[backgroundCol] },
-        style,
-      ]}
-      onPress={onPress}
-    >
-      {hasFrontIcon && (
-        <MaterialCommunityIcons
-          name={frontIconName}
-          color={frontIconColor}
-          size={frontIconsize}
-        />
-      )}
-      {isLoading && (
+  const handleDisplayingLoading = () => {
+    if (displayLoading) {
+      return (
         <Animatable.View
-          style={styles.spinner}
           animation="rotate"
           easing="ease-in-sine"
           iterationCount="infinite"
+          style={styles.btnTitle}
         >
-          <AntDesign name="loading1" size={moderateScale(13)} color="white" />
+          <AntDesign name="loading1" size={moderateScale(16)} color="white" />
         </Animatable.View>
-      )}
-      {!isLoading && (
+      );
+    } else {
+      return (
         <Text
-          style={[appStyles.btnText, styles.buttonText, { color: textCol }]}
+          style={[
+            appStyles.btnText,
+            styles.btnTitle,
+            primaryStyle.btnTitle,
+            styleForeground,
+          ]}
         >
-          {text}
+          {title}
         </Text>
-      )}
+      );
+    }
+  };
+
+  let primaryStyle = {};
+
+  if (stylePrimary)
+    primaryStyle = {
+      btnWrapper: { backgroundColor: cssVariables.colors.primary },
+      btnTitle: { color: cssVariables.colors.white },
+    };
+
+  return (
+    <TouchableOpacity
+      {...otherProps}
+      style={[styles.btnWrapper, primaryStyle.btnWrapper, styleBackground]}
+    >
+      {handleDisplayingLoading()}
     </TouchableOpacity>
+    // <TouchableOpacity
+    //   style={[
+    //     styles.button,
+    //     { backgroundColor: cssVariables.colors[backgroundCol] },
+    //     style,
+    //   ]}
+    //   onPress={onPress}
+    // >
+    //   {hasFrontIcon && (
+    //     <MaterialCommunityIcons
+    //       name={frontIconName}
+    //       color={frontIconColor}
+    //       size={frontIconsize}
+    //     />
+    //   )}
+    //   {isLoading && (
+    //     <Animatable.View
+    //       style={styles.spinner}
+    //       animation="rotate"
+    //       easing="ease-in-sine"
+    //       iterationCount="infinite"
+    //     >
+    //       <AntDesign name="loading1" size={moderateScale(13)} color="white" />
+    //     </Animatable.View>
+    //   )}
+    //   {!isLoading && (
+    //     <Text
+    //       style={[appStyles.btnText, styles.buttonText, { color: textCol }]}
+    //     >
+    //       {text}
+    //     </Text>
+    //   )}
+    // </TouchableOpacity>
   );
 }
 
@@ -77,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: cssVariables.colors.white,
+    color: cssVariables.colors.primary,
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(32),
   },
@@ -87,6 +126,28 @@ const styles = StyleSheet.create({
     fontFamily: cssVariables.fontFamily.OpenSansBold,
     paddingVertical: verticalScale(12),
     paddingHorizontal: verticalScale(32),
+  },
+
+  btnWrapper: {
+    borderRadius: moderateScale(30),
+    backgroundColor: cssVariables.colors.secondaryLightest,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: verticalScale(1),
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.22,
+
+    elevation: 2,
+    width: moderateScale(140),
+    height: moderateScale(44),
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnTitle: {
+    color: cssVariables.colors.primary,
   },
 });
 export default AppButton;

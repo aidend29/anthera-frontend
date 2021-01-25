@@ -4,21 +4,27 @@ import { Text, StyleSheet, View, StatusBar } from "react-native";
 import io from "socket.io-client";
 
 // LOCAL IMPORTS
-import { cssVariables, appStyles, moderateScale } from "../../config";
+import {
+  cssVariables,
+  appStyles,
+  moderateScale,
+  verticalScale,
+} from "../../config";
 import BackgroundDec01Svg from "../assets/svg/BackgroundDec01Svg";
 import Logo from "../assets/svg/LogoSvg";
 import AppButton from "../shared/AppButton";
 import AppScreen from "../shared/AppScreen";
+import AppTextColorCoded from "../shared/AppTextColorCoded";
 
 function WelcomeScreen({ navigation }) {
-  useEffect(() => {
-    StatusBar.setHidden(false);
-    const socket = io("http://104.248.154.62:3000");
+  // useEffect(() => {
+  //   StatusBar.setHidden(false);
+  //   const socket = io("http://104.248.154.62:3000");
 
-    socket.on("connect", function () {});
-    socket.on("event", function (data) {});
-    socket.on("disconnect", function () {});
-  }, []);
+  //   socket.on("connect", function () {});
+  //   socket.on("event", function (data) {});
+  //   socket.on("disconnect", function () {});
+  // }, []);
 
   return (
     <AppScreen>
@@ -27,83 +33,57 @@ function WelcomeScreen({ navigation }) {
         <Animatable.View
           animation="fadeInDownBig"
           duration={1000}
-          style={styles.topWrap}
+          style={styles.decorationSvg}
         >
-          <BackgroundDec01Svg style={styles.test} />
+          <BackgroundDec01Svg
+            width={moderateScale(340)}
+            height={moderateScale(340)}
+          />
         </Animatable.View>
-        {/* END:: TOP DECORATION */}
-
-        {/* START:: LOGO & TITLE */}
-        <View style={styles.midWrap}>
-          <Logo width={moderateScale(70)} />
+        <View style={styles.logoSvg}>
+          <Logo width={moderateScale(70)} height={moderateScale(70)} />
         </View>
-        <View style={styles.midWrap}>
-          <Text style={[appStyles.lgHeading, styles.logoTitle]}>Anther</Text>
-        </View>
-        {/* END:: LOGO & TITLE */}
-
-        {/* START:: WELCOME TEXT & BUTTON */}
-        <View style={styles.botWrap}>
-          <Animatable.View
-            animation="fadeInUpBig"
-            duration={1000}
-            style={styles.botTextWrap}
+        <Text style={[appStyles.lgHeading, styles.antherHeading]}>Anther</Text>
+        <View style={styles.secondaryWelcomeTextWrap}>
+          <Text
+            style={[
+              appStyles.smHeading,
+              { color: cssVariables.colors.primary },
+            ]}
           >
-            {/* START:: WELCOME TEXT */}
+            Hello
             <Text
               style={[
                 appStyles.smHeading,
-                { fontFamily: cssVariables.fontFamily.light },
                 {
-                  color: cssVariables.colors.primary,
+                  color: cssVariables.colors.darkGrey,
+                  fontFamily: cssVariables.fontFamily.light,
                 },
               ]}
             >
-              Hello{" "}
-              <Text
-                style={{
-                  color: cssVariables.colors.darkGrey,
-                }}
-              >
-                there!
-              </Text>
+              {" "}
+              there!
             </Text>
-            <Text
-              style={[
-                appStyles.smHeading,
-                { fontFamily: cssVariables.fontFamily.light },
-              ]}
-            >
-              Lets get you sorted.
-            </Text>
-            {/* END:: WELCOME TEXT */}
-
-            <View style={styles.btnWrap}>
-              {/* START:: GET STARTED BUTTON */}
-              {/* <AppButton
-              backgroundCol="secondary"
-              text="Signin"
-              onPress={() => {
-                navigation.navigate("signin");
-              }}
-              style={styles.btnSignin}
-            /> */}
-              {/* END:: GET STARTED BUTTON */}
-
-              {/* START:: GET STARTED BUTTON */}
-              <AppButton
-                backgroundCol="primary"
-                text="Get Started"
-                onPress={() => {
-                  navigation.navigate("signup");
-                }}
-                style={styles.btnGetStarted}
-              />
-              {/* END:: GET STARTED BUTTON */}
-            </View>
-          </Animatable.View>
+          </Text>
+          <Text
+            style={[
+              appStyles.smHeading,
+              { fontFamily: cssVariables.fontFamily.light },
+            ]}
+          >
+            Lets get you sorted
+          </Text>
+          <AppButton
+            backgroundCol="primary"
+            title="Get Started"
+            styleBackground={{ marginVertical: verticalScale(10) }}
+            stylePrimary={true}
+            onPress={() => {
+              navigation.navigate("signup");
+            }}
+            style={styles.btnGetStarted}
+          />
         </View>
-        {/* END:: WELCOME TEXT & BUTTON */}
       </View>
     </AppScreen>
   );
@@ -111,48 +91,29 @@ function WelcomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    width: cssVariables.screen.width,
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "stretch",
+    alignItems: "center",
   },
-  topWrap: {
+  decorationSvg: {
     flex: moderateScale(1.5),
     flexDirection: "row",
     justifyContent: "flex-start",
     marginBottom: moderateScale(36),
-    right: moderateScale(230),
-    bottom: moderateScale(80),
+    right:
+      cssVariables.screen.width > 600 ? moderateScale(250) : moderateScale(210),
+    bottom:
+      cssVariables.screen.width > 600 ? moderateScale(50) : moderateScale(75),
   },
-  midWrap: {
-    flex: moderateScale(0.6),
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoTitle: {
-    letterSpacing: moderateScale(20),
-    bottom: moderateScale(20),
-  },
-  botWrap: {
-    flex: moderateScale(1.8),
-  },
-  botTextWrap: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "flex-end",
-    marginTop: moderateScale(35),
-    marginRight: moderateScale(50),
-  },
-  btnWrap: {
-    flexDirection: "row",
+  secondaryWelcomeTextWrap: {
+    width: "100%",
     justifyContent: "flex-end",
-    marginVertical: moderateScale(20),
+    alignItems: "flex-end",
+    paddingHorizontal: moderateScale(20),
+    paddingVertical: verticalScale(100),
   },
-  btnSignin: {
-    marginHorizontal: moderateScale(10),
-  },
-  btnGetStarted: {},
+  text: {},
 });
 export default WelcomeScreen;

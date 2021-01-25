@@ -4,6 +4,7 @@ import { Text, StyleSheet } from "react-native";
 import AppDetail from "../../../shared/AppDetail";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
+import { verticalScale } from "../../../../config";
 
 function RelationshipScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -23,22 +24,51 @@ function RelationshipScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         //setContext
-        console.log("Relationship status selected", selectedRationshipStatus);
+        let details = detailsContext.details;
+
+        switch (selectedRationshipStatus) {
+          case 0:
+            details.content["relationshipStatus"] = "Single";
+            break;
+          case 1:
+            details.content["relationshipStatus"] = "Open";
+            break;
+          case 2:
+            details.content["relationshipStatus"] = "Taken";
+            break;
+          case 3:
+            details.content["relationshipStatus"] = "Complicated";
+            break;
+          case 4:
+            details.content["relationshipStatus"] = "null";
+            break;
+        }
+        detailsContext.setDetails(details);
+
+        console.log(
+          "relationshipStatus: ",
+          detailsContext.details.content.relationshipStatus
+        );
         navigation.navigate("intrests");
       }}
     >
       <AppCheckboxGroup
+        style={styles.chkboxGrp}
         onChange={(idx) => {
           selectedRationshipStatus = idx;
         }}
       >
-        <Text>single</Text>
-        <Text>open</Text>
-        <Text>taken</Text>
-        <Text>complicated</Text>
-        <Text>prefer not to say</Text>
+        <Text>Single</Text>
+        <Text>Open</Text>
+        <Text>Taken</Text>
+        <Text>Complicated</Text>
+        <Text>Prefer not to say</Text>
       </AppCheckboxGroup>
     </AppDetail>
   );
 }
+
+const styles = StyleSheet.create({
+  chkboxGrp: {},
+});
 export default RelationshipScreen;
