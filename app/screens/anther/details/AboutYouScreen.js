@@ -39,6 +39,7 @@ function AboutYouScreen({ navigation }) {
       <AppInputLine
         style={{ width: moderateScale(290) }}
         maxLength={255}
+        autoCapitalize="sentences"
         placeholder="Write what you want others to know..."
         maxLength={255}
         onChangeText={(text) => {

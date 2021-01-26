@@ -12,8 +12,9 @@ function AppBottonScreenNav({
   displayButtonDone = false,
   style,
 }) {
+  let oneBtnStyle = isPrevious ? {} : { justifyContent: "center" };
   return (
-    <View style={[styles.navBtnContainer, style]}>
+    <View style={[styles.navBtnContainer, oneBtnStyle, style]}>
       {isPrevious && (
         <AppButtonRound
           icon="leftcircle"
@@ -40,15 +41,13 @@ function AppBottonScreenNav({
 
 const styles = StyleSheet.create({
   navBtnContainer: {
-    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+    width: "100%",
     alignItems: "flex-end",
     marginBottom: verticalScale(60),
   },
-  navBtn: {
-    marginHorizontal: moderateScale(140),
-  },
+  navBtn: {},
 });
 
 export default AppBottonScreenNav;

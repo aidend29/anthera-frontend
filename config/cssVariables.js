@@ -6,7 +6,8 @@ const windowHeight = Dimensions.get("window").height;
 const cssVariables = {
   colors: {
     primary: "#2170FC", //500
-    secondary: "#CFDFF7",
+    // secondary: "#CFDFF7",
+    secondary: "#b4cff8",
     secondaryLight: "#E8F1FF",
     secondaryLightest: "#F7FAFE",
 
@@ -19,8 +20,7 @@ const cssVariables = {
 
     grey: "#a6a6a6",
     midGrey: "#747474",
-    lightGrey: "#F3F3F3",
-    lightGrey: "#F3F3F3",
+    lightGrey: "#e6e6e6",
     darkGrey: "#333333",
 
     semiGrey: "#cccccc",

@@ -31,6 +31,9 @@ export const SmokeScreen = ({ navigation }) => {
   const modalizeRef = useRef(null);
 
   const detailsContext = useContext(DetailsContext);
+  const [isFemaleAvatar, setIsFemaleAvatar] = useState(
+    detailsContext.details.content["identiity"] == "Male" ? false : true
+  );
 
   const [image, setImage] = useState(null);
 
@@ -41,6 +44,22 @@ export const SmokeScreen = ({ navigation }) => {
 
   useEffect(() => {}, []);
 
+  const handleDisplayingDefaultAvatar = () => {
+    if (isFemaleAvatar)
+      return (
+        <FemaleDefaultAvatar
+          width={moderateScale(180)}
+          height={moderateScale(180)}
+        />
+      );
+    else
+      return (
+        <MaleDefaultAvatar
+          width={moderateScale(180)}
+          height={moderateScale(180)}
+        />
+      );
+  };
   const onOpenModel = () => {
     if (modalizeRef.current) {
       modalizeRef.current.open();
@@ -141,12 +160,7 @@ export const SmokeScreen = ({ navigation }) => {
         }}
       >
         <TouchableOpacity onPress={onOpenModel}>
-          {!image && (
-            <FemaleDefaultAvatar
-              width={moderateScale(180)}
-              height={moderateScale(180)}
-            />
-          )}
+          {!image && handleDisplayingDefaultAvatar()}
           {image && (
             <Image
               source={{ uri: image }}

@@ -26,6 +26,7 @@ function AppSearchbox({
   return (
     <AppInputField
       {...otherProps}
+      styleContainer={{ backgroundColor: cssVariables.colors.lightGrey }}
       onClear={() => {
         otherProps["onClear"];
       }}
@@ -39,12 +40,5 @@ function AppSearchbox({
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: verticalScale(10),
-    borderRadius: moderateScale(10),
-  },
-});
 
 export default AppSearchbox;
