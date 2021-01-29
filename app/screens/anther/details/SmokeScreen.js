@@ -5,6 +5,7 @@ import AppScreen from "../../../shared/AppScreen";
 import AppDetail from "../../../shared/AppDetail";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
+// import { updateDetailsApi } from "./shared/index";
 
 function SmokeScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -27,7 +28,21 @@ function SmokeScreen({ navigation }) {
         details.content["smoke"] = smokeOption.current;
         detailsContext.setDetails(details);
 
+        switch (smokeOption.current) {
+          case 0:
+            details.content["smoke"] = "A_smoker";
+            break;
+          case 1:
+            details.content["smoke"] = "Not_a_smoker";
+            break;
+          default:
+            details.content["smoke"] = "void";
+            break;
+        }
         console.log("smoke: ", detailsContext.details.content.smoke);
+        // updateDetailsApi({
+        //   smoking_habbit: detailsContext.details.content.smoke,
+        // });
         navigation.navigate("height");
       }}
     >
@@ -36,9 +51,9 @@ function SmokeScreen({ navigation }) {
           smokeOption.current = idx;
         }}
       >
-        <Text>a smoker</Text>
-        <Text>not a smoker</Text>
-        <Text>prefer not to say</Text>
+        <Text>A smoker</Text>
+        <Text>Not a smoker</Text>
+        <Text>Prefer not to say</Text>
       </AppCheckboxGroup>
     </AppDetail>
   );

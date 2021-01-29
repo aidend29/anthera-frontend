@@ -12,6 +12,7 @@ import HeightScreenSvg from "../../../assets/svg/HeightScreenSvg";
 import AppInputLine from "../../../shared/AppInputLine";
 import { DetailsContext } from "../../../context";
 import { TouchableOpacity } from "react-native-gesture-handler";
+// import { updateDetailsApi } from "./shared/index";
 
 function HeightScreen({ navigation }) {
   const [selectedUnitCM, setSelectedUnitCM] = useState({
@@ -49,6 +50,10 @@ function HeightScreen({ navigation }) {
         detailsContext.setDetails(details);
 
         console.log("height: ", detailsContext.details.content.height);
+        // updateDetailsApi({
+        //   height: parseInt(detailsContext.details.content.height.height),
+        //   height_unit: detailsContext.details.content.height.unit,
+        // });
         navigation.navigate("aboutYou");
       }}
     >

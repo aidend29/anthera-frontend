@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { cssVariables, moderateScale, verticalScale } from "../../config";
@@ -10,6 +10,8 @@ function AppBottonScreenNav({
   isNext = true,
   isPrevious = true,
   displayButtonDone = false,
+  btnPrevDisabled = false,
+  btnNextDisabled = false,
   style,
 }) {
   let oneBtnStyle = isPrevious ? {} : { justifyContent: "center" };
@@ -29,7 +31,8 @@ function AppBottonScreenNav({
         <AppButtonRound
           icon="leftcircle"
           displayButtonDone={displayButtonDone}
-          style={styles.navBtn}
+          style={([styles.navBtn], btnNextDisabled ? { opacity: 0.25 } : {})}
+          disabled={btnNextDisabled ? true : false}
           onPress={() => {
             onPressRight();
           }}

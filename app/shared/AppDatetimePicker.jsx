@@ -21,7 +21,7 @@ function AppDatetimePicker({ _mode, maxdate, getSelectedDate, style }) {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-    getSelectedDate(currentDate);
+    getSelectedDate(new Date(currentDate));
     setText(new Date(currentDate).toDateString());
   };
 

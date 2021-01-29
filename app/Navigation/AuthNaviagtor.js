@@ -10,7 +10,6 @@ import SignupScreen from "../screens/auth/SignupScreen";
 
 import IdentityScreen from "../screens/anther/details/IdentityScreen";
 import PurposeScreen from "../screens/anther/details/PurposeScreen";
-import TestScreen from "../screens/TestScreen";
 
 const Stack = createStackNavigator(); // CREATE STACK NAVIAGTION COMPONENT
 

@@ -8,6 +8,7 @@ import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import AppInputLine from "../../../shared/AppInputLine";
 import AppInputField from "../../../shared/AppInputField";
 import { DetailsContext } from "../../../context";
+// import { updateDetailsApi } from "./shared/index";
 
 function SchoolScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -24,8 +25,8 @@ function SchoolScreen({ navigation }) {
             graduated.current = idx === 0 ? false : true;
           }}
         >
-          <Text>still a student</Text>
-          <Text>graduated</Text>
+          <Text>Still a student</Text>
+          <Text>Graduated</Text>
         </AppCheckboxGroup>
       );
   };
@@ -57,6 +58,11 @@ function SchoolScreen({ navigation }) {
         detailsContext.setDetails(details);
 
         console.log("school: ", detailsContext.details.content.school);
+        // updateDetailsApi({
+        //   school_name: detailsContext.details.content.school.schoolName,
+        //   school_major: detailsContext.details.content.school.majorName,
+        //   school_graduated: detailsContext.details.content.school.graduated,
+        // });
         navigation.navigate("occupation");
       }}
     >

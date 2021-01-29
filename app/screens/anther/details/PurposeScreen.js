@@ -5,7 +5,7 @@ import AppDetail from "../../../shared/AppDetail";
 import PurposeScreenSvg from "../../../assets/svg/PurposeScreenSvg";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
-import { verticalScale } from "../../../../config";
+// import { updateDetailsApi } from "./shared/index";
 
 function PurposeScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -32,17 +32,17 @@ function PurposeScreen({ navigation }) {
 
         switch (selectedPurpose) {
           case 0:
-            details.content["purpose"] = "Date";
+            details.content["purpose"] = "date";
             break;
           case 1:
-            details.content["purpose"] = "Chat and meet new people";
+            details.content["purpose"] = "chat_and_meet_new_people";
             break;
           case 2:
-            details.content["purpose"] = "See how it goes";
+            details.content["purpose"] = "see_what_happens";
             break;
         }
         detailsContext.setDetails(details);
-
+        // updateDetailsApi({ purpose: details.content["purpose"] });
         console.log("purpose: ", detailsContext.details.content.purpose);
         navigation.navigate("dob");
       }}

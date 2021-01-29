@@ -10,12 +10,13 @@ import {
   getContrast,
 } from "../../../../config/index";
 import { View } from "react-native-animatable";
+
 import AppSearchbox from "../../../shared/AppSearchbox";
 import AppTag from "../../../shared/AppTag";
 import { DetailsContext } from "../../../context";
 import { getInterests } from "../../../api/details";
-
 import AppDetail from "../../../shared/AppDetail";
+// import { updateDetailsApi } from "./shared/index";
 
 function IntrestsScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -65,6 +66,11 @@ function IntrestsScreen({ navigation }) {
         detailsContext.setDetails(details);
 
         console.log("interests: ", detailsContext.details.content.interests);
+        // updateDetailsApi({
+        //   interests: JSON.stringify({
+        //     data: detailsContext.details.content.interests,
+        //   }),
+        // });
         navigation.navigate("school");
       }}
     >

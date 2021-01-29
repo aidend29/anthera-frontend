@@ -5,6 +5,7 @@ import AppDetail from "../../../shared/AppDetail";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
 import { verticalScale } from "../../../../config";
+// import { updateDetailsApi } from "./shared/index";
 
 function RelationshipScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -40,7 +41,7 @@ function RelationshipScreen({ navigation }) {
             details.content["relationshipStatus"] = "Complicated";
             break;
           case 4:
-            details.content["relationshipStatus"] = "null";
+            details.content["relationshipStatus"] = "void";
             break;
         }
         detailsContext.setDetails(details);
@@ -49,6 +50,9 @@ function RelationshipScreen({ navigation }) {
           "relationshipStatus: ",
           detailsContext.details.content.relationshipStatus
         );
+        // updateDetailsApi({
+        //   relation_status: detailsContext.details.content.relationshipStatus,
+        // });
         navigation.navigate("intrests");
       }}
     >

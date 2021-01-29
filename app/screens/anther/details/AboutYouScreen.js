@@ -7,6 +7,7 @@ import AppDetail from "../../../shared/AppDetail";
 import { DetailsContext } from "../../../context";
 import AppInputLine from "../../../shared/AppInputLine";
 import { appStyles, cssVariables, moderateScale } from "../../../../config";
+// import { updateDetailsApi } from "./shared/index";
 
 function AboutYouScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -33,6 +34,9 @@ function AboutYouScreen({ navigation }) {
         detailsContext.setDetails(details);
 
         console.log("aboutYou: ", detailsContext.details.content.aboutYou);
+        // updateDetailsApi({
+        //   about_you: detailsContext.details.content.aboutYou,
+        // });
         navigation.navigate("profilePicture");
       }}
     >

@@ -9,15 +9,17 @@ import {
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Ionicons } from "@expo/vector-icons";
-
 import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
 
 import FemaleDefaultAvatar from "../../../assets/svg/FemaleDefaultAvatar";
 import MaleDefaultAvatar from "../../../assets/svg/MaleDefaultAvatar";
 import AppDetail from "../../../shared/AppDetail";
 import AppInputLine from "../../../shared/AppInputLine";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
+import AppError from "../../../shared/AppError";
 import { DetailsContext } from "../../../context";
+import { updateDetailsApi } from "./shared/index";
 
 import {
   cssVariables,
@@ -27,8 +29,8 @@ import {
 } from "../../../../config";
 
 export const SmokeScreen = ({ navigation }) => {
-  const form = useRef({ displayName: "", img: null });
   const modalizeRef = useRef(null);
+  const [isCompleteBtnDisabled, setIsCompleteBtnDisabled] = useState(true);
 
   const detailsContext = useContext(DetailsContext);
   const [isFemaleAvatar, setIsFemaleAvatar] = useState(
@@ -36,6 +38,7 @@ export const SmokeScreen = ({ navigation }) => {
   );
 
   const [image, setImage] = useState(null);
+  const [displayName, setDisplayName] = useState(null);
 
   const [visible, setVisible] = React.useState(false);
   const toggleAlert = React.useCallback(() => {
@@ -60,6 +63,7 @@ export const SmokeScreen = ({ navigation }) => {
         />
       );
   };
+
   const onOpenModel = () => {
     if (modalizeRef.current) {
       modalizeRef.current.open();
@@ -98,13 +102,14 @@ export const SmokeScreen = ({ navigation }) => {
         allowsEditing: true,
         base64: true,
         aspect: [7, 10],
-        quality: 1,
+        quality: 0.8,
       });
 
       // console.log(result);
+      //Compress Image
 
       if (!result.cancelled) {
-        form.current.img = result.base64;
+        // compressImage(result);
         setImage(result.uri);
       }
     } catch (error) {
@@ -120,11 +125,10 @@ export const SmokeScreen = ({ navigation }) => {
         allowsEditing: true,
         base64: true,
         aspect: [7, 10],
-        quality: 1,
+        quality: 0.8,
       });
 
       if (!result.cancelled) {
-        form.current.img = result.base64;
         setImage(result.uri);
       }
     } catch (error) {
@@ -132,6 +136,41 @@ export const SmokeScreen = ({ navigation }) => {
     }
   };
 
+  const handleUpdateApi = () => {
+    updateDetailsApi({
+      sex: detailsContext.details.content.identiity,
+      purpose: detailsContext.details.content.purpose,
+      sexual_orientation: detailsContext.details.content.sexualOrientation,
+      dob: detailsContext.details.content.dob,
+      height_unit: detailsContext.details.content.height.unit,
+      interests: JSON.stringify({
+        data: detailsContext.details.content.interests,
+      }),
+
+      school_name: detailsContext.details.content.school.schoolName,
+      school_major: detailsContext.details.content.school.majorName,
+      school_graduated: detailsContext.details.content.school.graduated,
+
+      profession: detailsContext.details.content.occupation.professionName,
+      workplace_name: detailsContext.details.content.occupation.companyName,
+
+      drinking_habbit: detailsContext.details.content.alcohol,
+      smoking_habbit: detailsContext.details.content.smoke,
+
+      height: parseInt(detailsContext.details.content.height.height),
+      about_you: detailsContext.details.content.aboutYou,
+
+      display_name: displayName,
+    });
+  };
+
+  const handleComplete = () => {
+    let detailContents = detailsContext.details.content;
+    handleUpdateApi();
+    console.log(detailContents);
+  };
+
+  const isCompleteButtonDisabed = () => {};
   return (
     <>
       <AppDetail
@@ -146,16 +185,18 @@ export const SmokeScreen = ({ navigation }) => {
           navigation.navigate("aboutYou");
         }}
         displayButtonDone={true}
+        btnNextDisabled={image && displayName ? false : true}
         botNavOnPressRight={() => {
           //setContext
           let details = detailsContext.details;
-          details.content["profilePicture"] = form.current;
+          details.content["profilePicture"] = { displayName, image };
           detailsContext.setDetails(details);
 
-          console.log(
-            "profilePicture: ",
-            detailsContext.details.content.profilePicture
-          );
+          // console.log(
+          //   "profilePicture: ",
+          //   detailsContext.details.content.profilePicture
+          // );
+          handleComplete();
           navigation.navigate("profilePicture");
         }}
       >
@@ -177,10 +218,12 @@ export const SmokeScreen = ({ navigation }) => {
             autoCapitalize="words"
             maxLength={12}
             placeholder="display name"
-            onChangeText={(text) => {
-              form.current.displayName = text;
+            onClear={() => {
+              setDisplayName(null);
             }}
-            isClearBtn={false}
+            onChangeText={(text) => {
+              setDisplayName(text);
+            }}
             styleText={{
               paddingVertical: moderateScale(2),
               width: "auto",

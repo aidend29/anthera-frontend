@@ -11,6 +11,7 @@ import {
 import IdentityScreenSvg from "../../../assets/svg/IdentityScreenSvg";
 import { DetailsContext } from "../../../context";
 import AppDetail from "../../../shared/AppDetail";
+// import { updateDetailsApi } from "./shared/index";
 
 function IdentityScreen({ navigation }) {
   const [femaleSelected, setFemaleSelected] = useState({
@@ -36,10 +37,11 @@ function IdentityScreen({ navigation }) {
         let details = detailsContext.details;
 
         maleSelected.btnSelected
-          ? (details.content["identiity"] = "Male")
-          : (details.content["identiity"] = "Female");
+          ? (details.content["identiity"] = "M")
+          : (details.content["identiity"] = "F");
         detailsContext.setDetails(details);
 
+        // updateDetailsApi({ sex: details.content["identiity"] });
         console.log("identiity: ", detailsContext.details.content.identiity);
         navigation.navigate("sexualOrientation");
       }}

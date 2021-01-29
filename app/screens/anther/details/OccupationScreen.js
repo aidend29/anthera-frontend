@@ -8,20 +8,21 @@ import { View } from "react-native-animatable";
 import AppInputLine from "../../../shared/AppInputLine";
 import AppCheckBox from "../../../shared/AppCheckBox";
 import { DetailsContext } from "../../../context";
+// import { updateDetailsApi } from "./shared/index";
 
 function OccupationScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
-  const [occupationName, setOccupationName] = useState("");
-  const roleName = useRef("");
+  const [professionName, setProfessionName] = useState("");
+  const companyName = useRef("");
 
   const handleDisplayingRoleInput = () => {
-    if (occupationName.length > 0) {
+    if (professionName.length > 0) {
       return (
         <AppInputLine
           autoCapitalize="words"
-          placeholder="position/role (optional)"
+          placeholder="company name (optional)"
           onChangeText={(text) => {
-            roleName.current = text;
+            companyName.current = text;
           }}
         />
       );
@@ -31,7 +32,7 @@ function OccupationScreen({ navigation }) {
     <AppDetail
       progressNum={8}
       //Header
-      headerTextFront="Where you"
+      headerTextFront="Your"
       headerTextColored="work"
       //Bottom Svg
       BottomSvgname={OccupationScreenSvg}
@@ -44,13 +45,17 @@ function OccupationScreen({ navigation }) {
       botNavOnPressRight={() => {
         let details = detailsContext.details;
         let form = {
-          occupationName: occupationName,
-          roleName: roleName.current,
+          professionName: professionName,
+          companyName: companyName.current,
         };
         details.content["occupation"] = form;
         detailsContext.setDetails(details);
 
         console.log("occupation: ", detailsContext.details.content.occupation);
+        // updateDetailsApi({
+        //   profession: detailsContext.details.content.occupation.professionName,
+        //   workplace_name: detailsContext.details.content.occupation.companyName,
+        // });
         //setContext
         navigation.navigate("alcohol");
       }}
@@ -58,12 +63,12 @@ function OccupationScreen({ navigation }) {
       <View style={styles.container}>
         <AppInputLine
           autoCapitalize="words"
-          placeholder="name of place you work (optional)"
+          placeholder="your profession (optional)"
           onChangeText={(text) => {
-            setOccupationName(text);
+            setProfessionName(text);
           }}
           onClear={() => {
-            setOccupationName("");
+            setProfessionName("");
           }}
         />
         {handleDisplayingRoleInput()}

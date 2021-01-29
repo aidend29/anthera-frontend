@@ -5,6 +5,7 @@ import AppDetail from "../../../shared/AppDetail";
 import { moderateScale, verticalScale } from "../../../../config/index";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
+// import { updateDetailsApi } from "./shared/index";
 
 function AlcoholScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -23,10 +24,26 @@ function AlcoholScreen({ navigation }) {
       }}
       botNavOnPressRight={() => {
         let details = detailsContext.details;
-        details.content["alcohol"] = alcoholOption.current;
+        switch (alcoholOption.current) {
+          case 0:
+            details.content["alcohol"] = "A_drinker";
+            break;
+          case 1:
+            details.content["alcohol"] = "Not_a_drinker";
+            break;
+          case 2:
+            details.content["alcohol"] = "A_occasional_drinker";
+            break;
+          default:
+            details.content["alcohol"] = "void";
+            break;
+        }
         detailsContext.setDetails(details);
 
         console.log("alcohol: ", detailsContext.details.content.alcohol);
+        // updateDetailsApi({
+        //   drinking_habbit: detailsContext.details.content.alcohol,
+        // });
         //setContext
         navigation.navigate("smoke");
       }}
@@ -36,10 +53,10 @@ function AlcoholScreen({ navigation }) {
           alcoholOption.current = idx;
         }}
       >
-        <Text>a drinker</Text>
-        <Text>not a drinker</Text>
-        <Text>a occasional drinker</Text>
-        <Text>prefer not to say</Text>
+        <Text>A drinker</Text>
+        <Text>Not a drinker</Text>
+        <Text>A occasional drinker</Text>
+        <Text>Prefer not to say</Text>
       </AppCheckboxGroup>
     </AppDetail>
   );

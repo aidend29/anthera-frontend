@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -21,12 +21,13 @@ function AppButtonRound({
   ...otherProps
 }) {
   let displayButtonDoneStyle = displayButtonDone ? styles._container : {};
+  let opacity = useRef(1);
   if (!visible) {
     return <></>;
   }
   if (go == "next") {
     return (
-      <TouchableOpacity {...otherProps}>
+      <TouchableOpacity {...otherProps} style={{ opacity: opacity.current }}>
         <View
           style={[styles.container, displayButtonDoneStyle, styles.btn, style]}
         >

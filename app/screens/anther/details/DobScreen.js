@@ -6,6 +6,7 @@ import DobScreenSvg from "../../../assets/svg/DobScreenSvg";
 import AppDatetimePicker from "../../../shared/AppDatetimePicker";
 import { DetailsContext } from "../../../context";
 import { verticalScale } from "../../../../config";
+// import { updateDetailsApi } from "./shared/index";
 
 function DobScreen({ navigation }) {
   const detailsContext = useContext(DetailsContext);
@@ -15,14 +16,7 @@ function DobScreen({ navigation }) {
     return new Date(d.setDate(d.getDate() - 5844)); // - number of days
   };
 
-  const formatDate = (date) => {
-    date = new Date(date);
-    return (
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-    );
-  };
-
-  let dob = formatDate(getMaxDate());
+  let dob = getMaxDate();
   return (
     <AppDetail
       progressNum={4}
@@ -44,7 +38,7 @@ function DobScreen({ navigation }) {
         details.content["dob"] = dob;
         detailsContext.setDetails(details);
 
-        console.log("dob: ", detailsContext.details.content.dob);
+        // updateDetailsApi({ dob: detailsContext.details.content.dob });
         navigation.navigate("relationshipStatus");
       }}
     >
@@ -53,7 +47,7 @@ function DobScreen({ navigation }) {
         _mode="date"
         maxdate={getMaxDate}
         getSelectedDate={(date) => {
-          dob = formatDate(date);
+          dob = date;
         }}
       />
     </AppDetail>
