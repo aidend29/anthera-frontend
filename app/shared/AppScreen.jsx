@@ -9,13 +9,12 @@ import {
   StyleSheet,
 } from "react-native";
 
-import config, { moderateScale, verticalScale } from "../../config";
-import { cssVariables } from "../../config";
+import { cssVariables, verticalScale } from "../../config";
 
 function AppScreen({ children, style }) {
   if (Platform.OS === "ios") {
     return (
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={[styles.safeArea, style]}>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
           {children}
         </KeyboardAvoidingView>
@@ -25,11 +24,11 @@ function AppScreen({ children, style }) {
     return (
       <>
         <StatusBar
-          backgroundColor="white"
+          backgroundColor={cssVariables.colors.backgroundColor}
           barStyle="dark-content"
           translucent={true}
         />
-        <View style={[styles.safeArea, styles.android]}>
+        <View style={[styles.safeArea, styles.android, style]}>
           <View style={styles.container}>{children}</View>
         </View>
       </>
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
+    backgroundColor: "#f2f2f2",
   },
   android: {
     paddingTop: StatusBar.currentHeight + verticalScale(10),

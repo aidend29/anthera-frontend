@@ -25,8 +25,8 @@ function DetailsNaviagtor() {
       screenOptions={{
         headerShown: false,
         cardStyle: { backgroundColor: "white" },
-        gestureEnabled: true,
-        gestureDirection: "horizontal",
+        // gestureEnabled: true,
+        // gestureDirection: "horizontal",
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >

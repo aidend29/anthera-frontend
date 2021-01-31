@@ -8,9 +8,6 @@ import {
 import Progressbar from "../../../../shared/AppProgressbar";
 import * as Animatable from "react-native-animatable";
 
-import { AuthContext } from "../../../../context";
-import { updateDetails } from "../../../../api/details";
-
 function updateProgress(detailsContext, num) {
   const tmp = { ...detailsContext.details };
   tmp.progress.current += num;
@@ -54,7 +51,4 @@ function ProgressDots({ num, max = 13 }) {
   );
 }
 
-function updateDetailsApi(data = {}) {
-  updateDetails(34, data);
-}
-export { updateProgress, ProgressDots, updateDetailsApi };
+export { updateProgress, ProgressDots };

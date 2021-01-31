@@ -35,7 +35,7 @@ function AppButtonRound({
             <Feather
               name="chevron-right"
               color={cssVariables.colors.primary}
-              size={moderateScale(55)}
+              size={moderateScale(58)}
             />
           )}
           {displayButtonDone && (
@@ -43,7 +43,7 @@ function AppButtonRound({
               <Feather
                 name="check"
                 color={cssVariables.colors.white}
-                size={moderateScale(55)}
+                size={moderateScale(58)}
               />
             </Animatable.View>
           )}
@@ -57,7 +57,7 @@ function AppButtonRound({
           <Feather
             name="chevron-left"
             color={cssVariables.colors.secondary}
-            size={moderateScale(45)}
+            size={moderateScale(48)}
           />
         </View>
       </TouchableOpacity>

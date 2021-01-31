@@ -5,6 +5,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const cssVariables = {
   colors: {
+    backgroundColor: "#f2f2f2",
     primary: "#2170FC", //500
     // secondary: "#CFDFF7",
     secondary: "#b4cff8",

@@ -17,8 +17,8 @@ function SvgComponent({ width = 389.441, height = 363.85 }) {
           r={0.5}
           gradientUnits="objectBoundingBox"
         >
-          <Stop offset={0} stopColor="#2170fc" />
-          <Stop offset={1} stopColor="#2170fc" />
+          <Stop offset={0} stopColor="#2170FC" />
+          <Stop offset={1} stopColor="#2170FC" />
         </RadialGradient>
       </Defs>
       <Path

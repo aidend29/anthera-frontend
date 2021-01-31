@@ -9,13 +9,15 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/open-sans";
 import { AuthContext, DetailsContext } from "./app/context";
 
+import { getDetailsAPI } from "./app/api/details";
+
 //MODAL
 export default function App() {
   const [user, setUser] = useState();
   const [details, setDetails] = useState({
-    status: null,
     content: {},
   });
+  const [detailsComplete, setDetailsComplete] = useState(false);
 
   // LOADING FONTS
   let [fontsLoaded] = useFonts({
@@ -28,23 +30,33 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
+    const setDetailsStatus = async () => {
+      try {
+        const res = await getDetailsAPI(user.id);
+        // console.log(res);
+        if (res.status === 200) {
+          setDetailsComplete(res.data.details.completion);
+        }
+      } catch (error) {}
+    };
+
+    setDetailsStatus();
+
     return (
       <AuthContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
-          {test()}
+          {handleNavigators()}
           {/* {user ? <AppNaviagtor /> : <AuthNaviagtor />} */}
         </NavigationContainer>
       </AuthContext.Provider>
     );
   }
 
-  function test() {
+  function handleNavigators() {
     if (user) {
-      if (details.status != null) {
-        //Go to app
+      if (detailsComplete) {
         return <AppNaviagtor />;
       } else {
-        //Go to details nav
         return (
           <DetailsContext.Provider value={{ details, setDetails }}>
             <DetailsNaviagtor />
@@ -52,12 +64,6 @@ export default function App() {
         );
       }
     } else {
-      // Go to auth nav
-      return (
-        <DetailsContext.Provider value={{ details, setDetails }}>
-          <DetailsNaviagtor />
-        </DetailsContext.Provider>
-      );
       return <AuthNaviagtor />;
     }
   }

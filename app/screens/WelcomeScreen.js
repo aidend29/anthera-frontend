@@ -43,7 +43,18 @@ function WelcomeScreen({ navigation }) {
         <View style={styles.logoSvg}>
           <Logo width={moderateScale(70)} height={moderateScale(70)} />
         </View>
-        <Text style={[appStyles.lgHeading, styles.antherHeading]}>Anther</Text>
+        <Text
+          style={[
+            appStyles.lgHeading,
+            styles.antherHeading,
+            {
+              color: cssVariables.colors.primary,
+              fontFamily: cssVariables.fontFamily.regular,
+            },
+          ]}
+        >
+          Anther
+        </Text>
         <View style={styles.secondaryWelcomeTextWrap}>
           <Text
             style={[

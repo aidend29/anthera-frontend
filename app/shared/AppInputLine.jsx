@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderWidth: 0,
     borderBottomWidth: moderateScale(1),
-    backgroundColor: cssVariables.colors.white,
+    backgroundColor: cssVariables.colors.backgroundColor,
     borderColor: cssVariables.colors.secondary,
     paddingHorizontal: verticalScale(10),
   },

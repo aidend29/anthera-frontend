@@ -14,7 +14,7 @@ import { View } from "react-native-animatable";
 import AppSearchbox from "../../../shared/AppSearchbox";
 import AppTag from "../../../shared/AppTag";
 import { DetailsContext } from "../../../context";
-import { getInterests } from "../../../api/details";
+import { getInterestsAPI } from "../../../api/details";
 import AppDetail from "../../../shared/AppDetail";
 // import { updateDetailsApi } from "./shared/index";
 
@@ -35,7 +35,7 @@ function IntrestsScreen({ navigation }) {
   };
 
   const handleInput = (text) => {
-    getInterests(text, (data) => {
+    getInterestsAPI(text, (data) => {
       // console.log(data.data);
       setInterests(data.data);
     });

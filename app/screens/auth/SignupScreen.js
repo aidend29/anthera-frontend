@@ -15,12 +15,14 @@ import AppCheckBox from "../../shared/AppCheckBox";
 import AppError from "../../shared/AppError";
 
 import { AuthContext } from "../../context";
-import { handleSignup } from "../../api/auth/appAuthService";
+import { signupAPI } from "../../api/auth";
 
 function SignupScreen({ navigation }) {
   const [signupError, setSignupError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const form = useRef({ email: "", password: "", terms: false });
+  const [terms, setTerms] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const authContext = useContext(AuthContext);
 
@@ -40,27 +42,29 @@ function SignupScreen({ navigation }) {
           icon="email"
           keyboardType="email-address"
           value="elise@gmail.com"
+          onClear={() => {}}
           placeholder="email"
           onChangeText={(text) => {
-            form.current.email = text;
+            setEmail(text);
             // console.log(form.current.email);
           }}
         />
         <AppInputField
           icon="lock"
           value="elise123"
+          onClear={() => {}}
           secureTextEntry={true}
           placeholder="password"
           onChangeText={(text) => {
-            form.current.password = text;
+            setPassword(text);
             // console.log(form.current.password);
           }}
         />
         <AppCheckBox
           text="Agree to terms & conditions"
-          style={{ marginVertical: verticalScale(10), alignSelf: "flex-end" }}
+          style={styles.checkbox}
           onChange={(val) => {
-            form.current.terms = val;
+            setTerms(val);
           }}
         />
         <View style={styles.btnRow}>
@@ -75,8 +79,15 @@ function SignupScreen({ navigation }) {
             displayLoading={loading}
             stylePrimary={true}
             onPress={() => {
-              // console.log(form);
-              handleSignup(form, authContext, setLoading, setSignupError);
+              // console.log("EMAIL: ", email);
+              // console.log("PASSWORD: ", password);
+              // console.log("TERMS: ", terms);
+              signupAPI(
+                { email, password, terms },
+                authContext,
+                setLoading,
+                setSignupError
+              );
             }}
           />
         </View>
@@ -100,6 +111,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-around",
+  },
+  checkbox: {
+    width: "100%",
+    marginVertical: verticalScale(10),
+    marginLeft: moderateScale(54),
+    alignSelf: "flex-end",
   },
 });
 export default SignupScreen;

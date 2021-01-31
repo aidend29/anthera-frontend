@@ -15,17 +15,18 @@ import AppCheckBox from "../../shared/AppCheckBox";
 import AppError from "../../shared/AppError";
 
 import { AuthContext } from "../../context";
-import { handleSignin } from "../../api/auth/appAuthService";
+import { signinAPI } from "../../api/auth";
 
 function SigninScreen({ navigation }) {
   const [signinError, setSigninError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const form = useRef({ email: "", password: "" });
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const authContext = useContext(AuthContext);
 
   return (
-    <AppScreen>
+    <AppScreen style={{}}>
       <View style={styles.container}>
         <Text style={[appStyles.smHeading, styles.headingText]}>
           Sign into Anther
@@ -39,26 +40,26 @@ function SigninScreen({ navigation }) {
         <AppInputField
           icon="email"
           keyboardType="email-address"
-          value="elise@gmail.com"
           placeholder="email"
+          onClear={() => {}}
           onChangeText={(text) => {
-            form.current.email = text;
+            setEmail(text);
             // console.log(form.current.email);
           }}
         />
         <AppInputField
           icon="lock"
-          value="elise123"
           secureTextEntry={true}
           placeholder="password"
+          onClear={() => {}}
           onChangeText={(text) => {
-            form.current.password = text;
+            setPassword(text);
             // console.log(form.current.password);
           }}
         />
         <AppCheckBox
-          text="Remember login"
-          style={{ marginVertical: verticalScale(10), alignSelf: "flex-end" }}
+          text="Remember me"
+          style={styles.checkbox}
           onChange={(val) => {
             console.log(val);
           }}
@@ -76,7 +77,12 @@ function SigninScreen({ navigation }) {
             stylePrimary={true}
             onPress={() => {
               // console.log(form);
-              handleSignin(form, authContext, setLoading, setSigninError);
+              signinAPI(
+                { email, password },
+                authContext,
+                setLoading,
+                setSigninError
+              );
             }}
           />
         </View>
@@ -100,6 +106,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-around",
+  },
+  checkbox: {
+    width: "100%",
+    marginLeft: moderateScale(110),
+    marginVertical: verticalScale(10),
+    alignSelf: "flex-end",
   },
 });
 export default SigninScreen;

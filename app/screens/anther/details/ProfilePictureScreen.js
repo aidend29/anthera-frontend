@@ -8,18 +8,24 @@ import {
   Platform,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
+import * as Animatable from "react-native-animatable";
 
 import FemaleDefaultAvatar from "../../../assets/svg/FemaleDefaultAvatar";
 import MaleDefaultAvatar from "../../../assets/svg/MaleDefaultAvatar";
 import AppDetail from "../../../shared/AppDetail";
 import AppInputLine from "../../../shared/AppInputLine";
 import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
-import AppError from "../../../shared/AppError";
 import { DetailsContext } from "../../../context";
-import { updateDetailsApi } from "./shared/index";
+import { AuthContext } from "../../../context";
+
+import {
+  updateDetailsAPI,
+  uploadProfilePictureAPI,
+} from "../../../api/details";
 
 import {
   cssVariables,
@@ -31,6 +37,7 @@ import {
 export const SmokeScreen = ({ navigation }) => {
   const modalizeRef = useRef(null);
   const [isCompleteBtnDisabled, setIsCompleteBtnDisabled] = useState(true);
+  const [isImageLaoding, setImageLoading] = useState(false);
 
   const detailsContext = useContext(DetailsContext);
   const [isFemaleAvatar, setIsFemaleAvatar] = useState(
@@ -47,20 +54,58 @@ export const SmokeScreen = ({ navigation }) => {
 
   useEffect(() => {}, []);
 
+  const loading = {
+    0: {
+      opacity: 1,
+    },
+    0.25: {
+      opacity: 0.75,
+    },
+    0.5: {
+      opacity: 0.45,
+    },
+    0.75: {
+      opacity: 0.75,
+    },
+    1: {
+      opacity: 1,
+    },
+  };
+
+  const authContext = useContext(AuthContext);
+  // console.log(authContext.user);
+
+  // set dafault avatar depenidng on the gender chosen
   const handleDisplayingDefaultAvatar = () => {
+    const AnimationWrap = ({ children }) => {
+      return (
+        <Animatable.View
+          animation={isImageLaoding ? loading : null}
+          iterationCount="infinite"
+          easing="ease-out"
+          duration={3000}
+        >
+          {children}
+        </Animatable.View>
+      );
+    };
     if (isFemaleAvatar)
       return (
-        <FemaleDefaultAvatar
-          width={moderateScale(180)}
-          height={moderateScale(180)}
-        />
+        <AnimationWrap>
+          <FemaleDefaultAvatar
+            width={moderateScale(180)}
+            height={moderateScale(180)}
+          />
+        </AnimationWrap>
       );
     else
       return (
-        <MaleDefaultAvatar
-          width={moderateScale(180)}
-          height={moderateScale(180)}
-        />
+        <AnimationWrap>
+          <MaleDefaultAvatar
+            width={moderateScale(180)}
+            height={moderateScale(180)}
+          />
+        </AnimationWrap>
       );
   };
 
@@ -94,6 +139,57 @@ export const SmokeScreen = ({ navigation }) => {
     }
   };
 
+  const imageCompressor = async (uri) => {
+    const fileSizeErrorMargin = (size) => {
+      //554 kb = 0.554 mb
+      if (Platform.OS === "ios") {
+        size = (size / 1000) * 3.85;
+        // console.log(size + " kb");
+        return size;
+      }
+      // console.log(size / 1000 + " kb");
+      return size / 1000;
+    };
+
+    const compress = async (uri, compressVal) => {
+      const manipResult = await ImageManipulator.manipulateAsync(uri, [], {
+        compress: compressVal,
+      });
+
+      fileInfo = await FileSystem.getInfoAsync(manipResult.uri);
+      // console.log(
+      //   "AFTER @ " + compressVal + " - " + fileSizeErrorMargin(fileInfo.size)
+      // );
+      uploadProfilePictureAPI(authContext, manipResult.uri);
+      setImage(manipResult.uri);
+    };
+
+    let fileInfo = await FileSystem.getInfoAsync(uri);
+    const sizeEstimate = fileSizeErrorMargin(fileInfo.size);
+    // console.log("ORIGINAL", sizeEstimate);
+
+    switch (true) {
+      case sizeEstimate < 1000:
+        compress(fileInfo.uri, 0.9);
+        break;
+      case sizeEstimate < 2500:
+        compress(fileInfo.uri, 0.8);
+        break;
+      case sizeEstimate < 3000:
+        compress(fileInfo.uri, 0.7);
+        break;
+      case sizeEstimate < 4000:
+        compress(fileInfo.uri, 0.5);
+        break;
+      case sizeEstimate < 5000:
+        compress(fileInfo.uri, 0.3);
+        break;
+      default:
+        compress(fileInfo.uri, 0.01);
+        break;
+    }
+  };
+
   const laucnhImageBrowser = async () => {
     requestMediaLibaryPermissions();
     try {
@@ -102,15 +198,10 @@ export const SmokeScreen = ({ navigation }) => {
         allowsEditing: true,
         base64: true,
         aspect: [7, 10],
-        quality: 0.8,
+        quality: 1,
       });
-
-      // console.log(result);
-      //Compress Image
-
       if (!result.cancelled) {
-        // compressImage(result);
-        setImage(result.uri);
+        imageCompressor(result.uri);
       }
     } catch (error) {
       alert("Sorry, something went wrong opening media libary.");
@@ -125,52 +216,17 @@ export const SmokeScreen = ({ navigation }) => {
         allowsEditing: true,
         base64: true,
         aspect: [7, 10],
-        quality: 0.8,
+        quality: 1,
       });
 
       if (!result.cancelled) {
-        setImage(result.uri);
+        imageCompressor(result.uri);
       }
     } catch (error) {
       alert("Sorry, something went wrong opening camera.");
     }
   };
 
-  const handleUpdateApi = () => {
-    updateDetailsApi({
-      sex: detailsContext.details.content.identiity,
-      purpose: detailsContext.details.content.purpose,
-      sexual_orientation: detailsContext.details.content.sexualOrientation,
-      dob: detailsContext.details.content.dob,
-      height_unit: detailsContext.details.content.height.unit,
-      interests: JSON.stringify({
-        data: detailsContext.details.content.interests,
-      }),
-
-      school_name: detailsContext.details.content.school.schoolName,
-      school_major: detailsContext.details.content.school.majorName,
-      school_graduated: detailsContext.details.content.school.graduated,
-
-      profession: detailsContext.details.content.occupation.professionName,
-      workplace_name: detailsContext.details.content.occupation.companyName,
-
-      drinking_habbit: detailsContext.details.content.alcohol,
-      smoking_habbit: detailsContext.details.content.smoke,
-
-      height: parseInt(detailsContext.details.content.height.height),
-      about_you: detailsContext.details.content.aboutYou,
-
-      display_name: displayName,
-    });
-  };
-
-  const handleComplete = () => {
-    let detailContents = detailsContext.details.content;
-    handleUpdateApi();
-    console.log(detailContents);
-  };
-
-  const isCompleteButtonDisabed = () => {};
   return (
     <>
       <AppDetail
@@ -188,16 +244,37 @@ export const SmokeScreen = ({ navigation }) => {
         btnNextDisabled={image && displayName ? false : true}
         botNavOnPressRight={() => {
           //setContext
-          let details = detailsContext.details;
-          details.content["profilePicture"] = { displayName, image };
-          detailsContext.setDetails(details);
 
-          // console.log(
-          //   "profilePicture: ",
-          //   detailsContext.details.content.profilePicture
-          // );
-          handleComplete();
-          navigation.navigate("profilePicture");
+          updateDetailsAPI(authContext, {
+            sex: detailsContext.details.content.identiity,
+            purpose: detailsContext.details.content.purpose,
+            sexual_orientation:
+              detailsContext.details.content.sexualOrientation,
+            relation_status: detailsContext.details.content.relationshipStatus,
+            dob: detailsContext.details.content.dob,
+            height_unit: detailsContext.details.content.height.unit,
+            interests: JSON.stringify({
+              data: detailsContext.details.content.interests,
+            }),
+
+            school_name: detailsContext.details.content.school.schoolName,
+            school_major: detailsContext.details.content.school.majorName,
+            school_graduated: detailsContext.details.content.school.graduated,
+
+            profession:
+              detailsContext.details.content.occupation.professionName,
+            workplace_name:
+              detailsContext.details.content.occupation.companyName,
+
+            drinking_habbit: detailsContext.details.content.alcohol,
+            smoking_habbit: detailsContext.details.content.smoke,
+
+            height: parseInt(detailsContext.details.content.height.height),
+            about_you: detailsContext.details.content.aboutYou,
+
+            display_name: displayName,
+            completion: true,
+          });
         }}
       >
         <TouchableOpacity onPress={onOpenModel}>
@@ -268,6 +345,9 @@ const styles = StyleSheet.create({
   btn: {
     marginHorizontal: moderateScale(50),
     marginBottom: verticalScale(30),
+  },
+  loader: {
+    position: "absolute",
   },
 });
 
