@@ -1,7 +1,7 @@
 import { create } from "apisauce";
-const baseURL = `http://104.248.154.62:5000/api/`;
+const baseURL = `https://www.anthera.xyz/api/`;
 const client = create({
-  baseURL: "http://104.248.154.62:5000/api",
+  baseURL: baseURL,
 });
 
 const customClient = (headers) => {

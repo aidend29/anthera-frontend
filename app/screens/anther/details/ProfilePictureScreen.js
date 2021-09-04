@@ -22,7 +22,7 @@ import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
 import { AuthContext } from "../../../context";
 
-import {
+import {110/70-17
   updateDetailsAPI,
   uploadProfilePictureAPI,
 } from "../../../api/details";
@@ -275,6 +275,7 @@ export const SmokeScreen = ({ navigation }) => {
             display_name: displayName,
             completion: true,
           });
+          navigation.navigate("aboutYou");
         }}
       >
         <TouchableOpacity onPress={onOpenModel}>
