@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import * as Animatable from "react-native-animatable";
-import { Text, StyleSheet, View, StatusBar } from "react-native";
+import { Text, View } from "react-native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 import io from "socket.io-client";
 
 // LOCAL IMPORTS
@@ -14,7 +15,6 @@ import BackgroundDec01Svg from "../assets/svg/BackgroundDec01Svg";
 import Logo from "../assets/svg/LogoSvg";
 import AppButton from "../shared/AppButton";
 import AppScreen from "../shared/AppScreen";
-import AppTextColorCoded from "../shared/AppTextColorCoded";
 
 function WelcomeScreen({ navigation }) {
   // useEffect(() => {
@@ -25,6 +25,16 @@ function WelcomeScreen({ navigation }) {
   //   socket.on("event", function (data) {});
   //   socket.on("disconnect", function () {});
   // }, []);
+
+  useEffect(() => {
+
+    // console.log(cssVariables.screen.height);
+
+    //nexus s:  w 320 h 533
+    //nexus 5: w 392 h 718
+    //tablet: w 800 h 1232
+    
+  }, []);
 
   return (
     <AppScreen>
@@ -45,12 +55,7 @@ function WelcomeScreen({ navigation }) {
         </View>
         <Text
           style={[
-            appStyles.lgHeading,
-            styles.antherHeading,
-            {
-              color: cssVariables.colors.primary,
-              fontFamily: cssVariables.fontFamily.regular,
-            },
+            styles.antherHeading
           ]}
         >
           Anther
@@ -100,7 +105,13 @@ function WelcomeScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
+EStyleSheet.build({
+  $textColor: '#0275d8',
+  $containerWdith:cssVariables.screen.width
+});
+
+
+const styles = EStyleSheet.create({
   container: {
     width: cssVariables.screen.width,
     flex: 1,
@@ -112,11 +123,7 @@ const styles = StyleSheet.create({
     flex: moderateScale(1.5),
     flexDirection: "row",
     justifyContent: "flex-start",
-    marginBottom: moderateScale(36),
-    right:
-      cssVariables.screen.width > 600 ? moderateScale(250) : moderateScale(210),
-    bottom:
-      cssVariables.screen.width > 600 ? moderateScale(50) : moderateScale(75),
+    marginBottom: moderateScale(36)
   },
   secondaryWelcomeTextWrap: {
     width: "100%",
@@ -125,6 +132,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(20),
     paddingVertical: verticalScale(100),
   },
+  BackgroundDec01Svg: {
+    width: moderateScale(340),
+    height: moderateScale(340)
+  },
+  antherHeading:{
+    color: cssVariables.colors.primary,
+    fontFamily: cssVariables.fontFamily.regular,
+    fontSize: '2.4rem',
+  },
   text: {},
+  '@media (min-width: 320) and (max-width: 365)': { // sm screen
+    decorationSvg: {
+      right: moderateScale(210),
+      bottom: moderateScale(95),
+    },
+    secondaryWelcomeTextWrap:{
+    paddingVertical: verticalScale(50),
+    },
+    antherHeading:{
+      fontSize: '1.8rem',
+    }
+  },
+  '@media (min-width: 365) and (max-width: 600)': { // medium screen
+    decorationSvg: {
+      right: moderateScale(208),
+      bottom: moderateScale(60),
+    },
+
+  },
+  '@media (min-width: 600) and (max-width: 2000)': { // large screen
+    decorationSvg: {
+      right: moderateScale(280),
+      bottom: moderateScale(75),
+    },
+    secondaryWelcomeTextWrap:{
+    paddingVertical: verticalScale(100),
+    },
+    antherHeading:{
+      fontSize: '4.6rem',
+    }
+  },
 });
 export default WelcomeScreen;

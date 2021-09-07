@@ -57,6 +57,15 @@ const cssVariables = {
   screen: {
     width: windowWidth,
     height: windowHeight,
+
+    smallScreenWidth: 320,
+    smallScreenHeight: 533,
+
+    mediumScreenWidth: 392,
+    mediumScreenHeight: 718,
+
+    bigScreenWidth:800,
+    bigScreenHeight:1232,
   },
 };
 

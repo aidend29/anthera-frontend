@@ -22,7 +22,7 @@ import AppCheckboxGroup from "../../../shared/AppCheckboxGroup";
 import { DetailsContext } from "../../../context";
 import { AuthContext } from "../../../context";
 
-import {110/70-17
+import {
   updateDetailsAPI,
   uploadProfilePictureAPI,
 } from "../../../api/details";

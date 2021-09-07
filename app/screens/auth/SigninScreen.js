@@ -1,5 +1,6 @@
 import React, { useState, useContext, useRef } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 import {
   moderateScale,
   cssVariables,
@@ -91,9 +92,9 @@ function SigninScreen({ navigation }) {
     </AppScreen>
   );
 }
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
-    width: cssVariables.screenMaxWidth,
+    width: moderateScale(100),
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
