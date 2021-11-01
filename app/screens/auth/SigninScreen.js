@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import EStyleSheet from 'react-native-extended-stylesheet';
+import EStyleSheet from "react-native-extended-stylesheet";
 import {
   moderateScale,
   cssVariables,
@@ -27,7 +27,7 @@ function SigninScreen({ navigation }) {
   const authContext = useContext(AuthContext);
 
   return (
-    <AppScreen style={{}}>
+    <AppScreen>
       <View style={styles.container}>
         <Text style={[appStyles.smHeading, styles.headingText]}>
           Sign into Anther
@@ -39,6 +39,7 @@ function SigninScreen({ navigation }) {
           />
         )}
         <AppInputField
+          styleContainer={styles.inputField}
           icon="email"
           keyboardType="email-address"
           placeholder="email"
@@ -49,6 +50,7 @@ function SigninScreen({ navigation }) {
           }}
         />
         <AppInputField
+          styleContainer={styles.inputField}
           icon="lock"
           secureTextEntry={true}
           placeholder="password"
@@ -94,7 +96,7 @@ function SigninScreen({ navigation }) {
 }
 const styles = EStyleSheet.create({
   container: {
-    width: moderateScale(100),
+    width: cssVariables.screenMaxWidth - moderateScale(38),
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
@@ -108,9 +110,12 @@ const styles = EStyleSheet.create({
     width: "100%",
     justifyContent: "space-around",
   },
+  inputField: {
+    maxHeight: verticalScale(50),
+  },
   checkbox: {
     width: "100%",
-    marginLeft: moderateScale(110),
+    marginLeft: moderateScale(78),
     marginVertical: verticalScale(10),
     alignSelf: "flex-end",
   },

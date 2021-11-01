@@ -58,7 +58,7 @@ function WelcomeScreen({ navigation }) {
             styles.antherHeading
           ]}
         >
-          Anther
+        Anthera
         </Text>
         <View style={styles.secondaryWelcomeTextWrap}>
           <Text

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#f8f8f8",
   },
   android: {
     paddingTop: StatusBar.currentHeight + verticalScale(10),

@@ -39,6 +39,7 @@ function SignupScreen({ navigation }) {
           />
         )}
         <AppInputField
+        styleContainer={styles.inputField}
           icon="email"
           keyboardType="email-address"
           value="elise@gmail.com"
@@ -50,6 +51,7 @@ function SignupScreen({ navigation }) {
           }}
         />
         <AppInputField
+        styleContainer={styles.inputField}
           icon="lock"
           value="elise123"
           onClear={() => {}}
@@ -98,7 +100,7 @@ function SignupScreen({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    width: cssVariables.screenMaxWidth - moderateScale(20),
+    width: cssVariables.screenMaxWidth - moderateScale(38),
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
@@ -112,10 +114,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-around",
   },
+  inputField: {
+    maxHeight: verticalScale(50),
+  },
   checkbox: {
     width: "100%",
+    marginLeft: moderateScale(28),
     marginVertical: verticalScale(10),
-    marginLeft: moderateScale(54),
     alignSelf: "flex-end",
   },
 });
