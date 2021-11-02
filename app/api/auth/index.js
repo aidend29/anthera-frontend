@@ -1,8 +1,9 @@
 import { client } from "../../api";
 import jwtDecode from "jwt-decode";
 
-const ping = () => {
-  return client.get("/ping");
+const checkConnection = async() => {
+  const response = await client.get("/ping");
+  console.log(response.data);
 };
 
 const signinAPI = async (
@@ -69,4 +70,5 @@ const signupAPI = async (signupInfo, authContext, setLoading, setError) => {
   }
 };
 
-export { signinAPI, signupAPI };
+export { signinAPI, signupAPI, checkConnection };
+

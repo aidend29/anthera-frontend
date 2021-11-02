@@ -15,16 +15,20 @@ import BackgroundDec01Svg from "../assets/svg/BackgroundDec01Svg";
 import Logo from "../assets/svg/LogoSvg";
 import AppButton from "../shared/AppButton";
 import AppScreen from "../shared/AppScreen";
+import { checkConnection } from "../api/auth";
+import { log } from "react-native-reanimated";
+
 
 function WelcomeScreen({ navigation }) {
-  // useEffect(() => {
-  //   StatusBar.setHidden(false);
-  //   const socket = io("http://104.248.154.62:3000");
+  useEffect(() => {
+    checkConnection();
+    // StatusBar.setHidden(false);
+    // const socket = io("http://104.248.154.62:3000");
 
-  //   socket.on("connect", function () {});
-  //   socket.on("event", function (data) {});
-  //   socket.on("disconnect", function () {});
-  // }, []);
+    // socket.on("connect", function () {});
+    // socket.on("event", function (data) {});
+    // socket.on("disconnect", function () {});
+  }, []);
 
   useEffect(() => {
 
