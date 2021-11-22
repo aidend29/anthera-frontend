@@ -27,6 +27,8 @@ function AppInputField_({
   touched,
   onChangeText,
   onClear,
+  testModeAutoCompEmail = false,
+  testModeAutoCompPass = false,
   ...otherProps
 }) {
   const [currentText, setCurrentText] = useState("");
@@ -127,7 +129,13 @@ function AppInputField_({
           textContentType="oneTimeCode"
           {...otherProps}
           secureTextEntry={showPasword}
-          value={currentText}
+          value={
+            testModeAutoCompEmail
+              ? testModeAutoCompEmail
+              : testModeAutoCompPass
+              ? testModeAutoCompPass
+              : currentText
+          }
           onChangeText={(text) => {
             onChangeText(text);
             setCurrentText(text);

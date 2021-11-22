@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { MaterialCommunityIcons, AntDesign, Feather } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import { BoxShadow } from "react-native-shadow";
 
 import {
   appStyles,
@@ -46,75 +47,43 @@ function AppButton({
       );
     }
   };
-
   let primaryStyle = {};
 
   if (stylePrimary)
     primaryStyle = {
-      btnWrapper: { backgroundColor: cssVariables.colors.primary },
+      btnWrapper: {
+        backgroundColor: cssVariables.colors.primary,
+      },
       btnTitle: { color: cssVariables.colors.white },
     };
 
   return (
-    <TouchableOpacity
-      {...otherProps}
-      style={[styles.btnWrapper, primaryStyle.btnWrapper, styleBackground]}
-    >
-      {handleDisplayingLoading()}
-    </TouchableOpacity>
-    // <TouchableOpacity
-    //   style={[
-    //     styles.button,
-    //     { backgroundColor: cssVariables.colors[backgroundCol] },
-    //     style,
-    //   ]}
-    //   onPress={onPress}
-    // >
-    //   {hasFrontIcon && (
-    //     <MaterialCommunityIcons
-    //       name={frontIconName}
-    //       color={frontIconColor}
-    //       size={frontIconsize}
-    //     />
-    //   )}
-    //   {isLoading && (
-    //     <Animatable.View
-    //       style={styles.spinner}
-    //       animation="rotate"
-    //       easing="ease-in-sine"
-    //       iterationCount="infinite"
-    //     >
-    //       <AntDesign name="loading1" size={moderateScale(13)} color="white" />
-    //     </Animatable.View>
-    //   )}
-    //   {!isLoading && (
-    //     <Text
-    //       style={[appStyles.btnText, styles.buttonText, { color: textCol }]}
-    //     >
-    //       {text}
-    //     </Text>
-    //   )}
-    // </TouchableOpacity>
+    <View style={styleBackground}>
+      <BoxShadow
+        setting={{
+          width: moderateScale(140),
+          height: moderateScale(44),
+          color: "#000",
+          border: moderateScale(16),
+          radius: 20,
+          opacity: 0.04,
+          x: moderateScale(0),
+          y: moderateScale(0),
+          style: { marginVertical: 5 },
+        }}
+      >
+        <TouchableOpacity
+          {...otherProps}
+          style={[styles.btnWrapper, primaryStyle.btnWrapper]}
+        >
+          {handleDisplayingLoading()}
+        </TouchableOpacity>
+      </BoxShadow>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    flexDirection: "row",
-    backgroundColor: cssVariables.colors.secondary,
-    borderRadius: verticalScale(25),
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: verticalScale(1),
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.22,
-
-    elevation: 2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   buttonText: {
     color: cssVariables.colors.primary,
     paddingVertical: verticalScale(10),
@@ -131,15 +100,6 @@ const styles = StyleSheet.create({
   btnWrapper: {
     borderRadius: moderateScale(30),
     backgroundColor: cssVariables.colors.secondaryLightest,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: verticalScale(1),
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.22,
-
-    elevation: 2,
     width: moderateScale(140),
     height: moderateScale(44),
 

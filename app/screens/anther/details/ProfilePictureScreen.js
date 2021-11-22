@@ -275,7 +275,7 @@ export const SmokeScreen = ({ navigation }) => {
             display_name: displayName,
             completion: true,
           });
-          navigation.navigate("aboutYou");
+          detailsContext.setDetailsComplete(true);
         }}
       >
         <TouchableOpacity onPress={onOpenModel}>
